@@ -54,7 +54,7 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
   * **Price**: Required, greater than 0.
   * **Stock**: Required, greater than -1.
 
-* **List cakes**. Returns all cakes registerd in the datbase. This list can be filtered for a range of price or by ingrediente.
+* **List cakes**. Returns all cakes registered in the database. This list can be filtered for a range of price or by ingrediente.
 
 * **Cake detail**. Returns the full detail of a cake, receiving the id of the cake.
 
