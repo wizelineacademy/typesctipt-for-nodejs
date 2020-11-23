@@ -122,7 +122,7 @@ For the final deliverable, we will provide some feedback, but there is no extra 
 
 You can provide each deliverable through the following form: https://bit.ly/typescriptfornodejsdeliverable
 
-### First Deliverable (due November 22th 23:59PM)
+### First Deliverable (due November 24th 23:59PM)
 
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
 
@@ -134,7 +134,7 @@ Based on the self-study material and live session covered until this deliverable
 
 
 
-### Second Deliverable (due November 22th 23:59PM)
+### Second Deliverable (due November 27th 23:59PM)
 
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
 
@@ -144,7 +144,7 @@ Based on the self-study material and live session covered until this deliverable
 - Create your clases, interfaces an Enums
 
 
-### Third Deliverable (due November 22th 23:59PM)
+### Third Deliverable (due December 1st 23:59PM)
 
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
 
@@ -153,7 +153,7 @@ Based on the self-study material and live session covered until this deliverable
 - Apply database to the endpoints
 - Perform all the logic and business rules
 
-## Final Deliverable (due December 13th 23:59PM)
+## Final Deliverable (due December 6th 23:59PM)
 
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
 
