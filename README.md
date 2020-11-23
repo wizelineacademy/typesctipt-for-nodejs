@@ -120,6 +120,8 @@ It’s worth mentioning that you’ll ONLY get feedback from the review team for
 
 For the final deliverable, we will provide some feedback, but there is no extra review date. If you are struggling with something, contact your mentor and peers to get help on time. Feel free to use the slack channel available.
 
+You can provide each deliverable through the following form: https://bit.ly/typescriptfornodejsdeliverable
+
 ### First Deliverable (due November 22th 23:59PM)
 
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
