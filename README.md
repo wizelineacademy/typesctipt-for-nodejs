@@ -7,7 +7,7 @@ Here, you'll find instructions for completing your certification.
 
 ### Live Sessions
 
-* Session 1
+* [Session 1](./session-1.md)
 * Session 2
 * Session 3
 * Session 4
@@ -105,6 +105,10 @@ Sell {
   }
 }
 ```
+
+### Architecture (files distribution)
+
+![alt text](assets/architecture.jpg "Architecture")
 
 ### Bonus points
 
