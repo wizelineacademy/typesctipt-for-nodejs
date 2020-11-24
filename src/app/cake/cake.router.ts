@@ -1,0 +1,11 @@
+/*
+    registerCake
+        name
+        description
+        ingredients
+        price
+        stock
+    listCakes
+    cakeDetail
+    editCake
+*/
