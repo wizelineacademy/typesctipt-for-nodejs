@@ -1,5 +1,15 @@
 # TypeScript for NodeJS
 
+## Install dependencies & start server
+
+``` 
+npm i 
+
+npm run build:watch
+
+npm run start:watch
+```
+
 ## Introduction
 
 Thank you for participating in the TypeScript for NodeJS course!
