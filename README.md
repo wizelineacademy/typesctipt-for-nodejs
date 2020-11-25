@@ -31,7 +31,7 @@ These are the main requirements we will evaluate:
   - TypeScript basics
   - HTTP Express server
   - HTTP request handlers
-  - Custom tipes
+  - Custom types
   - Custom data structures (Enum, Class, Interface)
   - Database access
   - Unit testing
@@ -54,7 +54,7 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
   * **Price**: Required, greater than 0.
   * **Stock**: Required, greater than -1.
 
-* **List cakes**. Returns all cakes registered in the database. This list can be filtered for a range of price or by ingrediente.
+* **List cakes**. Returns all cakes registered in the database. This list can be filtered for a range of price or by ingredient.
 
 * **Cake detail**. Returns the full detail of a cake, receiving the id of the cake.
 
@@ -62,7 +62,7 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
 
 #### Sales operations
 
-* **Sell cake**. Creates a new record in the database for the cake sell operation. This endpoint should save the customer information, cake and quantity. Should recieve the folloing information with restrictions:
+* **Sell cake**. Creates a new record in the database for the cake sell operation. This endpoint should save the customer information, cake and quantity. Should recieve the following information with restrictions:
 
   * **Customer name**: Required, 3 characters min., 50 characters max.
   * **Phone Number**: Required, 10 characters min, Only numbers, spaces and the sing `+`.
@@ -72,7 +72,7 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
 
 ### Business rules
 
-1. Each time that cake is sold, the stock should decrease depending on the quantity bought by the customer.
+1. Each time that a cake is sold, the stock should decrease depending on the quantity bought by the customer.
 2. Cannot be sold a quantity greater than the current stock.
 3. When the stock is greater than 10, the status of the cake is `Available`.
 4. When the stock is less than 10, the status of the cake is `LastUnits`.
@@ -108,7 +108,7 @@ Sell {
 
 ### Bonus points
 
-Create an endpoint to under the `sales` route to list all the sells by week number of the year. This endpoint sould return all the sales of a giving week and year. Ex. `/sales?year=2020&week=3 -> [Sale, ...]`.
+Create an endpoint under the `sales` route to list all the sells by week number of the year. This endpoint sould return all the sales of a giving week and year. Ex. `/sales?year=2020&week=3 -> [Sale, ...]`.
 
 The endpoint should return an error if the week number is not valid for the given name.
 
