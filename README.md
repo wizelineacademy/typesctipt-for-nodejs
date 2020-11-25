@@ -1,4 +1,4 @@
-# TypeScript for NodeJS
+# Creepy Cupcakes (TypeScript for NodeJS)
 
 ## Introduction
 
@@ -7,17 +7,16 @@ Here, you'll find instructions for completing your certification.
 
 ### Live Sessions
 
-* [Session 1](./session-1.md)
-* Session 2
-* Session 3
-* Session 4
+- [Session 1](./session-1.md)
+- Session 2
+- Session 3
+- Session 4
 
 ## The Challenge
 
 The purpose of the challenge is for you to demonstrate your TypeScript skills on NodeJS. This is your chance to show off everything you've learned during the course!
 
 You will build and deliver a whole NodeJS project written with TypeScript on your own. We know that not every project is written from scratch, but it's an excellent idea to know how the typescript got configurated. We hope you find this exercise challenging and engaging.
-
 
 ## The Cake Factory
 
@@ -46,29 +45,29 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
 
 #### Cakes operations
 
-* **Register new cakes**. Creates a new record in the database for the cake. This endpoint can receive the following information about the cake and it's restrictions:
+- **Register new cakes**. Creates a new record in the database for the cake. This endpoint can receive the following information about the cake and it's restrictions:
 
-  * **Name**: Required, 5 characters min., 50 characters max.
-  * **Descrition**: Required, 50 characters min., 1000 characters max.
-  * **Ingredients**: Required, at least 3 ingredientes. Per ingredient: 1 character min. 20 chareacters max.
-  * **Price**: Required, greater than 0.
-  * **Stock**: Required, greater than -1.
+  - **Name**: Required, 5 characters min., 50 characters max.
+  - **Descrition**: Required, 50 characters min., 1000 characters max.
+  - **Ingredients**: Required, at least 3 ingredientes. Per ingredient: 1 character min. 20 characters max.
+  - **Price**: Required, greater than 0.
+  - **Stock**: Required, greater than -1.
 
-* **List cakes**. Returns all cakes registered in the database. This list can be filtered for a range of price or by ingrediente.
+- **List cakes**. Returns all cakes registered in the database. This list can be filtered for a range of price or by ingredient.
 
-* **Cake detail**. Returns the full detail of a cake, receiving the id of the cake.
+- **Cake detail**. Returns the full detail of a cake, receiving the id of the cake.
 
-* **Edit cake**. Updates the cake record in the database. This endpoint should receive the same information as the create operation, and should perform the same restrictions.
+- **Edit cake**. Updates the cake record in the database. This endpoint should receive the same information as the create operation, and should perform the same restrictions.
 
 #### Sales operations
 
-* **Sell cake**. Creates a new record in the database for the cake sell operation. This endpoint should save the customer information, cake and quantity. Should recieve the folloing information with restrictions:
+- **Sell cake**. Creates a new record in the database for the cake sell operation. This endpoint should save the customer information, cake and quantity. Should recieve the folloing information with restrictions:
 
-  * **Customer name**: Required, 3 characters min., 50 characters max.
-  * **Phone Number**: Required, 10 characters min, Only numbers, spaces and the sing `+`.
-  * **Email**: Optional, 5 characters min. 100 characters max, email format.
-  * **Cake ID**: Required, should be a valid, should exists in the database.
-  * **Quantity**: Required, greater than 1.
+  - **Customer name**: Required, 3 characters min., 50 characters max.
+  - **Phone Number**: Required, 10 characters min, Only numbers, spaces and the sing `+`.
+  - **Email**: Optional, 5 characters min. 100 characters max, email format.
+  - **Cake ID**: Required, should be a valid, should exists in the database.
+  - **Quantity**: Required, greater than 1.
 
 ### Business rules
 
@@ -77,7 +76,6 @@ The cakes operations will be accessible under the route `/cakes`, and the sales 
 3. When the stock is greater than 10, the status of the cake is `Available`.
 4. When the stock is less than 10, the status of the cake is `LastUnits`.
 5. When the stock is 0, the status of the cake is `OutOfStock`.
-
 
 ### Schemas
 
@@ -131,12 +129,10 @@ You can provide each deliverable through the following form: https://bit.ly/type
 Based on the self-study material and live session covered until this deliverable, we suggest you perform the following:
 
 - Configure the `npm` project
-- Cofnigure the TypeScript project
+- Configure the TypeScript project
 - Create the application main entry point
 - Create the HTTP server
 - Load configurations from `.env` file.
-
-
 
 ### Second Deliverable (due November 27th 23:59PM)
 
@@ -146,7 +142,6 @@ Based on the self-study material and live session covered until this deliverable
 - Handle all the endponts
 - Mimic a database read with time intervals and promises
 - Create your clases, interfaces an Enums
-
 
 ### Third Deliverable (due December 1st 23:59PM)
 
