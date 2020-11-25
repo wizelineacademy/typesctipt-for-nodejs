@@ -1,0 +1,14 @@
+//tsconfig.js
+
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonJS",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "dist" 
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
