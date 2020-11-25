@@ -1,0 +1,28 @@
+{
+  "name": "typesctipt-for-nodejs",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "start": "node dist/index.js",
+    "start:watch": "nodemon dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heladiofog/typesctipt-for-nodejs.git"
+  },
+  "keywords": [],
+  "author": "Heladio Fogg, @helladyo <heladiofog@gmail.com> (https://github.com/heladiofog)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heladiofog/typesctipt-for-nodejs/issues"
+  },
+  "homepage": "https://github.com/heladiofog/typesctipt-for-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "typescript": "^4.1.2"
+  }
+}
