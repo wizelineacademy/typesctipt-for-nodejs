@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
 
-export const router: Router = Router();
+export const router = Router();
 
 router.route('/').get((_, res: Response) => {
-  res.json('Hello from bread router');
+  res.json('Hey from cake');
 });

@@ -1,11 +1,11 @@
-import express, { Express, Router } from 'express';
+import express, { Express } from 'express';
 import { router as breadRouter } from './routes/bread.router';
+import { router as cakeRouter } from './routes/cake.router';
 
 const app: Express = express();
 
-const router: Router = Router();
-
 app.use('/breads', breadRouter);
+app.use('/cakes', cakeRouter);
 
 export const initServer = (port: number) => {
   app.listen(port, () => {
