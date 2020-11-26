@@ -2,19 +2,19 @@
 
 Welcome to session 1 of the course TypeScript for NodeJS, in the session we will be covering the following topics:
 
-* Workig with TypeScript
-  * Intalling TypeScript
-  * Compiling TypeScript
-  * Running TypeScript
-  * Setting up a TypeScript project
-* Var declarations and Types
-  * Declaring varaiables
-  * Deffining types
-  * Custom types
-* Import / Exprort
- * Exporting variables
- * Importing variables
- * Importing libraries
+- Workig with TypeScript
+  - Intalling TypeScript
+  - Compiling TypeScript
+  - Running TypeScript
+  - Setting up a TypeScript project
+- Var declarations and Types
+  - Declaring varaiables
+  - Deffining types
+  - Custom types
+- Import / Exprort
+- Exporting variables
+- Importing variables
+- Importing libraries
 
 Hapy coding...
 
@@ -31,6 +31,7 @@ npm init -y
 ```
 
 ### Intalling TypeScript
+
 Once the `npm` project is initialized, we can proceed to install TypeScript as development dependency. You can install TypeScript without initialize the application.
 
 We are going to install TypeScript as developemnt dependency into the project. As recommendation, avoid to install development dependencies as global -g.
@@ -62,7 +63,7 @@ Create a filed named index.ts, with the following code:
 ```typescript
 // src/index.ts
 
-let message = 'Hello, World!';
+let message = "Hello, World!";
 
 console.log(message);
 ```
@@ -101,7 +102,6 @@ node dist/index.js
 
 You can run your TypeScript files directly using third party dependencies, like `ts-node`.
 
-
 ```bash
 # Installing ts-node
 
@@ -113,7 +113,6 @@ npx ts-node src/index.ts
 ```
 
 The `ts-config` dependency is not for use in production, even in the development environment.
-
 
 ## TypeScript project
 
@@ -148,21 +147,21 @@ npx tsc --init
 
 Let’s go over some of the keys in the file:
 
-* `module`: Specifies the module code generation method. Node uses commonjs
-* `target`: Specifies the output language level.
-* `moduleResolution`: Helps to compiler figure out what an import refers to. The value node mimics the Node module resolution mechanism.
-* `outDir`: This is the location to output .js files after transpilation. In this tutorial you will save it as dist.
+- `module`: Specifies the module code generation method. Node uses commonjs
+- `target`: Specifies the output language level.
+- `moduleResolution`: Helps to compiler figure out what an import refers to. The value node mimics the Node module resolution mechanism.
+- `outDir`: This is the location to output .js files after transpilation. In this tutorial you will save it as dist.
 
-### Project Scrips
+### Project Scripts
 
 Having project scripts is a good idea to improve the development experience for your team.
 
 You can set basic operations to your package.json:
 
-* npm run build
-* npm run build:watch
-* npm run start
-* npm run start:watch
+- npm run build
+- npm run build:watch
+- npm run start
+- npm run start:watch
 
 ```json
 // package.json
@@ -194,7 +193,7 @@ In TypeScript you can declare your variables as you have done it in JavaScript.
 ```typescript
 const port = 3000;
 
-let message = 'Hello, TypeScript!';
+let message = "Hello, TypeScript!";
 
 console.log(message);
 ```
@@ -212,15 +211,14 @@ The syntax to type a variable is: (let|var|const) [name]: [type] = [value];
 
 let downloads: number = 300;
 
-let name: string = 'TypeScript for Node JS'
+let name: string = "TypeScript for Node JS";
 
 let visible: boolean = true;
 
-let tags: string[] = ['NodeJS', 'TypeScript']
+let tags: string[] = ["NodeJS", "TypeScript"];
 
-let version: any = '1.0.0';
+let version: any = "1.0.0";
 ```
-
 
 ### Custom Types / Type Aliases
 
@@ -229,16 +227,14 @@ TypeScript allows you to create your owns types aliases. This is very useful whe
 ```typescript
 // Custom types
 
-type Params = { version: string }
-type Query = {}
-type Body = { downloads: number }
+type Params = { version: string };
+type Query = {};
+type Body = { downloads: number };
 
 const req: Request<Params, Query, Body> = new Request();
-
 ```
 
 Type aliases are sometimes similar to interfaces, but can name primitives, unions, tuples, and any other types that you’d otherwise have to write by hand.
-
 
 ## Import / Export
 
@@ -279,8 +275,7 @@ const port: number = 3000;
 initServer(port);
 ```
 
-
-### Import pacakges
+### Import packages
 
 In the same way as you import variables from files, you can import variables, functions or types from the packages that you have downloaded.
 
