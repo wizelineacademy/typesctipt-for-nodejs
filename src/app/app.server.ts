@@ -9,7 +9,7 @@ const app: Express = express();
 app.use(morgan('dev'));
 
 // config routes
-app.use('/api/cakes', cakeRoutes);
+app.use('/cakes', cakeRoutes);
 
 // Default route
 app.use((req, res, next) => {
