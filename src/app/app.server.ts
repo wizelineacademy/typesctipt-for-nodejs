@@ -1,11 +1,11 @@
 import express, { Express } from "express";
-import { router as AppRouter } from "./app.router";
-import { router as CupcakeRouter } from "./cupcake/cupcake.router";
+import { router as appRouter } from "./app.router";
+import { router as cupcakeRouter } from "./cupcake/cupcake.router";
 
 const app: Express = express();
 
-app.use('/', AppRouter);
-app.use('/cupcake', CupcakeRouter);
+app.use('/', appRouter);
+app.use('/cupcake', cupcakeRouter);
 
 const server = `Creepy Cupcakes' HTTP Server`;
 
