@@ -1,13 +1,9 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import { handler as getHandler } from './../handlers/cake/get.handler';
+import { handler as postHandler } from './../handlers/cake/post.handler';
 
 const router: Router = Router();
 
-router.get('/cake', (req: Request, res: Response) => {
-  res.send('Start my cake router');
-});
-
-router.get('/', (req: Request, res: Response) => {
-  res.send('Hi');
-});
+router.route('/cake').get(getHandler).post(postHandler);
 
 export { router };
