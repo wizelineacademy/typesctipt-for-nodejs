@@ -8,7 +8,7 @@ Here, you'll find instructions for completing your certification.
 ### Live Sessions
 
 * [Session 1](./session-1.md)
-* Session 2
+* [Session 2](./session-2.md)
 * Session 3
 * Session 4
 
