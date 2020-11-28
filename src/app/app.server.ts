@@ -1,4 +1,5 @@
 import express, { Express, Router } from "express";
+import bodyParser from "body-parser";
 import { router as cakeRouter } from './cake/cake.router';
 import { router as saleRouter } from './sale/sale.router';
 
@@ -8,6 +9,7 @@ const router: Router = Router();
 router.use('/cakes', cakeRouter);
 router.use('/sales', saleRouter);
 
+app.use(bodyParser.json());
 app.use(router);
 
 export function initServer(port: number) {
