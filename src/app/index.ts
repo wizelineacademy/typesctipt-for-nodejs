@@ -1,4 +1,2 @@
 //Barrel exporting pattern
-import { initServer } from "./app.server";
-
-export { initServer };
+export { initServer } from "./app.server";

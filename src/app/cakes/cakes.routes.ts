@@ -1,5 +1,5 @@
 import { Route } from "../shared";
-import { getCakes, createCake, updateCake, getCake } from "./cakes.controllers";
+import { getCakes, createCake, updateCake, getCake } from "./handlers";
 
 export let cakeRoutes: Route[] = [
   {
