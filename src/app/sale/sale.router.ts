@@ -1,11 +1,7 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { handler as getHandler } from './handlers/get.handler';
+import { handler as postHandler } from './handlers/post.handler';
 
 export const router: Router = Router();
 
-router.route('/')
-  .post((req, res) => {
-    res.json('This endpoint registers a new sell');
-  })
-  .get((req, res) => {
-    res.json('This endpoint lists all the sales given a week and year');
-  });
+router.route('/').post(postHandler).get(getHandler);

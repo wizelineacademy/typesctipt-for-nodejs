@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { CakeInterface } from './cake.model';
 
 let cakes: CakeInterface[] = [];
@@ -35,5 +36,20 @@ export const updateCake = (cake: CakeInterface) => {
       );
       resolve(cake);
     }, 100);
+  });
+};
+
+export const updateCakeQuantity = (cake: CakeInterface) => {
+  return new Promise<boolean>(async (resolve) => {
+    const cakeInStock = await getCake(cake.name);
+    if (cakeInStock === undefined) {
+      resolve(false);
+    } else if (cakeInStock?.quantity >= cake.quantity) {
+      cakeInStock.quantity = cakeInStock.quantity - cake.quantity;
+      await updateCake(cakeInStock);
+      resolve(true);
+    } else {
+      resolve(false);
+    }
   });
 };
