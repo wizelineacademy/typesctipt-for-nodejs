@@ -1,31 +1,14 @@
-import express, { Router }  from 'express';
+  
+import { Router } from "express";
+import { handler as getHandler }  from "./handlers/get.handler";
+import { handler as postHandler }  from "./handlers/post.handler";
 
-class CackeController {
+export const router: Router = Router();
 
-    public router: Router;
+router.route('/cackes')
+      .get(getHandler)
+      .post(postHandler);
 
-    constructor () {
-        this.router = express.Router();
-        this.defineRouter();
-    }
-
-    private defineRouter() {
-        this.router.post('/cackes', async(req, res)=>{
-            res.status(201).send("Test post");
-        });
-        this.router.get('/cackes', async(req, res)=>{
-            res.status(201).send("Test get");
-        });
-        this.router.get('/cackes/:id', async(req, res)=>{
-            res.status(201).send("Test get by id");
-        });
-        this.router.patch('/cackes/:id', async(req, res)=>{
-            res.status(201).send("Test patch by id");
-        });
-        this.router.delete('/cackes/:id', async(req, res)=>{
-            res.status(201).send("Test delete by id");
-        });
-    }
-}
-
-export default CackeController;
+router.route('/cackes/:id')
+      .get(getHandler)
+      .patch(postHandler);

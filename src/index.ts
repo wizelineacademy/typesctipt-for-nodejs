@@ -1,12 +1,16 @@
 import * as dotenv from 'dotenv';
 import  App  from './app/app.server';
-import CackeController from './app/cacke/cacke.router';
+import { router as cackeRouter } from './app/cacke/cacke.router';
+import { router as sellRouter } from './app/sell/sell.router';
 
 dotenv.config();
 
-const app = new App(
-    process.env.SERVER_PORT, //port
-    [new CackeController()]  //controllers
-);
+const app = App.getInstance (
+                process.env.SERVER_PORT, 
+                [
+                    cackeRouter, 
+                    sellRouter
+                ] 
+            );
 
 app.listen();
