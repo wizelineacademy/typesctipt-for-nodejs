@@ -1,8 +1,0 @@
-/*
-    sellCake
-        customerName
-        phoneNumber
-        email
-        cakeID
-        quantity
-*/
