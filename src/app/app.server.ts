@@ -6,7 +6,7 @@ const app : Express = express();
 
 const router: Router = Router();
 
-export const server: string= 'Server for Cakes Operation';
+export const server= 'Server for Cakes Operation';
 
 // config router
 
@@ -17,7 +17,7 @@ router.use('/sales',saleRouter);
 app.use(router);
 
 export function initServer(port:number){
-    app.listen(port,  function(){
-        console.log(`Server[${server}] listening on port [${port}]`);
-    })
+  app.listen(port,  function(){
+    console.log(`Server[${server}] listening on port [${port}]`);
+  })
 }
