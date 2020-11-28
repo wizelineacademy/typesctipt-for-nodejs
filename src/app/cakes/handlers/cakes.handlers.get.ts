@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Cake } from "../cakes.class";
 
 import {
   getCake as cakeGetter,
@@ -6,11 +7,14 @@ import {
 } from "../cakes.service";
 
 export function getCakes(req: Request, res: Response) {
-  let cakes = cakesGetter();
-  res.json(cakes).end();
+  let promise = cakesGetter();
+  promise.then((cakes: Cake[]) => {
+    res.json(cakes).end();
+  });
 }
 export function getCake(req: Request, res: Response) {
-  console.log("Params:", req.params);
-  let cake = cakeGetter(+req.params["id"]);
-  res.json(cake).end();
+  let promise = cakeGetter(+req.params["id"]);
+  promise.then((cake: Cake) => {
+    res.json(cake).end();
+  });
 }

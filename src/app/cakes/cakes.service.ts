@@ -16,20 +16,14 @@ export function saveCake(cake: Cake): boolean {
   return true;
 }
 
-export function getCake(id: number): Cake {
+export function getCake(id: number): Promise<Cake> {
   let cake: Cake = new CakeBuilder().build();
   let result = dbservice.Get(id);
-  result.then((c) => {
-    cake = c;
-  });
-  return cake;
+  return result;
 }
 
-export function getCakes(): Cake[] {
+export function getCakes(): Promise<Cake[]> {
   let cakes: Cake[] = [];
   let result = dbservice.GetAll();
-  result.then((c) => {
-    cakes = c;
-  });
-  return cakes;
+  return result;
 }

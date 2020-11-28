@@ -5,7 +5,7 @@ function Get(index: number): Promise<Cake> {
   let promise = new Promise<Cake>(function (resolve, reject) {
     setTimeout(() => {
       console.log("Getting: ", db[index - 1]);
-      resolve(db[index]);
+      resolve(db[index - 1]);
     }, Math.random() * 3);
   });
   return promise;
@@ -32,7 +32,7 @@ function Insert(item: Cake): Promise<boolean> {
 function Update(index: number, item: Cake): Promise<boolean> {
   let promise = new Promise<boolean>(function (resolve, reject) {
     setTimeout(() => {
-      db[index] = item;
+      db[index - 1] = item;
       resolve(true);
     }, Math.random() * 3);
   });
