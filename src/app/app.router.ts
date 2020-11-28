@@ -1,6 +1,7 @@
 import { Express, Router } from "express";
 
 import { router as cakesRouter, addRoutes as addCakesRoutes } from "./cakes";
+import { router as salesRouter, addRoutes as addSalesRoutes } from "./sales";
 import { appRoutes } from "./app.routes";
 
 export const router: Router = Router();
@@ -10,6 +11,8 @@ export function addAllRoutes(app: Express) {
   app.use("/", router);
   addCakesRoutes();
   app.use("/cakes", cakesRouter);
+  addSalesRoutes();
+  app.use("/sales", salesRouter);
 }
 
 export function addAppRoutes() {

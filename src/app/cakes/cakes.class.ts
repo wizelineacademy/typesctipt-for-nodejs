@@ -36,6 +36,20 @@ export class Cake {
     }
   }
 
+  removeFromStock(quantity: number): boolean {
+    if (this.stock >= quantity) {
+      this.stock -= quantity;
+      this.setStatus();
+      return true;
+    }
+    return false;
+  }
+
+  addToStock(quantity: number) {
+    this.stock += quantity;
+    this.setStatus();
+  }
+
   /**
    * Checks if the data for creating the cake object is according to the business rules
    */
