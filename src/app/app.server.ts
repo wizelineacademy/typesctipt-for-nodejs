@@ -1,15 +1,18 @@
-import express, { Express } from 'express';
+import express, { Express, json } from 'express';
 import morgan from 'morgan';
 import config from '../config';
-import cakeRoutes from './cakes';
+import cakeRoutes from './cakes/cake.router';
+import saleRoutes from './sales/sale.router';
 
 const app: Express = express();
 
 // Config middleware
 app.use(morgan('dev'));
+app.use(json());
 
 // config routes
 app.use('/cakes', cakeRoutes);
+app.use('/sales', saleRoutes);
 
 // Default route
 app.use((req, res, next) => {
