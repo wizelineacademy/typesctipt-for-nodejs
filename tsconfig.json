@@ -5,7 +5,11 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@customTypes": ["./src/app/types"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
