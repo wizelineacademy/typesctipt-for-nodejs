@@ -7,8 +7,7 @@ dotenv.config({
 
 const app: Express = express();
 
-export function initServer() {
-  const port: string = process.env.APP_PORT || '3000';
+export function initServer(port: string) {
   app.listen(port, function() {
     console.log(`App listening on port ${port}`);
   });
