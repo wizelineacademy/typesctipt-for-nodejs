@@ -2,12 +2,14 @@
 import express, { Router } from "express";
 import { ENV } from "../env/env";
 
-import {router as breadRouter} from "./bread/bread.router";
+import { cakeRouter} from "./cake/cake.router";
+import { saleRouter}  from "./sale/sale.router";
 
 const app = express();
 
 
-app.use(breadRouter);
+app.use(cakeRouter);
+app.use(saleRouter);
 
 const {PORT} = ENV;
 
@@ -16,3 +18,7 @@ export function startServer(){
         console.log(`listening at http://localhost:${PORT}`)
     })
 }
+
+
+
+
