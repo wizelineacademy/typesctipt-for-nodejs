@@ -5,7 +5,7 @@ const app: Express = express();
 const router: Router = Router();
 
 app.use(router);
-router.use(cakeRouter);
+router.use("/cakes", cakeRouter);
 
 export let initServer = (port: number) => {
   app.listen(port, () => {
