@@ -1,0 +1,32 @@
+{
+  "name": "typesctipt-for-nodejs",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "start": "node dist/index.js",
+    "start:watch": "nodemon dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estefijacobo/typesctipt-for-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/estefijacobo/typesctipt-for-nodejs/issues"
+  },
+  "homepage": "https://github.com/estefijacobo/typesctipt-for-nodejs#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "nodemon": "^2.0.6",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
