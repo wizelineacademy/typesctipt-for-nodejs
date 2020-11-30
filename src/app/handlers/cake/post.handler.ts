@@ -1,5 +1,5 @@
 import { RequestHandler, Request, Response } from 'express';
-import { makeCake } from '../../services/cake.service';
+import { makeCake } from './../../cake/cake.service';
 
 type Params = {};
 type Query = {};

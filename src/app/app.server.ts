@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
-import { router as cakeRouter } from './routes/cake.router';
-import { router as sellRouter } from './routes/sell.router';
+import { router as cakeRouter } from './cake/cake.router';
+import { router as sellRouter } from './sell/sell.router';
 
 const app: Express = express();
 app.use(cakeRouter);

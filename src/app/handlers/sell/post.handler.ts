@@ -1,5 +1,5 @@
 import { RequestHandler, Request, Response } from 'express';
-import { lessCake } from '../../services/sell.service';
+import { lessCake } from './../../sell/sell.service';
 
 type Params = {};
 type Query = {};
