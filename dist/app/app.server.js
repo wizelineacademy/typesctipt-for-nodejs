@@ -22,10 +22,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initServer = void 0;
 const express_1 = __importStar(require("express"));
 const cake_router_1 = require("./cake/cake.router");
+const sales_router_1 = require("./sales/sales.router");
 const app = express_1.default();
 const router = express_1.Router();
 app.use(router);
 router.use("/cakes", cake_router_1.router);
+router.use("/sales", sales_router_1.router);
 let initServer = (port) => {
     app.listen(port, () => {
         console.log(`server started at http://localhost:${port}`);

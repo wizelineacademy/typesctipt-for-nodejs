@@ -1,9 +1,11 @@
-import { ICake } from "./Cake";
+import { ICake } from "../cake/cake.interface";
 
-interface ISell {
+interface ISale {
   customerName: string;
   customerPhoneNumber: string;
   customerEmail: string;
   totalAmount: number;
   cake: ICake;
 }
+
+export { ISale };

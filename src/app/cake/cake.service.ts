@@ -1,4 +1,4 @@
-import { Cake } from "../models/Cake";
+import { Cake } from "./cake.model";
 
 let cakes: Cake[];
 
