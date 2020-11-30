@@ -21,7 +21,7 @@ const cakes: ICake[] = [
 
 export const getCakes = async (): Promise<ICake[]> => {
   await timeout(2000);
-  return [...cakes];
+  return cakes;
 };
 
 const timeout = (ms: number): Promise<void> => {
