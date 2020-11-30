@@ -1,9 +1,6 @@
-enum CakeStatus {
-  'Available',
-  'LastUnits',
-  'OutOfStock',
-}
-interface ICake {
+import { CakeStatus } from './Cake-status.enum';
+
+export interface ICake {
   name: string;
   description: string;
   ingredients: string[];
@@ -11,5 +8,3 @@ interface ICake {
   stock: number;
   status: CakeStatus;
 }
-
-export { CakeStatus, ICake };
