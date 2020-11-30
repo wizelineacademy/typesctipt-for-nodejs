@@ -1,18 +1,5 @@
-const enum CakeStatus {
-  LastUnits = "LastUnits",
-  OutOfStock = "OutOfStock",
-  Available = "Available",
-}
-
-interface ICake {
-  id?: string;
-  name: string;
-  description: string;
-  ingredients: string[];
-  price: number;
-  stock: number;
-  status: CakeStatus;
-}
+import { CakeStatus } from "../cake/cake-status.enum";
+import { ICake } from "../cake/cake.interface";
 
 class Cake implements ICake {
   id: string;
@@ -32,4 +19,4 @@ class Cake implements ICake {
     this.status = CakeStatus.Available;
   }
 }
-export { CakeStatus, ICake, Cake };
+export { Cake };
