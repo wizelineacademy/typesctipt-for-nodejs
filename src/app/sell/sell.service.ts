@@ -1,7 +1,7 @@
 import { CakeSell } from './sell.class';
 import { iSell } from './sell.model';
 import { iCake } from './../cake/cake.model';
-import { eStatusCake } from './../cake/cake-status.enum';
+import { CakeStatus } from './../cake/cake-status.enum';
 
 let sells: iSell[] = [];
 
@@ -13,7 +13,7 @@ export const sellCake = () => {
       ingredients: ['Chocolate', 'Apple'],
       price: 5,
       stock: 10,
-      status: eStatusCake.Available,
+      status: CakeStatus.Available,
     };
 
     const sell: iSell = {

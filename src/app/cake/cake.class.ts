@@ -1,5 +1,5 @@
 import { iCake } from './cake.model';
-import { eStatusCake } from './cake-status.enum';
+import { CakeStatus } from './cake-status.enum';
 
 export class Cake implements iCake {
   name: string;
@@ -7,7 +7,7 @@ export class Cake implements iCake {
   ingredients: string[];
   price: number;
   stock: number;
-  status: eStatusCake;
+  status: CakeStatus;
 
   constructor(cake: iCake) {
     this.name = cake.name;

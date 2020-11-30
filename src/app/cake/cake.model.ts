@@ -1,4 +1,4 @@
-import { eStatusCake } from './cake-status.enum';
+import { CakeStatus } from './cake-status.enum';
 
 export interface iCake {
   name: string;
@@ -6,5 +6,5 @@ export interface iCake {
   ingredients: string[];
   price: number;
   stock: number;
-  status: eStatusCake;
+  status: CakeStatus;
 }

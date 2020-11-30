@@ -1,6 +1,6 @@
 import { Cake } from './cake.class';
 import { iCake } from './cake.model';
-import { eStatusCake } from './cake-status.enum';
+import { CakeStatus } from './cake-status.enum';
 
 let cakes: iCake[] = [];
 
@@ -18,7 +18,7 @@ export const makeCake = () => {
       ingredients: ['Chocolate', 'Apple'],
       price: 5,
       stock: 10,
-      status: eStatusCake.Available,
+      status: CakeStatus.Available,
     };
     const cake = new Cake(data);
     cakes.push(cake);
