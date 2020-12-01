@@ -1,9 +1,9 @@
-import { CakeInterface } from '../cake/cake.model';
+import { ICake } from '../cake/cake.model';
 
-export interface SaleInterface {
+export interface ISale {
   customerName: string;
   customerPhoneNumber: string;
   customerEmail?: string;
   totalAmount: number;
-  cake: CakeInterface;
+  cake: ICake;
 }

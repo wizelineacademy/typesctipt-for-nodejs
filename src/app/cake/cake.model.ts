@@ -1,6 +1,6 @@
 export type Status = 'Available' | 'LastUnits' | 'OutOfStock';
 
-export interface CakeInterface {
+export interface ICake {
   name: string;
   description: string;
   ingredients: string[];

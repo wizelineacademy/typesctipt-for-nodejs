@@ -1,10 +1,10 @@
 import { resolve } from 'path';
-import { CakeInterface } from './cake.model';
+import { ICake } from './cake.model';
 
-let cakes: CakeInterface[] = [];
+let cakes: ICake[] = [];
 
 export const getCakes = () => {
-  return new Promise<CakeInterface[]>((resolve) => {
+  return new Promise<ICake[]>((resolve) => {
     setTimeout(() => {
       resolve(cakes);
     }, cakes.length * 100);
@@ -12,15 +12,15 @@ export const getCakes = () => {
 };
 
 export const getCake = (name: string) => {
-  return new Promise<CakeInterface | undefined>((resolve) => {
+  return new Promise<ICake | undefined>((resolve) => {
     setTimeout(() => {
       resolve(cakes.find((cake) => cake.name === name));
     }, 100);
   });
 };
 
-export const insertCake = (cake: CakeInterface) => {
-  return new Promise<CakeInterface>((resolve) => {
+export const insertCake = (cake: ICake) => {
+  return new Promise<ICake>((resolve) => {
     setTimeout(() => {
       cakes.push(cake);
       resolve(cake);
@@ -28,8 +28,8 @@ export const insertCake = (cake: CakeInterface) => {
   });
 };
 
-export const updateCake = (cake: CakeInterface) => {
-  return new Promise<CakeInterface>((resolve) => {
+export const updateCake = (cake: ICake) => {
+  return new Promise<ICake>((resolve) => {
     setTimeout(() => {
       cakes = cakes.map((oldCake) =>
         oldCake.name === cake.name ? cake : oldCake
@@ -39,7 +39,7 @@ export const updateCake = (cake: CakeInterface) => {
   });
 };
 
-export const updateCakeQuantity = (cake: CakeInterface) => {
+export const updateCakeQuantity = (cake: ICake) => {
   return new Promise<boolean>(async (resolve) => {
     const cakeInStock = await getCake(cake.name);
     if (cakeInStock === undefined) {
