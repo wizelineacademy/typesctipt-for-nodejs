@@ -9,7 +9,7 @@ Here, you'll find instructions for completing your certification.
 
 * [Session 1](./session-1.md)
 * [Session 2](./session-2.md)
-* Session 3
+* [Session 3](./session-3.md)
 * Session 4
 
 ## The Challenge
