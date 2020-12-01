@@ -1,24 +1,18 @@
+import { CakeStatus } from './cake.enum';
+import { ICake } from './cake.interface';
 
-export enum CakeStatus {
-  Available = "AVAILABLE",
-  LastUnits = "LASTUNITS",
-  OutOfStock = "OUTOFSTOCK"
-} 
-
-export interface Cake { }
-
-export class CarrotCake implements Cake{ 
+export class Cake implements ICake{ 
   name: string
-  descrition: string
+  description: string
   ingredients: string[]
   price: number
   stock: number
   status: CakeStatus
-  
+
   // Constructor
-  constructor(name: string,descrition: string,ingredients: string[],price: number,stock: number,status: CakeStatus,) {
+  constructor(name: string,description: string,ingredients: string[],price: number,stock: number,status: CakeStatus,) {
     this.name = name;
-    this.descrition = descrition;
+    this.description = description;
     this.ingredients = ingredients;
     this.price = price;
     this.stock = stock;

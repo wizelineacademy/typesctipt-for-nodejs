@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { handlerAll as getAll, handlerById as getById } from './handlers/get.handler';
+import { handlerAll as getAll } from './handlers/get.handler';
+import { handlerById as getById } from './handlers/get-by-id.handler';
 import { handler as postHandler } from './handlers/post.handler';
 import { handler as putHandler} from './handlers/put.handler';
 
