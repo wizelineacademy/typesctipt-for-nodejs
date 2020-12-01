@@ -1,38 +1,24 @@
-import { CakeSell } from './sell.class';
-import { iSell } from './sell.model';
-import { iCake } from './../cake/cake.model';
-import { CakeStatus } from './../cake/cake-status.enum';
+import { Connection } from 'mongoose';
+import { iSell } from './sell.interface';
+import { SellSchema } from './sell.model';
+import { DataService } from './../components/data-service.component';
 
-let sells: iSell[] = [];
+export class SellService {
+  private dataService: DataService<iSell>;
 
-export const sellCake = () => {
-  return new Promise((resolve, reject) => {
-    const cake: iCake = {
-      name: 'My Cake',
-      description: 'Description My Cake',
-      ingredients: ['Chocolate', 'Apple'],
-      price: 5,
-      stock: 10,
-      status: CakeStatus.Available,
-    };
+  constructor(dbConn: Connection) {
+    this.dataService = new DataService(dbConn, 'Sale', SellSchema);
+  }
 
-    const sell: iSell = {
-      customerName: 'Fava',
-      customerPhoneNumber: '5555555555',
-      customerEmail: 'fava.narvaez@gmail.com',
-      totalAmount: 10,
-      cake: cake,
-    };
+  fetchAll() {
+    return this.dataService.fetchMany();
+  }
 
-    let sale = new CakeSell(sell);
-    sells.push(sale);
-    resolve(sale);
-  });
-};
+  getById(id: string) {
+    return this.dataService.selectById(id);
+  }
 
-export const lessCake = () => {
-  return new Promise((resolve, reject) => {
-    console.info('Less Cake');
-    resolve(sells);
-  });
-};
+  insert(sell: iSell) {
+    return this.dataService.insert(sell);
+  }
+}

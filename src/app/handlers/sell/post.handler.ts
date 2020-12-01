@@ -1,5 +1,7 @@
 import { RequestHandler, Request, Response } from 'express';
-import { lessCake } from './../../sell/sell.service';
+import { SellService } from './../../sell/sell.service';
+import { dbConn } from '../../app.database';
+import { iSell } from '../../sell/sell.interface';
 
 type Params = {};
 type Query = {};
@@ -11,9 +13,11 @@ type Res = Response;
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res, next) => {
     try {
-      const cake = await lessCake();
+      const data: iSell = req.body as iSell;
+      const sellService = new SellService(dbConn);
+      const sell = await sellService.insert(data);
       res.status(200).json({
-        data: cake,
+        data: sell,
       });
     } catch (err) {
       next(err);

@@ -1,7 +1,11 @@
-import { iSell } from './../sell/sell.model';
-import { iCake } from './../cake/cake.model';
+import { iSell } from './../sell/sell.interface';
+import { iCake } from './../cake/cake.interface';
+import { dbConn } from './../app.database';
+import { SellService } from './sell.service';
 
 export class CakeSell implements iSell {
+  private sellService: SellService;
+
   customerName: string;
   customerPhoneNumber: string;
   customerEmail: string;
@@ -9,6 +13,7 @@ export class CakeSell implements iSell {
   cake: iCake;
 
   constructor(sell: iSell) {
+    this.sellService = new SellService(dbConn);
     this.customerName = sell.customerName;
     this.customerPhoneNumber = sell.customerPhoneNumber;
     this.customerEmail = sell.customerEmail;
@@ -16,12 +21,23 @@ export class CakeSell implements iSell {
     this.cake = sell.cake;
   }
 
-  sell(cakeQty: number): number {
-    return this.totalAmount - cakeQty;
+  get sell(): iSell {
+    const sell: iSell = {
+      customerName: this.customerName,
+      customerPhoneNumber: this.customerPhoneNumber,
+      customerEmail: this.customerEmail,
+      totalAmount: this.totalAmount,
+      cake: this.cake,
+    };
+
+    return sell;
   }
 
-  newSell(sell: iSell): number {
-    console.log('Save New Sale');
-    return 1;
+  insert(): Promise<iSell> {
+    return this.sellService.insert(this.sell);
+  }
+
+  getSellById(id: string) {
+    return this.sellService.getById(id);
   }
 }

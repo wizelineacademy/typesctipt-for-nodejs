@@ -1,27 +1,24 @@
-import { Cake } from './cake.class';
-import { iCake } from './cake.model';
-import { CakeStatus } from './cake-status.enum';
+import { Connection } from 'mongoose';
+import { iCake } from './cake.interface';
+import { CakeSchema } from './cake.model';
+import { DataService } from './../components/data-service.component';
 
-let cakes: iCake[] = [];
+export class CakeService {
+  private dataService: DataService<iCake>;
 
-export const getCake = () => {
-  return new Promise((resolve, reject) => {
-    resolve(cakes);
-  });
-};
+  constructor(dbConn: Connection) {
+    this.dataService = new DataService(dbConn, 'Cake', CakeSchema);
+  }
 
-export const makeCake = () => {
-  return new Promise((resolve, reject) => {
-    const data: iCake = {
-      name: 'My Cake',
-      description: 'Description My Cake',
-      ingredients: ['Chocolate', 'Apple'],
-      price: 5,
-      stock: 10,
-      status: CakeStatus.Available,
-    };
-    const cake = new Cake(data);
-    cakes.push(cake);
-    resolve(cake);
-  });
-};
+  fetchAll() {
+    return this.dataService.fetchMany();
+  }
+
+  getById(id: string) {
+    return this.dataService.selectById(id);
+  }
+
+  insert(cake: iCake) {
+    return this.dataService.insert(cake);
+  }
+}

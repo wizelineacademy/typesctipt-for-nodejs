@@ -1,5 +1,6 @@
 import { RequestHandler, Request, Response } from 'express';
-import { getCake } from './../../cake/cake.service';
+import { CakeService } from './../../cake/cake.service';
+import { dbConn } from '../../app.database';
 
 type Params = {};
 type Query = {};
@@ -11,7 +12,9 @@ type Res = Response;
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res, next) => {
     try {
-      const cake = await getCake();
+      const id: string = req.params.id;
+      const cakeService = new CakeService(dbConn);
+      const cake = await cakeService.getById(id);
       res.status(200).json({
         data: cake,
       });

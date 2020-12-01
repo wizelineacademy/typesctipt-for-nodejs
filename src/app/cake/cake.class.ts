@@ -1,7 +1,11 @@
-import { iCake } from './cake.model';
+import { iCake } from './cake.interface';
 import { CakeStatus } from './cake-status.enum';
+import { dbConn } from './../app.database';
+import { CakeService } from './cake.service';
 
 export class Cake implements iCake {
+  private cakeService: CakeService;
+
   name: string;
   description: string;
   ingredients: string[];
@@ -10,6 +14,7 @@ export class Cake implements iCake {
   status: CakeStatus;
 
   constructor(cake: iCake) {
+    this.cakeService = new CakeService(dbConn);
     this.name = cake.name;
     this.description = cake.description;
     this.ingredients = cake.ingredients;
@@ -18,21 +23,24 @@ export class Cake implements iCake {
     this.status = cake.status;
   }
 
-  newCake(cake: iCake): number {
-    console.log('Save a cake');
-    return 1;
+  get cake(): iCake {
+    const cake: iCake = {
+      name: this.name,
+      description: this.description,
+      ingredients: this.ingredients,
+      price: this.price,
+      stock: this.stock,
+      status: this.status,
+    };
+
+    return cake;
   }
 
-  getCakes(filter: string): string[] {
-    return [];
+  insert(): Promise<iCake> {
+    return this.cakeService.insert(this.cake);
   }
 
-  detailCake(id: number): [] {
-    return [];
-  }
-
-  editCake(cake: iCake): number {
-    console.log('Edit cake');
-    return 1;
+  getCakeById(id: string) {
+    return this.cakeService.getById(id);
   }
 }
