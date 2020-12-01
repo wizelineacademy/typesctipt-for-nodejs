@@ -1,4 +1,4 @@
-export type Status = 'Available' | 'LastUnits' | 'OutOfStock';
+import { Status } from './status.enum';
 
 export interface ICake {
   name: string;
