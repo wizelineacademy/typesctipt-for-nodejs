@@ -1,18 +1,41 @@
-import { SaleParams } from './sale.interface';
-import { CakeParams } from '../cake/cake.interface';
+import { conn } from '../app.database';
+import { ISale, ISaleQuery } from './sale.interface';
+import { SaleService } from './sale.service';
 
-export class Sale implements SaleParams {
+export class Sale implements ISale {
+    private saleService: SaleService;
+
     customerName: string;
     customerPhoneNumber: string;
     customerEmail: string;
     totalAmount: number;
-    cake: CakeParams;
+    cakeId: string;
 
-    constructor(params: SaleParams) {
-        this.customerName = params.customerName;
-        this.customerEmail = params.customerEmail;
-        this.customerPhoneNumber = params.customerPhoneNumber;
-        this.totalAmount = params.totalAmount;
-        this.cake = params.cake;
+    constructor(values: ISale) {
+        this.saleService = new SaleService(conn);
+
+        this.customerName = values.customerName;
+        this.customerPhoneNumber = values.customerPhoneNumber;
+        this.customerEmail = values.customerEmail;
+        this.totalAmount = values.totalAmount;
+        this.cakeId = values.cakeId;
+    }
+
+    get values(): ISale {
+        return {
+            customerName: this.customerName,
+            customerPhoneNumber: this.customerPhoneNumber,
+            customerEmail: this.customerEmail,
+            totalAmount: this.totalAmount,
+            cakeId: this.cakeId
+        };
+    }
+
+    sell(): Promise<ISale> {
+        return this.saleService.sell(this.values);
+    }
+
+    get(query: ISaleQuery) {
+        return this.saleService.get(query);
     }
 }

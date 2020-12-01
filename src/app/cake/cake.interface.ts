@@ -1,23 +1,15 @@
-export interface CakeParams {
+import { Status } from './cake.enums';
+
+export interface ICake {
     name: string;
     description: string;
     ingredients: string[];
     price: number;
     stock: number;
+    status: Status;
 }
 
-export interface CakeInterface extends CakeParams {
-    // addCake(params: CakeParams): CakeParams;
-    // cakeDetail(params: CakeDetailParams): CakeParams;
-    // cakeList(params: CakeListParams): CakeParams[];
-    // editCake(params: CakeParams): CakeParams;
-}
-
-export interface CakeListParams {
-    price?: number;
+export interface ICakeQuery {
+    price?: string;
     ingredient?: string;
-}
-
-export interface CakeDetailParams {
-    id: string;
 }

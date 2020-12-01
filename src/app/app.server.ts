@@ -1,11 +1,12 @@
-import { Router } from 'express';
+import express from 'express';
 
 import cakeRouter from './cake/cake.router';
 import saleRouter from './sale/sale.router';
 
-const router: Router = Router();
+export const app = express();
 
-router.use('/cakes', cakeRouter);
-router.use('/sales', saleRouter);
+app.use(express.json());
 
-export default router;
+app.use('/cakes', cakeRouter);
+app.use('/sales', saleRouter);
+

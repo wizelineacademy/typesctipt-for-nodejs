@@ -1,11 +1,12 @@
 import { Router } from 'express';
 
+import { handler as postHandler } from './handlers/post.handler';
+
 const router: Router = Router();
 
 router
-    .route('/');
-
-router
-    .route('/:id');
+    .route('/')
+    .get()
+    .post(postHandler);
 
 export default router;

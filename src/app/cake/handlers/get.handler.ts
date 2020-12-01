@@ -1,20 +1,20 @@
-import { RequestHandler, Request, Response } from 'express';
+import { RequestHandler, Response, Request } from 'express';
 
-import { getCake } from '../cake.service';
+import { conn } from '../../app.database';
+import { CakeService } from '../cake.service';
 
-// type Params = {};
-// type Query = {};
-// type Body = {};
 type Req = Request;
-type Res = Response;
+type Res =  Response;
 
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
         try {
-            const cake = await getCake(req.params.id);
-            res.status(200).json({ data: cake })
+            const ops = new CakeService(conn);
+            const cake = await ops.get(req.params.id);
+
+            res.status(200).json({ data: cake });
         } catch (error) {
-            res.status(404).json({});
+            res.status(404).json(error);
         }
     }
 ];

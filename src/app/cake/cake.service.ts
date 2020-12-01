@@ -1,20 +1,29 @@
-import {
-    CakeParams,
-    CakeListParams,
-} from './cake.interface';
+import { Connection } from 'mongoose';
 
-export const cakeList = (params: CakeListParams) => {
+import { DBService } from '../../components/database-service.component';
+import { CakeModel } from '../cake/cake.model';
+import { ICake, ICakeQuery } from '../cake/cake.interface';
 
-};
+export class CakeService {
+    private dbService: DBService<ICake, ICakeQuery>;
 
-export const createCake = (params: CakeParams) => {
+    constructor(conn: Connection) {
+        this.dbService = new DBService(conn, 'Cake', CakeModel);
+    }
 
-};
+    get(id: string) {
+        return this.dbService.find(id);
+    }
 
-export const editCake = (params: CakeParams) => {
+    getMany(query: ICakeQuery) {
+        return this.dbService.findMany(query);
+    }
 
-};
+    save(values: ICake) {
+        return this.dbService.save(values);
+    }
 
-export const getCake = (id: string) => {
-
-};
+    update(values: ICake, id: string) {
+        return this.dbService.update(values, id);
+    }
+}

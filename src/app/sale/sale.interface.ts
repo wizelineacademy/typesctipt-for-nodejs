@@ -1,14 +1,12 @@
-import { CakeParams } from '../cake/cake.interface';
-
-export interface SaleParams {
+export interface ISale {
     customerName: string;
     customerPhoneNumber: string;
     customerEmail: string;
     totalAmount: number;
-    cake: CakeParams;
+    cakeId: string; 
 }
 
-export interface SaleQueryParams {
-    year: number;
-    week: number;
+export interface ISaleQuery {
+    week?: number;
+    year?: number;
 }
