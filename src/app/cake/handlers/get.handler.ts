@@ -1,5 +1,7 @@
 import { RequestHandler, Request, Response } from "express";
-import { getData, getDataById } from '../cake.service';
+import { CakeService } from '../cake.service';
+import { Cake } from '../cake.class';
+import { dbConnection } from '../../app.database';
 
 type Params = {};
 type Query = {};
@@ -11,7 +13,8 @@ export const handlerAll: RequestHandler[] = [
   // auth
   async (req: Req, res: Res) => {
     console.log('Handling GET All...');
-    const data = await getData();
+    const service: CakeService = new CakeService(dbConnection);
+    const data = await service.getMany();
     console.log('Returning data:', data)
     res.json(data);
   }

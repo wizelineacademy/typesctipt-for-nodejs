@@ -1,8 +1,11 @@
 import express, { Express, Router } from 'express';
+import bodyParser from 'body-parser';
 import { router as cakeRouter }from './cake/cake.router';
 import { router as saleRouter }from './sale/sale.router';
 
-const app : Express = express();
+const app: Express = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const router: Router = Router();
 
