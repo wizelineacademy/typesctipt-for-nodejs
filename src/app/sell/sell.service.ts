@@ -1,4 +1,4 @@
-import { Sell } from './sell.modal';
+import { Sell } from './sell.type';
 
 let sales: Sell[] = [];
 
@@ -19,11 +19,11 @@ export const makeSell = (newSell: Sell) => {
 	})
 }
 
-export const updateSell = (id: number, newSellData: Sell) => {
+export const updateSell = (id: string, newSellData: Sell) => {
 	return new Promise((resolve, rejected) => {
 		setTimeout(() => {
 			const newSales = sales.map(sell => {
-				if (sell.id === id) {
+				if (sell.id === +id) {
 					return newSellData;
 				};
 				return sell;
@@ -33,10 +33,10 @@ export const updateSell = (id: number, newSellData: Sell) => {
 	})
 }
 
-export const deleteSell = (id: number) => {
+export const deleteSell = (id: string) => {
 	return new Promise((resolve, rejected) => {
 		setTimeout(() => {
-			const newSales = sales.filter(sell => sell.id !== id);
+			const newSales = sales.filter(sell => sell.id !== +id);
 			sales = newSales;
 			resolve(newSales);
 		}, 1000);

@@ -1,32 +1,30 @@
-export interface CakeInterface {
-	id: number
-	name: string
-  descrition: string
-  ingredients: string[]
-  price: number
-  stock: number
-  status: 'Available'|'LastUnits'|'OutOfStock'
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-	newCake(
-		id: number,
-		newCake: Cake
-	): Cake
+const CakeSchema = new Schema({
+	id: {
+		type: Number,
+		unique: true,
+	},
+	name: {
+		type: String,		
+		unique: true,
+	},
+	description: {
+		type: String,
+	},
+	ingredients: {
+		type: [String]
+	},
+	price: {
+		type: Number,
+	},
+	stock: {
+		type: Number,
+	},
+	status: {
+		type: String,
+	}
+});
 
-	getCakes(): Cake[]
-
-	editCake(id: number): Cake
-
-	updateCake(id: number, newCakeData: Cake): Cake
-
-	deleteCake(id: number): void
-}
-
-export type Cake = {
-  id: number
-	name: string
-  descrition: string
-  ingredients: string[]
-  price: number
-  stock: number
-  status: 'Available'|'LastUnits'|'OutOfStock'
-}
+export const cakeModel = mongoose.model('Cake', CakeSchema);

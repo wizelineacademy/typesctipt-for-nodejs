@@ -1,31 +1,28 @@
-import {SellInterface, Sell as SellType} from './sell.modal';
+import { ISell } from './sell.interface';
+import { Sell as SellType } from './sell.type';
+import { Cake } from '../cake/cake.type';
 
-export class Sell implements SellInterface{
+export class Sell implements ISell {
 	id: number
-	name: string
-  descrition: string
-  ingredients: string[]
-  price: number
-  stock: number
-	status: 'Available'|'LastUnits'|'OutOfStock'
+  customerName: string
+  customerPhoneNumber: string
+  customerEmail: string
+  totalAmount: number
+  cake: Omit<Cake, 'id' | 'stock' | 'status'> & { quantity: number }  
 	
 
 	constructor(
 		id: number,
-		name: string,
-		descrition: string,
-		ingredients: string[],
-		price: number,
-		stock: number,
-		status: 'Available'|'LastUnits'|'OutOfStock'
+		customerName: string,
+		customerPhoneNumber: string,
+		customerEmail: string,
+		totalAmount: number,		
 	) {
 		this.id = id;
-		this.name = name;
-		this.descrition = descrition;
-		this.ingredients = ingredients;
-		this.price = price;
-		this.stock = stock;
-		this.status = status;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerPhoneNumber = customerPhoneNumber;
+		this.totalAmount = totalAmount;
 	}
 
 	newSell(

@@ -1,4 +1,4 @@
-import { Cake } from './cake.model';
+import { Cake } from './cake.type';
 
 let cakes: Cake[] = [];
 
@@ -20,11 +20,11 @@ export const makeCake = (quantity: number, newCake: Cake) => {
 	})
 }
 
-export const updateCake = (id: number, newCakeData: Cake) => {
+export const updateCake = (id: string, newCakeData: Cake) => {
 	return new Promise((resolve, rejected) => {
 		setTimeout(() => {
 			const newCakes = cakes.map(cake => {
-				if (cake.id === id) {
+				if (cake.id === +id) {
 					return newCakeData;
 				};
 				return cake;
@@ -34,10 +34,10 @@ export const updateCake = (id: number, newCakeData: Cake) => {
 	})
 }
 
-export const deleteCake = (id: number) => {
+export const deleteCake = (id: string) => {
 	return new Promise((resolve, rejected) => {
 		setTimeout(() => {
-			const newCakes = cakes.filter(cake => cake.id !== id);
+			const newCakes = cakes.filter(cake => cake.id !== +id);
 			cakes = newCakes;
 			resolve(cakes);
 		}, 1000);

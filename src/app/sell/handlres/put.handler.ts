@@ -1,19 +1,21 @@
 import {RequestHandler, Request, Response} from 'express';
 import { updateSell } from '../sell.service';
-import { Sell } from '../sell.model';
+import { ParamsDictionary } from 'express-serve-static-core';
+import { Sell } from '../sell.type';
+import { SellService } from '../sell.service.v2';
+import { dbConn } from '../../app.database';
 
-type Params = {id: number};
 type Query = {};
 type Body = Sell;
 
-type Req = Request<Params, {}, Body, Query>;
+type Req = Request<ParamsDictionary, {}, Body, Query>;
 type Res = Response;
 
-// HERE I HAVE AN ISSUE, IN THROWS ME AN ERROR TO IMPLEMENT THE REQ.PARAMS IN THIS WAY
+const sellService = new SellService(dbConn);
 
 export const handler: RequestHandler[] = [
 	async (req: Req, res: Res) => {
-		const cake = await updateSell(req.params.id, req.body);		
+		const cake = await sellService.update(req.params.id, req.body);		
 		res.json(cake);
 	}
 ]

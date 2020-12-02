@@ -1,30 +1,30 @@
-import {CakeInterface, Cake as CakeType} from './cake.model';
+import { ICake } from './cake.interface';
+import { Cake as CakeType } from './cake.type';
+import {Status as CakeStatus} from './cake-status.enum';
+import { CakeService } from './cake.service.v2';
+import { dbConn } from '../app.database'
 
-export class Cake implements CakeInterface{
+export class Cake implements ICake {
+	private cakeService: CakeService;
+
 	id: number
 	name: string
   descrition: string
   ingredients: string[]
   price: number
   stock: number
-	status: 'Available'|'LastUnits'|'OutOfStock'
+	status: CakeStatus
 	
-	constructor(
-		id: number,
-		name: string,
-		descrition: string,
-		ingredients: string[],
-		price: number,
-		stock: number,
-		status: 'Available'|'LastUnits'|'OutOfStock'
-	) {
-		this.id = id;
-		this.name = name;
-  	this.descrition = descrition;
-		this.ingredients = ingredients
-		this.price = price;
-		this.stock = stock
-		this.status = status;
+	constructor(cake: CakeType) {
+		this.cakeService = new CakeService(dbConn);
+
+		this.id = cake.id;
+		this.name = cake.name;
+  	this.descrition = cake.descrition;
+		this.ingredients = cake.ingredients
+		this.price = cake.price;
+		this.stock = cake.stock
+		this.status = cake.status;
 	}
 
 	newCake(
