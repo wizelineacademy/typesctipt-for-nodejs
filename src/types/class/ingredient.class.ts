@@ -1,4 +1,4 @@
-export class ingredient {
+export class Ingredient {
     name: string;
     quantity: number;
     constructor(name:string, quantity: number){

@@ -4,6 +4,13 @@ import { sale, sale as saleClass } from '../../types/class/sale.class'
 // import { cake as cakeClass } from '../../types/class/cake.class'
 import { getCake } from '../cake/cake.service'
 
+const uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 export const makeSale = async(req: express.Request) => {
     console.log(req.body)
     console.log(req.body.cakeId)
@@ -22,7 +29,8 @@ export const makeSale = async(req: express.Request) => {
             }catch{
                 console.log('No enough cakes to sell');
             }
-            const newSale = new saleClass(salesCustomer, req.body.cakeId, req.body.totalAmount)
+            let id = uuidv4()
+            const newSale = new saleClass(id, salesCustomer, req.body.cakeId, req.body.totalAmount)
             resolve(newSale)
         }, 10);
     })
