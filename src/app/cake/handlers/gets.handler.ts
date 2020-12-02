@@ -7,8 +7,8 @@ import { CakeService } from '../cake.service';
 type Params = {};
 type Query = ICakeQuery;
 type Body = {};
-type Req =  Request<Params, {}, Body, Query>
-type Res =  Response;
+type Req = Request<Params, {}, Body, Query>
+type Res = Response;
 
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {

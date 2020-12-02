@@ -17,7 +17,6 @@ export const handler: RequestHandler[] = [
             
             res.status(201).json({ data: sale });
         } catch (error) {
-            console.log(error);
             res.status(500).json(error);
         }
     }

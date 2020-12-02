@@ -35,22 +35,21 @@ export const SaleSchema = new Schema({
     }
 });
 
-SaleSchema.pre<ISale & Document>('save', async function(next) {
-    // const model: ICake = this.model('Cake');
-    // const cakeModel = new CakeModel(Icak);
+SaleSchema.pre<ICake & Document & ISale>('save', async function(next) {
+    const model = this.model('Cake');
+    const cake = <ICake | null> await model.findById(this.cakeId);
 
-    // const cake: ICake = await cakeModel.findById(this.cakeId);
+    if (!cake) {
+        return;
+    }
 
-    // if (cake) {
-        
-    //     if (this.totalAmount > cake.stock) {
-    //         return;
-    //     }
-    
-    //     cake.stock -= this.totalAmount;
-    
-    //     cakeModel.findByIdAndUpdate(this.cakeId, cake);
-    // }
+    if (this.totalAmount > cake.stock) {
+        return;
+    }
 
-    // next();
+    cake.stock -= this.totalAmount;
+
+    await model.findByIdAndUpdate(this.cakeId, cake);
+
+    next();
 });

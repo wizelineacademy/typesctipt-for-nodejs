@@ -1,20 +1,8 @@
-import { Connection, Document, Model, Schema, FilterQuery, QueryFindOptions } from 'mongoose';
-
-import { ICakeQuery } from '../app/cake/cake.interface';
-
-const buildQuery = (query: any) => {
-    // const toExec: QueryFindOptions;
-
-    // for (let [key, value] of Object.entries(query)) {
-    //     toExec += `{ ${key}: '${value}' }`;
-    // }
-
-    // return toExec;
-};
+import { Connection, Document, Model, Schema, FilterQuery } from 'mongoose';
 
 export class DBService<T, R> {
     readonly connection: Connection;
-    readonly model: Model<T & Document & FilterQuery<R>>;
+    readonly model: Model<T & Document>;
 
     constructor(conn: Connection, modelName: string, model: Schema) {
         this.connection = conn;

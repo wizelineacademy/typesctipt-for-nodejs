@@ -36,7 +36,7 @@ export const CakeModel = new Schema({
     },
     status: {
         type: Schema.Types.String,
-        enum: ['Available', 'LastUnits', 'OutOfStock']
+        enum: [Status.AVAILABLE, Status.LAST_UNITS, Status.OUT_OF_STOCK]
     }
 });
 

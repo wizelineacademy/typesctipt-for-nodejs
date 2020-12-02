@@ -1,10 +1,10 @@
-import { createConnection } from 'mongoose';
+import { createConnection, Connection } from 'mongoose';
 
 import { dbConfig } from './app.config';
 
-const URI = dbConfig.MONGO_URI || 'localhost';
+const URI: string = dbConfig.MONGO_URI || 'localhost';
 
-export const conn = createConnection(URI);
+export const conn: Connection = createConnection(URI);
 
 conn.on('connected', () => {
     console.log('MongoDB connected');
