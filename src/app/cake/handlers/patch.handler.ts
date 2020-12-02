@@ -1,7 +1,7 @@
 // Get handler
 // Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
-import { editCake } from '../cake.service';
+// import { editCake } from '../cake.service';
 
 type Params = {};
 type Query = {};
@@ -21,7 +21,7 @@ export const handler: RequestHandler[] = [
       stock: 1,
     };
 
-    const cake = await editCake(cakeData);
-    res.json(cake);
+    // const cake = await editCake(cakeData);
+    res.json(cakeData);
   },
 ];

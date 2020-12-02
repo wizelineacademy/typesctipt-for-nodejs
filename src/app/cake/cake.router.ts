@@ -11,4 +11,4 @@ export const router: Router = Router();
 // });
 
 router.route('/').get(getHandler).post(postHandler);
-router.route('/:name').get(getOneHandler).patch(patchHandler);
+// router.route('/:cakeId').get(getOneHandler).patch(patchHandler);
