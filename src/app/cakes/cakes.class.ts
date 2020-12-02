@@ -1,7 +1,8 @@
 import { CakeStatus } from "./cake-status.enum";
+import { Document } from "mongoose";
 
-export class Cake {
-  id: number;
+export class Cake extends Document {
+  id: string;
   name: string;
   description: string;
   ingredients: string[];
@@ -10,13 +11,14 @@ export class Cake {
   status: number;
 
   constructor(
-    id: number,
+    id: string,
     name: string,
     description: string,
     ingredients: string[],
     price: number,
     stock: number
   ) {
+    super();
     this.id = id;
     this.name = name;
     this.description = description;
