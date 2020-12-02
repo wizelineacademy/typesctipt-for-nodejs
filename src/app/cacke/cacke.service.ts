@@ -1,44 +1,29 @@
-import data  from "../../utils/mock.cacke";
-import { Cacke } from "../model/cacke/cacke";
+import { DataService } from "../../components/data-service.component";
+import { ICacke } from "./interfaces/cacke";
+import { modelName } from './cacke.model';
 
-export const getCacke = (): Promise<Cacke> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 1000);
-  });
-}
+export class CackeService {
+  private dataService: DataService<ICacke>;
 
-export const postCacke = (cacke): Promise<number> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-        //Do the DB save and if everything is good then it sends the id of the new record
-        if (cacke) {
-            resolve(cacke);
-        } else {
-            reject();
-        }
-        }, 1000);
-    });
-}
+  constructor(db) {
+    this.dataService = new DataService(db, modelName);
+  }
 
-export const getCackeById = (id): Promise<Cacke> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (id) {
-           resolve(data[0]);
-        }
-      }, 1000);
-    });
-}
+  getAllCakes(): Promise<ICacke[]> {
+    return this.dataService.fetchMany()
+  }
 
-export const updateCacke = (id): Promise<number> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (id) {
-           //Here it will go the update part
-           resolve(1);
-        }
-      }, 1000);
-    });
+  getCacke(id: string) {
+    return this.dataService.get(id);
+  }
+
+  edit(id:string, model:ICacke) {
+    console.log(model);
+    return this.dataService.patch(id, model);
+  }
+
+  save(cacke: ICacke): Promise<string> {
+    return this.dataService.insert(cacke);
+  } 
+  //TODO: This list can be filtered for a range of price or by ingredient
 }

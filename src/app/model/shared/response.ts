@@ -1,9 +1,10 @@
-import { Cacke } from "../cacke/cacke";
 import { Request } from "express";
-import { Sell } from "../sell/sell";
 
+import { ICacke } from "../../cacke/interfaces/cacke";
+
+//TODO: Need to move these to their respective file
 export abstract class ResponseData {
-    static getResponse(message: string, data:  Cacke | string | number | Sell): IResponseData {
+    static getResponse(message: string, data:  ICacke | string | number| ICacke[] ): IResponseData {
         return {
             message: message,
             data: data,
@@ -13,7 +14,7 @@ export abstract class ResponseData {
 
 export interface IResponseData {
     message: string;
-    data: Cacke | string | number | Sell;
+    data: ICacke | string | number | ICacke[];
 }
 
 type Params = {id: string};

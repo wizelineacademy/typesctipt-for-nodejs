@@ -1,6 +1,6 @@
-import { CackeStatus } from './status';
+import { CackeStatus } from '../enums/cackestatus';
 
-export interface Cacke  {
+export interface ICacke  {
     name: string;
     description: string;
     ingredients: string[];

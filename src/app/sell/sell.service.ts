@@ -1,14 +1,16 @@
-import { Sell } from "../model/sell/sell";
+import { DataService } from "../../components/data-service.component";
+import { ISell } from "./interfaces/sell";
+import { modelName } from "./sell.model";
 
-export const postSell = (sell: Sell): Promise<Sell> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            //Here will do the Logic to create the sell
-            if (sell) {
-                resolve(sell);
-            } else {
-                reject();
-            }
-        }, 1000);
-  });
+export class SellService {
+  private dataService: DataService<ISell>;
+
+  constructor(db) {
+    this.dataService = new DataService(db, modelName);
+  }
+
+  save(sell: ISell): Promise<string> {
+     return this.dataService.insert(sell);
+  }
+
 }

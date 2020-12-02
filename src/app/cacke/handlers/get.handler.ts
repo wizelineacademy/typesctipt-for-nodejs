@@ -1,32 +1,32 @@
 import { RequestHandler, Response } from "express";
-import { getCacke, getCackeById } from "../cacke.service";
 
+import { Cacke }  from "../cacke.class";
 import { ResponseData, Req } from "../../model/shared/response";
 import { Logger } from "../../../utils/logger";
 
 export const handler: RequestHandler[] = [
     async (req: Req, res: Response) => {
         try {
+            const cacke: Cacke = new Cacke();
             const cackeId: string = req.params.id;
-          
-            if (cackeId) {
-                const cacke = await getCackeById(cackeId);
-                if (cacke) {
-                    res.status(202).send(ResponseData.getResponse(`Get cacke by the id ${cackeId}`, cacke));
+            if (cackeId) {  
+                const currentCacke = await cacke.getCacke(cackeId);
+                if (currentCacke) {
+                    res.status(202).send(ResponseData.getResponse(`Get cacke by the id ${cackeId}`, currentCacke));
                 } else {
-                    throw "Internal Server Error";
+                    throw "The cacke doesn't exists";
                 }
             } else {
-                const cackes = await getCacke();
+                const cackes = await cacke.getAllCackes();
                 if (cackes) {
                     res.status(202).send(ResponseData.getResponse("Get all the list of cackes", cackes));
                 } else {
-                    throw "Internal Server Error";
+                    throw "There are no cackes in the db";
                 }
             }
         } catch(e) {
             Logger.LogError(e);
-            res.status(400).send(ResponseData.getResponse("Internal Server Error", null));
+            res.status(400).send(ResponseData.getResponse(e, null));
         }
-  }
-];
+    }
+]
