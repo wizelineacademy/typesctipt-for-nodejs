@@ -1,6 +1,6 @@
 import { RequestHandler, Request, Response } from 'express';
 import { updateCake } from '../cake.service';
-import { Status } from '../cake.model';
+import { Status } from '../status.enum';
 
 export const handler: RequestHandler[] = [
   async (req: Request, res: Response) => {
