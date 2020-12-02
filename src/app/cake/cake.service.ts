@@ -1,39 +1,27 @@
-import { Cake } from "./cake.class";
+import { DataService } from "../../component/data.service";
+import { Cake } from "./data/cake.model";
+import { CakeSchema } from "./data/cake.schema";
 
-let counter = 1;
-const data: Cake[] = [];
 
-/**
- * Simulate a slow db connection based on the number of items in the list
- * @param val
- */
-function simulate<T>(val: T){
-    return new Promise<T>((resolve)=>{
-        setTimeout(()=>{
-            resolve(val);
-        }, data.length * 100);
-    });
-}
-export const cakeService = {
+export class CakeService{
+
+    constructor(
+        private dataService: DataService<Cake> = new DataService('Cake', CakeSchema)
+    ){
+    }
     get(): Promise<Cake[]>{
-        return simulate(data);
-    },
+        return this.dataService.fetchMany();
+    }
+    getById(id:string): Promise<Cake>{
+        return this.dataService.fetchOne(id);
+    }
     post(entity: Cake): Promise<Cake>{
-        entity.id = counter++;
-        data.push(entity)
-        return simulate(entity);
-    },
-    delete(id: number): Promise<Cake[]>{
-        let idx = data.findIndex(item => item.id === id); 
-        if(idx === -1) return Promise.reject({code : 404, message: "Not found"})
-        data.splice(idx,1);
-        return simulate(data)
-    },
-    put(entity: Cake): Promise<Cake>{
-        console.log("🚀 ~ file: cake.service.ts ~ line 34 ~ put ~ entity.id)", entity.id, entity.id === 1);
-        let idx = data.findIndex(item => item.id === entity.id); 
-        if(idx === -1) return Promise.reject({code : 404, message: "Not found"})
-        data[idx] = entity; 
-        return simulate(entity);
+        return this.dataService.insert(entity);
+    }
+    delete(id: string): Promise<any>{
+        return this.dataService.delete(id)
+    }
+    put(id: string, entity: Cake): Promise<Cake | null>{
+        return this.dataService.update(id, entity);
     }
 }

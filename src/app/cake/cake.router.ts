@@ -5,8 +5,6 @@ import { getHandler } from "./handler/get.handler";
 import { postHandler } from "./handler/post.handler";
 import { putHandler } from "./handler/put.handler";
 
-
-
 export const cakeRouter = Router();
 
 cakeRouter.route("/cake")

@@ -1,5 +1,7 @@
 import { RequestHandler } from "express";
-import { cakeService } from "../cake.service";
+import { CakeService } from "../cake.service";
+import { Cake } from "../data/cake.model";
+
 
 
 
@@ -8,11 +10,8 @@ export const putHandler: RequestHandler[] = [
     async (req,res) =>{
 
         try{
-            res.json(await cakeService.put({
-                id: +req.params.id,
-                name: "Dummy Edited",
-                status: "OutOfStock"
-            }));
+            const service = new CakeService();
+            res.json(await service.put(req.params.id, req.body as Cake));
         }catch(e){
             res.status(e.code).json(e);
         }
