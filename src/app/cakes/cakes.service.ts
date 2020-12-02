@@ -1,29 +1,38 @@
+import { createConnection } from "mongoose";
 import { Cake } from "./cakes.class";
-import * as dbservice from "../services/cake.db.service";
-import { CakeBuilder } from "./cakes.builder";
 
-export function saveCake(cake: Cake): boolean {
-  //TODO: Fix this promise
-  let resultPromise: Promise<unknown>;
-  let success: boolean = false;
-  if (cake.id == 0) {
-    resultPromise = dbservice.Insert(cake);
-  } else {
-    resultPromise = dbservice.Update(cake.id, cake);
+import { DataService } from "../../components/data-service.component";
+
+export class CakeService {
+  private dataService: DataService<Cake>;
+
+  constructor() {
+    const connection = createConnection("mongodb://localhost"); //TODO: Completar
+    this.dataService = new DataService(connection, "Cake");
   }
-  resultPromise.then((result) => {
-    success = result === true;
-  });
-  return true;
-}
 
-export function getCake(id: number): Promise<Cake> {
-  let result = dbservice.Get(id);
-  return result;
-}
+  saveCake(cake: Cake): boolean {
+    let resultPromise: Promise<unknown>;
+    let success: boolean = false;
+    if (cake.id == "") {
+      resultPromise = this.dataService.Insert(cake);
+    } else {
+      resultPromise = this.dataService.Update(cake.id, cake);
+    }
+    resultPromise.then((result) => {
+      success = result === true;
+    });
+    return true;
+  }
 
-export function getCakes(): Promise<Cake[]> {
-  let cakes: Cake[] = [];
-  let result = dbservice.GetAll();
-  return result;
+  getCake(id: string): Promise<Cake> {
+    let result = this.dataService.FetchOne(id);
+    return result;
+  }
+
+  getCakes(): Promise<Cake[]> {
+    let cakes: Cake[] = [];
+    let result = this.dataService.FetchMany();
+    return result;
+  }
 }

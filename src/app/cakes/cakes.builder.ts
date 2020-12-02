@@ -3,10 +3,10 @@ import { Cake } from "./cakes.class";
 export class CakeBuilder {
   private _cake: Cake;
   constructor() {
-    this._cake = new Cake(0, "", "", [], 0, 0);
+    this._cake = new Cake("", "", "", [], 0, 0);
   }
 
-  id(id: number): CakeBuilder {
+  id(id: string): CakeBuilder {
     this._cake.id = id;
     return this;
   }

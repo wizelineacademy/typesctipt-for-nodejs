@@ -2,33 +2,33 @@ import { Connection, Document, Model } from "mongoose";
 
 export class DataService<T> {
   readonly connection: Connection;
-  readonly model: Model<T & Document>;
+  readonly model: Model<Document>;
 
   constructor(connection: Connection, modelName: string) {
     this.connection = connection;
     this.model = this.connection.model(modelName);
   }
 
-  delete() {
-    // To be implemented
-  }
-
-  ferchMany(): Promise<T[]> {
+  FetchMany(): Promise<T[]> {
     return this.model.find({}).lean().exec();
   }
 
-  fetchOne() {
-    // To be implemented
+  FetchOne(id: String): Promise<T> {
+    const item = this.model.findById(id).lean().exec();
+    return item;
   }
 
-  insert(data: T): Promise<string> {
+  async Insert(data: T extends Document) : Promise<T> { //TODO: Fix this
+    // Question for reviewer: The IDE says: '?' expected.ts(1005) in the closing parenthesis "Document)" but I don't understand why
     const model = new this.model(data);
-    return model.save().then(() => {
-      return model.id;
+    return model.save(()=>{
+        return model;
     });
   }
 
-  update() {
-    // To be implemented
+  Update(docId: string, data: T): Promise<T> {
+    let a = this.model.update({id:docId},data
+    );
+    return a;
   }
 }

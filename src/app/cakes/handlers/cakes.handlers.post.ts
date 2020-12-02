@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CakeBuilder } from "../cakes.builder";
-import { saveCake } from "../cakes.service";
+import { CakeService } from "../cakes.service";
 
 export function createCake(req: Request, res: Response) {
   let body = req.body;
@@ -17,8 +17,9 @@ export function createCake(req: Request, res: Response) {
     res.status(400).end();
     return;
   }
+  const cakeService = new CakeService();
 
-  let result = saveCake(cake);
+  let result = cakeService.saveCake(cake);
 
   if (result) {
     res.status(200).json(cake);

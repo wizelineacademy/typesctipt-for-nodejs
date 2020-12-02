@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import { CakeBuilder } from "../../cakes/cakes.builder";
 import { Cake } from "../../cakes/cakes.class";
 import { Sell } from "../sales.class";
-import { registerSell } from "../sales.service";
+import { SalesService } from "../sales.service";
 
 export function sellCake(req: Request, res: Response) {
+  let salesService: SalesService = new SalesService();
   let body = req.body;
 
   let cakeID: number = +body["cakeID"];
@@ -22,7 +23,7 @@ export function sellCake(req: Request, res: Response) {
     return;
   }
 
-  let result = registerSell(sell);
+  let result = salesService.registerSell(sell);
   result
     .then(() => res.status(200).end())
     .catch(() => {
