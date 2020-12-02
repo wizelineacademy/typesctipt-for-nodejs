@@ -1,11 +1,11 @@
 import express, { Express } from 'express';
-import { router as breadRouter } from './bread/bread.router';
 import { router as cakeRouter } from './cake/cake.router';
 import { router as salesRouter } from './sales/sales.router';
+import bodyParser from 'body-parser';
 
 const app: Express = express();
 
-app.use('/breads', breadRouter);
+app.use(bodyParser.json());
 app.use('/cakes', cakeRouter);
 app.use('/sales', salesRouter);
 

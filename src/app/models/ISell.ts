@@ -1,4 +1,4 @@
-import { ICake } from './Cake';
+import { ICake } from './ICake';
 
 export interface ISell {
   customerName: string;

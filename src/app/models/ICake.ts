@@ -1,4 +1,4 @@
-import { CakeStatus } from './Cake-status.enum';
+import { CakeStatus } from './CakeStatus.enum';
 
 export interface ICake {
   name: string;

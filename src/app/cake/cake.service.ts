@@ -1,29 +1,36 @@
-import { ICake, CakeStatus } from '../models/index';
+import { Connection } from 'mongoose';
+import { DataService } from '../../components/data-service.component';
+import { ICake } from '../models/index';
 
-const cakes: ICake[] = [
-  {
-    description: 'Tasty cake',
-    ingredients: ['Glass', 'Sugar'],
-    price: 12.99,
-    name: 'Red velvet',
-    status: CakeStatus.LastUnits,
-    stock: 3,
-  },
-  {
-    description: 'Tastier cake',
-    ingredients: ['Glass', 'Sugar', 'Egg'],
-    price: 13.99,
-    name: 'Cheese Cake',
-    status: CakeStatus.Available,
-    stock: 10,
-  },
-];
+export class CakeService {
+  private _dataService: DataService<ICake>;
 
-export const getCakes = async (): Promise<ICake[]> => {
-  await timeout(2000);
-  return cakes;
-};
+  constructor(connection: Connection) {
+    this._dataService = new DataService(connection, 'Cake');
+  }
 
-const timeout = (ms: number): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+  getMany = async (): Promise<ICake[]> => this._dataService.fetchMany();
+
+  getById = async (id: string): Promise<ICake> =>
+    this._dataService.fetchOneById(id);
+
+  async insert(cake: ICake): Promise<string> {
+    const { name } = cake;
+    const fetchedCake = await this._dataService.fetch({ name });
+    if (cake.name == fetchedCake.name) {
+      // Throw error
+    } else {
+      return this._dataService.insert(cake);
+    }
+  }
+
+  async delete(id: string): Promise<ICake> {
+    const fetchedCake = await this._dataService.fetchOneById(id);
+    if (fetchedCake) {
+      const deletedCake = await this._dataService.deleteById(id);
+      return deletedCake;
+    } else {
+      // Throw error
+    }
+  }
+}
