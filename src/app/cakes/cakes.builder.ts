@@ -29,12 +29,12 @@ export class CakeBuilder {
   }
   stock(stock: number): CakeBuilder {
     this._cake.stock = stock;
-    this._cake.setStatus();
+    this._cake.computeStatus();
     return this;
   }
 
   build(): Cake {
-    this._cake.setStatus();
+    this._cake.computeStatus();
     return this._cake;
   }
 }

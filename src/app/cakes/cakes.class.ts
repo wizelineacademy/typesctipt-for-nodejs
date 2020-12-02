@@ -1,4 +1,4 @@
-import { Status } from "./cakes.constants";
+import { CakeStatus } from "./cake-status.enum";
 
 export class Cake {
   id: number;
@@ -23,23 +23,23 @@ export class Cake {
     this.ingredients = ingredients;
     this.price = price;
     this.stock = stock;
-    this.status = Status.Available;
+    this.status = CakeStatus.Available;
   }
 
-  setStatus() {
+  computeStatus() {
     if (this.stock == 0) {
-      this.status = Status.OutOfStock;
+      this.status = CakeStatus.OutOfStock;
     } else if (this.stock <= 10) {
-      this.status = Status.LastUnits;
+      this.status = CakeStatus.LastUnits;
     } else {
-      this.status = Status.Available;
+      this.status = CakeStatus.Available;
     }
   }
 
   removeFromStock(quantity: number): boolean {
     if (this.stock >= quantity) {
       this.stock -= quantity;
-      this.setStatus();
+      this.computeStatus();
       return true;
     }
     return false;
@@ -47,7 +47,7 @@ export class Cake {
 
   addToStock(quantity: number) {
     this.stock += quantity;
-    this.setStatus();
+    this.computeStatus();
   }
 
   /**

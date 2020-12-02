@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export interface Route {
+export interface IRoute {
   name: string;
   method: string;
   path: string;

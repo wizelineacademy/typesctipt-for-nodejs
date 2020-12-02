@@ -1,3 +1,1 @@
-import { Route } from "./interfaces.routes";
-
-export { Route };
+export { IRoute as Route } from "./interfaces.routes";
