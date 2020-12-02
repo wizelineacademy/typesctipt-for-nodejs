@@ -1,43 +1,34 @@
+import { Connection } from "mongoose";
+import { DataService } from "../../components/data-service.components";
 import { Cake } from "./cake.model";
+import { ICake } from "./cake.interface";
 
-let cakes: Cake[];
+class CakeService {
+  private dbService: DataService<ICake>;
 
-export const getCakes = async (): Promise<Cake[]> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(cakes);
-    }, 2000);
-  });
-};
+  constructor(conn: Connection) {
+    this.dbService = new DataService(conn, Cake, "Cake");
+  }
 
-export const createCake = async (model: any): Promise<Cake> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const cake = new Cake(model);
-      cakes.push(cake);
-      resolve(cake);
-    });
-  });
-};
+  getCakes() {
+    return this.dbService.getMany();
+  }
 
-export const updateCake = async (id: string, model: any): Promise<Cake> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      cakes.map((cake) => {
-        if (cake.id === id) {
-          cake = { ...cake, ...model };
-          resolve(cake);
-        }
-      }, 2000);
-    });
-  });
-};
+  createCake(cake: ICake) {
+    return this.dbService.insert(cake);
+  }
 
-export const deleteCake = async (id: string): Promise<Cake[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let filteredCakes = cakes.filter((cake) => cake.id !== id);
-      resolve(filteredCakes);
-    }, 2000);
-  });
-};
+  updateCake(cake: ICake, id: string) {
+    return this.dbService.update(id, cake);
+  }
+
+  deleteCake(id: string) {
+    return this.dbService.delete(id);
+  }
+
+  getCake(id: string) {
+    return this.dbService.getById(id);
+  }
+}
+
+export { CakeService };
