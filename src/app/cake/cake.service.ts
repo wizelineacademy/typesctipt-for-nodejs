@@ -1,6 +1,7 @@
 import { createConnection } from 'mongoose';
 import { DataService } from '../../components/data.service.component';
 import { ICake } from './cake.interface';
+import { Status } from './status.enum';
 import cakeModel from './cake.model';
 
 let cakes: ICake[] = [];
@@ -32,6 +33,14 @@ export class CakeService {
   async updateCake(cake: ICake): Promise<ICake> {
     const currentCake = await this.getCake(cake.name);
     cake._id = currentCake._id;
+
+    if (cake.quantity > 10) {
+      cake.status = Status.Available;
+    } else if (cake.quantity === 0) {
+      cake.status = Status.OutOfStock;
+    } else {
+      cake.status = Status.LastUnits;
+    }
 
     return this.dataService.update(cake._id as string, cake);
   }
