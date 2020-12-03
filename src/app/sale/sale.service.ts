@@ -1,25 +1,30 @@
-import { ISale } from './sale.model';
-import { updateCakeQuantity } from '../cake/cake.service';
+import { createConnection } from 'mongoose';
+import { ISale } from './sale.interface';
+import { DataService } from '../../components/data.service.component';
+import { CakeService } from '../cake/cake.service';
+import saleModel from './sale.model';
 
-let sales: ISale[] = [];
+export class SaleService {
+  private dataService: DataService<ISale>;
+  private cakeService: CakeService;
 
-export const getSales = () => {
-  return new Promise<ISale[]>((resolve) => {
-    setTimeout(() => {
-      resolve(sales);
-    }, sales.length * 100);
-  });
-};
+  constructor() {
+    const connection = createConnection(
+      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority`
+    );
+    console.log(saleModel);
+    this.dataService = new DataService(connection, saleModel.modelName);
+    this.cakeService = new CakeService();
+  }
 
-export const insertSale = (sale: ISale) => {
-  return new Promise<ISale | false>((resolve) => {
-    setTimeout(async () => {
-      if (updateCakeQuantity(sale.cake)) {
-        sales.push(sale);
-        resolve(sale);
-      } else {
-        resolve(false);
-      }
-    }, 100);
-  });
-};
+  getSales(): Promise<ISale[]> {
+    return this.dataService.fetchMany();
+  }
+
+  insertSale(sale: ISale): Promise<string> | boolean {
+    if (this.cakeService.updateCakeQuantity(sale.cake)) {
+      return this.dataService.insert(sale);
+    }
+    return false;
+  }
+}

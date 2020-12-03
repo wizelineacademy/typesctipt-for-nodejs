@@ -1,55 +1,47 @@
-import { resolve } from 'path';
-import { ICake } from './cake.model';
+import { createConnection } from 'mongoose';
+import { DataService } from '../../components/data.service.component';
+import { ICake } from './cake.interface';
+import cakeModel from './cake.model';
 
 let cakes: ICake[] = [];
 
-export const getCakes = () => {
-  return new Promise<ICake[]>((resolve) => {
-    setTimeout(() => {
-      resolve(cakes);
-    }, cakes.length * 100);
-  });
-};
+export class CakeService {
+  private dataService: DataService<ICake>;
 
-export const getCake = (name: string) => {
-  return new Promise<ICake | undefined>((resolve) => {
-    setTimeout(() => {
-      resolve(cakes.find((cake) => cake.name === name));
-    }, 100);
-  });
-};
+  constructor() {
+    const connection = createConnection(
+      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority`
+    );
+    this.dataService = new DataService(connection, cakeModel.modelName);
+  }
 
-export const insertCake = (cake: ICake) => {
-  return new Promise<ICake>((resolve) => {
-    setTimeout(() => {
-      cakes.push(cake);
-      resolve(cake);
-    }, 100);
-  });
-};
+  getCakes(): Promise<ICake[]> {
+    return this.dataService.fetchMany();
+  }
 
-export const updateCake = (cake: ICake) => {
-  return new Promise<ICake>((resolve) => {
-    setTimeout(() => {
-      cakes = cakes.map((oldCake) =>
-        oldCake.name === cake.name ? cake : oldCake
-      );
-      resolve(cake);
-    }, 100);
-  });
-};
+  getCake(cakeName: string): Promise<ICake> {
+    return this.dataService.fetchOne({
+      name: cakeName
+    });
+  }
 
-export const updateCakeQuantity = (cake: ICake) => {
-  return new Promise<boolean>(async (resolve) => {
-    const cakeInStock = await getCake(cake.name);
-    if (cakeInStock === undefined) {
-      resolve(false);
-    } else if (cakeInStock?.quantity >= cake.quantity) {
-      cakeInStock.quantity = cakeInStock.quantity - cake.quantity;
-      await updateCake(cakeInStock);
-      resolve(true);
-    } else {
-      resolve(false);
+  insertCake(cake: ICake): Promise<string> {
+    return this.dataService.insert(cake);
+  }
+
+  async updateCake(cake: ICake): Promise<ICake> {
+    const currentCake = await this.getCake(cake.name);
+    cake._id = currentCake._id;
+
+    return this.dataService.update(cake._id as string, cake);
+  }
+
+  async updateCakeQuantity(cake: ICake): Promise<boolean | ICake> {
+    const cakeInStock = await this.getCake(cake.name);
+    if (cakeInStock === undefined || cakeInStock?.quantity < cake.quantity) {
+      return false;
     }
-  });
-};
+    cakeInStock.quantity = cakeInStock.quantity - cake.quantity;
+    return this.updateCake(cakeInStock);
+  }
+}
