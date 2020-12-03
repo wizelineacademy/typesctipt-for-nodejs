@@ -1,19 +1,20 @@
-let bread: string[] = [];
+import { Connection, createConnection } from "mongoose";
+import { DataService } from "../../components/data-service.component";
+import { IBread } from "./bread.interface";
+import { modelName } from "./bread.model";
 
-export const getBread = () => {
-  return new Promise<string[]>((resolve, reject) => {
-    setTimeout(() => {
-      resolve(bread);
-    }, bread.length * 100);
-  })
-}
+export class BreadService {
+  private dataService: DataService<IBread>;
 
-export const makeBread = (quantity: number) => {
-  return new Promise<string[]>((resolve) => {
-    setTimeout(() => {
-      const newBread = new Array(quantity).fill("🍞");
-      bread = [...bread, ...newBread];
-      resolve(newBread);
-    }, quantity * 100);
-  });
+  constructor(connection: Connection) {
+    this.dataService = new DataService(connection, modelName);
+  }
+
+  getMany(): Promise<IBread[]> {
+    return this.dataService.ferchMany();
+  }
+
+  save(bread: IBread): Promise<string> {
+    return this.dataService.insert(bread);
+  }
 }

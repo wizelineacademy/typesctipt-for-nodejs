@@ -1,16 +1,24 @@
 import { RequestHandler, Request, Response } from "express";
-import { makeBread } from "../bread.service";
+import { Bread } from "../bread.class";
 
 type Params = {};
 type Query = {};
-type Body = {};
+type Body = {
+  name: string;
+  icon: string;
+};
 type Req = Request<Params, {}, Body, Query>;
 type Res = Response;
 
 export const hanlder: RequestHandler[] = [
-  // saveRequest('post breads'),
   async (req: Req, res: Res) => {
-    const bread = await makeBread(1);
-    res.json(bread);
+    // Create bread
+    const bread: Bread = new Bread();
+    bread.name = req.body.name;
+    bread.icon = req.body.icon;
+    // Save bread
+    await bread.save();
+    // Emit bread
+    res.json(bread.values);
   }
 ];
