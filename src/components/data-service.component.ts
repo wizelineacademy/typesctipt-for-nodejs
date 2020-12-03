@@ -6,27 +6,32 @@ export class DataService<T> {
 
   constructor(connection: Connection, modelName: string) {
     this.connection = connection;
+    const models = this.connection.modelNames();
     this.model = this.connection.model(modelName);
   }
 
-  fetchMany(): Promise<T[]> {
-    return this.model.find({}).lean().exec();
+  fetchAll(): Promise<T[]> {
+    return this.model.find({}).exec();
   }
 
-  fetch(filter: any): Promise<T> {
-    return this.model.find(filter).lean().exec();
+  fetch(filter: any): Promise<T[]> {
+    return this.model.find(filter).exec();
+  }
+
+  fetchOne(filter: any): Promise<T> {
+    return this.model.findOne(filter).exec();
   }
 
   fetchOneById(id: string): Promise<T> {
-    return this.model.findById(id).lean().exec();
+    return this.model.findById(id).exec();
   }
 
   updateById(id: string, data: T): Promise<T> {
-    return this.model.findByIdAndUpdate(id, data).lean().exec();
+    return this.model.findByIdAndUpdate(id, data).exec();
   }
 
   deleteById(id: string): Promise<T> {
-    return this.model.findByIdAndDelete(id).lean().exec();
+    return this.model.findByIdAndDelete(id).exec();
   }
 
   async insert(data: T): Promise<string> {

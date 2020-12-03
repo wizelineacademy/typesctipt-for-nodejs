@@ -1,5 +1,5 @@
 export enum CakeStatus {
-  'Available',
-  'LastUnits',
-  'OutOfStock',
+  'Available' = 'Available',
+  'LastUnits' = 'LastUnits',
+  'OutOfStock' = 'OutOfStock',
 }

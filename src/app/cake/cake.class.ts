@@ -2,10 +2,7 @@ import { dbMain } from '../app.database';
 import { ICake } from '../models/ICake';
 import { CakeStatus } from '../models/CakeStatus.enum';
 import { CakeService } from './cake.service';
-
-export type CakeInjection = {
-  cakeService?: CakeService;
-};
+import { CakeInjection } from '../app.di';
 
 export class Cake implements ICake {
   private _cakeService: CakeService;
@@ -43,6 +40,12 @@ export class Cake implements ICake {
   }
 
   async makeCake(): Promise<string> {
+    const cake = await this._cakeService.getByName(this.name);
+    if (cake) {
+      // Throw error name already exists.
+    }
+
+    this.setStatusWithRules();
     const cakeId = await this._cakeService.insert(this.values);
     return cakeId;
   }
@@ -57,8 +60,19 @@ export class Cake implements ICake {
     return cakes;
   }
 
-  async deleteCake(id: string): Promise<ICake> {
-    const deletedCake = await this._cakeService.delete(id);
+  async updateCake(id: string): Promise<ICake> {
+    this.setStatusWithRules();
+    const deletedCake = await this._cakeService.update(id, this.values);
     return deletedCake;
+  }
+
+  private setStatusWithRules(): void {
+    if (this.stock === 0) {
+      this.status = CakeStatus.OutOfStock;
+    } else if (this.stock > 0 && this.stock < 10) {
+      this.status = CakeStatus.LastUnits;
+    } else {
+      this.status = CakeStatus.Available;
+    }
   }
 }

@@ -2,35 +2,30 @@ import { Connection } from 'mongoose';
 import { DataService } from '../../components/data-service.component';
 import { ICake } from '../models/index';
 
+/**
+ * Class that interacts with the database (Like a repository)
+ */
 export class CakeService {
   private _dataService: DataService<ICake>;
 
   constructor(connection: Connection) {
-    this._dataService = new DataService(connection, 'Cake');
+    this._dataService = new DataService(connection, 'cakes');
   }
 
-  getMany = async (): Promise<ICake[]> => this._dataService.fetchMany();
+  getMany = async (): Promise<ICake[]> => this._dataService.fetchAll();
 
   getById = async (id: string): Promise<ICake> =>
     this._dataService.fetchOneById(id);
 
+  getByName = async (name: string): Promise<ICake> =>
+    this._dataService.fetchOne({ name });
+
   async insert(cake: ICake): Promise<string> {
-    const { name } = cake;
-    const fetchedCake = await this._dataService.fetch({ name });
-    if (cake.name == fetchedCake.name) {
-      // Throw error
-    } else {
-      return this._dataService.insert(cake);
-    }
+    return this._dataService.insert(cake);
   }
 
-  async delete(id: string): Promise<ICake> {
-    const fetchedCake = await this._dataService.fetchOneById(id);
-    if (fetchedCake) {
-      const deletedCake = await this._dataService.deleteById(id);
-      return deletedCake;
-    } else {
-      // Throw error
-    }
+  async update(id: string, cake: ICake): Promise<ICake> {
+    const updatedCake = await this._dataService.updateById(id, cake);
+    return updatedCake;
   }
 }

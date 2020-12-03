@@ -3,8 +3,14 @@ import { createConnection } from 'mongoose';
 const db = process.env.DB || '';
 const dbHost = process.env.DBHOST || '';
 
-export const dbMain = createConnection(`${dbHost}${db}`, {
+const connectionString = `${dbHost}${db}`;
+console.log('connectionString', connectionString);
+
+export const dbMain = createConnection(connectionString, {
+  autoIndex: true,
   useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: true,
 });
 
 dbMain.on('connected', () => {

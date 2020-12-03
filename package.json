@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
     "start": "node -r dotenv/config dist/index.js",
-    "start:watch": "nodemon dotenv/config dist/index.js",
+    "start:watch": "nodemon -r dotenv/config dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +30,6 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.0"
+    "mongoose": "^5.10.1"
   }
 }
