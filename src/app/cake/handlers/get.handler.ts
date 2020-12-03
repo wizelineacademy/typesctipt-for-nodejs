@@ -1,9 +1,10 @@
 import { RequestHandler, Request, Response } from 'express';
-import { getCakes } from '../cake.service';
+import { CakeService } from '../cake.service';
 
 export const handler: RequestHandler[] = [
   async (_: Request, res: Response) => {
-    const cakes = await getCakes();
+    const cakeService = new CakeService();
+    const cakes = await cakeService.getCakes();
     res.json(cakes);
   }
 ];

@@ -1,7 +1,7 @@
 import { RequestHandler, Request, Response } from 'express';
-import { ICake } from '../../cake/cake.model';
-import { ISale } from '../../sale/sale.model';
-import { insertSale } from '../sale.service';
+import { ICake } from '../../cake/cake.interface';
+import { ISale } from '../sale.interface';
+import { SaleService } from '../sale.service';
 
 export const handler: RequestHandler[] = [
   async (req: Request, res: Response) => {
@@ -11,8 +11,9 @@ export const handler: RequestHandler[] = [
       customerEmail: req.body.customerEmail,
       totalAmount: +req.body.totalAmount,
       cake: req.body.cake as ICake
-    };
-    const sale = await insertSale(saleIntent);
+    } as ISale;
+    const saleService = new SaleService();
+    const sale = await saleService.insertSale(saleIntent);
     res.json(sale);
   }
 ];
