@@ -8,6 +8,7 @@ export const handler: RequestHandler[] = [
   // Middlewares
   async (req: Req, res: Res) => {
     const cake = new Cake(cakeInjection);
+    const id = req.params['id'];
     const payload = req.body as ICake;
     cake.name = payload.name;
     cake.price = payload.price;
@@ -16,7 +17,7 @@ export const handler: RequestHandler[] = [
     cake.status = payload.status;
     cake.description = payload.description;
     cake.ingredients = payload.ingredients;
-    const cakeId = await cake.makeCake();
+    const cakeId = await cake.updateCake(id);
     res.json({ message: 'Cake created', cakeId });
   },
 ];
