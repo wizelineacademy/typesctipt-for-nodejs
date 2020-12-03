@@ -42,4 +42,4 @@ const Sales = model(
   collection
 );
 
-export default Sales;
+export { Sales, modelName };

@@ -1,6 +1,5 @@
 import { dbMain } from '../app.database';
-import { ICake } from '../models/ICake';
-import { CakeStatus } from '../models/CakeStatus.enum';
+import { CakeStatus, ICake } from '@models';
 import { CakeService } from './cake.service';
 import { CakeInjection } from '../app.di';
 

@@ -1,6 +1,7 @@
 import { Connection } from 'mongoose';
 import { DataService } from '../../components/data-service.component';
-import { ICake } from '../models/index';
+import { ICake } from '@models';
+import { modelName } from './cake.model';
 
 /**
  * Class that interacts with the database (Like a repository)
@@ -9,7 +10,7 @@ export class CakeService {
   private _dataService: DataService<ICake>;
 
   constructor(connection: Connection) {
-    this._dataService = new DataService(connection, 'cakes');
+    this._dataService = new DataService(connection, modelName);
   }
 
   getMany = async (): Promise<ICake[]> => this._dataService.fetchAll();

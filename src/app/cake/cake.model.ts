@@ -59,4 +59,4 @@ const Cake = model(
   collection
 );
 
-export default Cake;
+export { Cake, modelName };
