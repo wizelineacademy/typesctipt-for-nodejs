@@ -1,9 +1,8 @@
-import { Status as CakeStatus } from './cake.enums';
-export interface ICake {
+export interface ISellCake {
   name: string;
   description: string;
   ingredients: string[];
   price: number;
   stock: number;
-  status: CakeStatus;
+  quantity: number;
 }

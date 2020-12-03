@@ -1,7 +1,7 @@
 // Get handler
-// Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
-import { CakeService } from '../cake.service';
+import { ISale } from '../../sale/sale.interface';
+import { SaleService } from '../sale.service';
 
 type Params = {};
 type Query = {};
@@ -14,12 +14,12 @@ type Res = Response;
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res) => {
     try {
-      const cakeId: string = req.params['cakeId'];
-      const cakeService: CakeService = new CakeService();
-      const cake = await cakeService.getCake(cakeId);
-      res.json(cake);
+      const saleId: string = req.params['saleId'];
+      const saleService: SaleService = new SaleService();
+      const sale: ISale = await saleService.getSale(saleId);
+      res.json(sale);
     } catch (error) {
-      console.log('error on getOneCake', error.message);
+      console.log('error on getOneSale', error.message);
       res.json({ errorMessage: 'Something went wrong!' });
     }
   },

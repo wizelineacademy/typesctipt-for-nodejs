@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import { json } from 'body-parser';
 import { router as cakeRouter } from './cake/cake.router';
-import { router as salesRouter } from './sale/sales.router';
+import { router as salesRouter } from './sale/sale.router';
 // Explicit var type on declaration BP/GI (Best Practise/Gute Idee)
 const app: Express = express();
 // App middlewares

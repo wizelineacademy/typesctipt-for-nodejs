@@ -1,7 +1,7 @@
 // Get handler
-// Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
-import { getSales } from '../sales.service';
+import { ISale } from '../../sale/sale.interface';
+import { SaleService } from '../sale.service';
 
 type Params = {};
 type Query = {};
@@ -13,7 +13,13 @@ type Res = Response;
 // middlewares goes here like validation and loggers
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res) => {
-    const sales = await getSales();
-    res.json(sales);
+    try {
+      const saleService: SaleService = new SaleService();
+      const sales: ISale[] = await saleService.getSales();
+      res.json(sales);
+    } catch (error) {
+      console.log('error on getSales', error.message);
+      res.json({ errorMessage: 'Something went wrong!' });
+    }
   },
 ];

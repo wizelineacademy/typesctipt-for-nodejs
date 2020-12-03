@@ -1,15 +1,12 @@
-import { createConnection } from 'mongoose';
 import { ICake } from './cake.interface';
-import { DataService } from '../../components/mogo-data-service-component';
+import { DataService } from '../../components/mongo-data-service-component';
 import { CakeSchema, modelName } from './cake.model';
-import { connString, mongoDBOptions } from '../app.db';
+import { dbConn as connection } from '../app.db';
 
 export class CakeService {
   private dataService: DataService<ICake>;
 
   constructor() {
-    // mongo-dataservice connection
-    const connection = createConnection(connString, mongoDBOptions);
     this.dataService = new DataService(connection, modelName, CakeSchema);
   }
 
@@ -22,5 +19,15 @@ export class CakeService {
   getCakes(): Promise<ICake[]> {
     console.log('getMany');
     return this.dataService.fetchMany();
+  }
+  // getOneById
+  getCake(cakeId: string): Promise<ICake> {
+    console.log('getOneById');
+    return this.dataService.fetchOne(cakeId);
+  }
+  // updateOneById
+  editCake(cakeId: string, cakeData: ICake): Promise<ICake> {
+    console.log('updateOneById');
+    return this.dataService.update(cakeId, cakeData);
   }
 }

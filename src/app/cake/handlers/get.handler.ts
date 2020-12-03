@@ -1,7 +1,6 @@
 // Get handler
 // Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
-// import { getCakes } from '../cake.service';
 import { CakeService } from '../cake.service';
 
 type Params = {};
@@ -18,11 +17,11 @@ export const handler: RequestHandler[] = [
   async (req: Req, res: Res) => {
     try {
       // const cakes = await getCakes();
-      const cakeService = new CakeService();
+      const cakeService: CakeService = new CakeService();
       const cakes = await cakeService.getCakes();
-      res.json({ success: true, cakes });
+      res.json(cakes);
     } catch (error) {
-      console.log('error', error.message);
+      console.log('error on getCakes', error.message);
       res.json({ success: false, errorMessage: 'Something went wrong!' });
     }
   },

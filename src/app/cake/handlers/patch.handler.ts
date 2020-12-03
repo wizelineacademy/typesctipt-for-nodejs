@@ -1,7 +1,8 @@
 // Get handler
 // Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
-// import { editCake } from '../cake.service';
+import { CakeService } from '../cake.service';
+import { ICake } from '../cake.interface';
 
 type Params = {};
 type Query = {};
@@ -13,15 +14,15 @@ type Res = Response;
 // middlewares goes here like validation and loggers
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res) => {
-    const cakeData = {
-      name: 'Chocolate Cake',
-      description: 'Es un pastel de Chocolate Cake.',
-      ingredients: ['huevo', 'harina', 'leche'],
-      price: 22,
-      stock: 1,
-    };
-
-    // const cake = await editCake(cakeData);
-    res.json(cakeData);
+    try {
+      const cakeId: string = req.params['cakeId'];
+      const cakeData: ICake = req.body as ICake;
+      const cakeService: CakeService = new CakeService();
+      const cake = await cakeService.editCake(cakeId, cakeData);
+      res.json(cakeData);
+    } catch (error) {
+      console.log('error on editCake', error.message);
+      res.json({ errorMessage: 'Something went wrong!' });
+    }
   },
 ];

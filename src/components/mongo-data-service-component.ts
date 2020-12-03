@@ -18,8 +18,8 @@ export class DataService<T> {
     return this.model.find({}).lean().exec();
   }
 
-  fetchOne() {
-    // To be implemented
+  fetchOne(id: string): Promise<T> {
+    return this.model.findById(id).lean().exec();
   }
 
   insert(data: T): Promise<string> {
@@ -29,7 +29,12 @@ export class DataService<T> {
     });
   }
 
-  update() {
-    // To be implemented
+  update(id: string, data: T): Promise<T> {
+    return this.model
+      .findByIdAndUpdate(id, data, { new: true })
+      .then((updatedModel) => {
+        console.log('updatedModel', updatedModel);
+        return updatedModel;
+      });
   }
 }

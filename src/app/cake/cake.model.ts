@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 
 export const modelName: string = 'Cake';
-export const collection: string = 'cakess';
+export const collection: string = 'cakes';
 
 export const CakeSchema = new Schema(
   {
@@ -12,5 +12,5 @@ export const CakeSchema = new Schema(
     stock: { type: Schema.Types.Number },
     status: { type: Schema.Types.String },
   },
-  { collection }
+  { collection, timestamps: true }
 );

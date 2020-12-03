@@ -1,5 +1,9 @@
 import { ICake } from './cake.interface';
 import { Status as CakeStatus } from './cake.enums';
+import { CakeService } from './cake.service';
+
+type CakeInjection = { cakeService: CakeService };
+
 // Cake Class
 class Cake implements ICake {
   // properties
@@ -7,23 +11,19 @@ class Cake implements ICake {
   description: string;
   ingredients: string[];
   price: number;
-  stock: number;
-  status: CakeStatus;
+  stock: number = 0;
+  status: CakeStatus = CakeStatus.OutOfStock;
+  // Service
+  cakeService: CakeService;
   // constructor
-  constructor(
-    name: string,
-    description: string,
-    ingredients: string[],
-    price: number,
-    stock: number = 0,
-    status: CakeStatus = CakeStatus.OutOfStock
-  ) {
-    this.name = name;
-    this.description = description;
-    this.ingredients = ingredients;
-    this.price = price;
-    this.stock = stock;
-    this.status = status;
+  constructor(cake: ICake, injection: CakeInjection) {
+    this.cakeService = injection.cakeService || new CakeService();
+    this.name = cake.name;
+    this.description = cake.description;
+    this.ingredients = cake.ingredients;
+    this.price = cake.price;
+    this.stock = cake.stock;
+    this.status = cake.status;
   }
   // methods
   getDetail(): Cake {
