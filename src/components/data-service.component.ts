@@ -6,7 +6,7 @@ export class DataService<T> {
 
   constructor(connection: Connection, modelName: string) {
     this.connection = connection;
-    this.model = this.connection.model(modelName);
+    this.model = this.connection?.model(modelName);
   }
 
   ferchMany(): Promise<T[]> {

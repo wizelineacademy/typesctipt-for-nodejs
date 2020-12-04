@@ -15,7 +15,7 @@ export const hanlder: RequestHandler[] = [
     // Create bread
     const bread: Bread = new Bread();
     bread.name = req.body.name;
-    bread.icon = req.body.icon;
+    bread.emoji = req.body.icon;
     // Save bread
     await bread.save();
     // Emit bread
