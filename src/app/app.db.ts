@@ -1,4 +1,4 @@
-import { createConnection } from 'mongoose';
+import { createConnection, Connection } from 'mongoose';
 import 'dotenv/config';
 
 // Create db Conn String
@@ -17,7 +17,7 @@ const mongoDBOptions = {
 };
 
 // Connection
-export const dbConn = createConnection(connString, mongoDBOptions);
+export const dbConn: Connection = createConnection(connString, mongoDBOptions);
 // mongoose.Promise = global.Promise;
 dbConn.on(
   'connected',
