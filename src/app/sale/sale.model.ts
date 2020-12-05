@@ -10,6 +10,7 @@ export const SellSchema = new Schema(
     customerEmail: { type: Schema.Types.String },
     totalAmount: { type: Schema.Types.Number },
     cake: {
+      cakeId: { type: Schema.Types.ObjectId, ref: 'Cake' },
       name: { type: Schema.Types.String },
       description: { type: Schema.Types.String },
       ingredients: { type: [Schema.Types.String] },

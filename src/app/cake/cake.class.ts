@@ -2,7 +2,7 @@ import { ICake } from './cake.interface';
 import { Status as CakeStatus } from './cake.enums';
 import { CakeService } from './cake.service';
 
-type CakeInjection = { cakeService: CakeService };
+export type CakeInjection = { cakeService: CakeService };
 
 // Cake Class
 export class Cake implements ICake {
@@ -14,8 +14,8 @@ export class Cake implements ICake {
   price: number;
   stock: number;
   status: CakeStatus = CakeStatus.OutOfStock;
-  // data service property to be injected
-  cakeService: CakeService;
+  // Data Service to be injected
+  private cakeService: CakeService;
   // constructor
   constructor(cake: ICake, injection?: CakeInjection) {
     this.setValues(cake);
@@ -45,30 +45,40 @@ export class Cake implements ICake {
       this.ingredients = cakeValues.ingredients;
       this.price = cakeValues.price;
       this.stock = cakeValues.stock;
-      this.status = cakeValues.status;
+      this.status = this.calculateStatus(cakeValues.stock);
     }
   }
+
+  calculateStatus(stock: number): CakeStatus {
+    return stock == 0
+      ? CakeStatus.OutOfStock
+      : stock <= 10
+      ? CakeStatus.LastUnits
+      : CakeStatus.Available;
+  }
+
   // DAO logic through service
   public async save() {
     // validate fields...
-    this.validateName();
-    this.validateDescription();
-    this.validateIngredients();
-    this.validatePrice();
-    this.validateStock();
+    this.validateFields();
     // save fields
     this._id = await this.cakeService.createCake(this.cake);
   }
+
   public async edit(cakeId: string) {
     // validate fields...
+    this.validateFields();
+    this.status = this.calculateStatus(this.stock);
+    // update fields
+    return await this.cakeService.editCake(cakeId, this.cake);
+  }
+
+  validateFields(): void {
     this.validateName();
     this.validateDescription();
     this.validateIngredients();
     this.validatePrice();
     this.validateStock();
-    // update fields
-    // this._id = await this.cakeService.createCake(this.cake);
-    return await this.cakeService.editCake(cakeId, this.cake);
   }
   // Business Logic as required by the challenge
   validateName(): void {
@@ -84,7 +94,7 @@ export class Cake implements ICake {
         throw new Error(
           `The Name is too ${
             isTooLong ? 'long' : 'short'
-          }, its length must be between 5 and 50 characters.`
+          }, its length must be between ${minLength} and ${maxLength} characters.`
         );
       }
     } else {

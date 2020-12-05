@@ -10,7 +10,7 @@ export class SaleService {
     this.dataService = new DataService(connection, modelName, SellSchema);
   }
 
-  // insert
+  // insert (sellCake)
   createSale(saleData: ISale): Promise<string> {
     console.log('insert: ' + modelName);
     return this.dataService.insert(saleData);

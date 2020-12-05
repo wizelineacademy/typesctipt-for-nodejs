@@ -12,22 +12,22 @@ export class CakeService {
 
   // insert
   createCake(cakeData: ICake): Promise<string> {
-    console.log('inserting Cake...');
+    console.log('inserting: ' + modelName);
     return this.dataService.insert(cakeData);
   }
   // getMany
   getCakes(): Promise<ICake[]> {
-    console.log('getMany Cakes');
+    console.log('getMany: ' + modelName);
     return this.dataService.fetchMany();
   }
   // getOneById
   getCake(cakeId: string): Promise<ICake> {
-    console.log('getOneCake ById');
+    console.log('getOneById: ' + modelName);
     return this.dataService.fetchOne(cakeId);
   }
   // updateOneById
   editCake(cakeId: string, cakeData: ICake): Promise<ICake> {
-    console.log('updateOne Cake ById');
+    console.log('updateOneById ' + modelName);
     return this.dataService.update(cakeId, cakeData);
   }
 }
