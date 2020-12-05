@@ -14,7 +14,7 @@ const cakeService: CakeService = instance(mockedCakeService);
 const cakeValues: ICake = {
   name: 'Test Cake Name',
   description: 'My test cake for testing',
-  ingredients: ['','',''],
+  ingredients: ['',''],
   price: 100,
   stock: 3,
   status: CakeStatus.Available
@@ -39,6 +39,18 @@ describe('Cake', () => {
         expect(id).to.be.eq('mocked_id');
       } catch (error) {
         should().fail();
+      }
+    });
+
+  });
+  
+  describe('#validate', () => {
+    it('Should throw an Error', async () => {
+      try {
+        const id = await cakeService.validateData(cakeValues);
+        console.log(id);
+      } catch (error) {
+        expect(error.message).to.be.eq('Cake description incorrect!!');
       }
     });
 

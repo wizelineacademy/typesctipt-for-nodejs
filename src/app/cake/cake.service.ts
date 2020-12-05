@@ -35,7 +35,7 @@ export class CakeService {
     Price: Required, greater than 0.
     Stock: Required, greater than -1.
   */
-  private validateData(cake: ICake) { 
+  public validateData(cake: ICake) { 
 
     if (cake.name.length < 5 || cake.name.length > 50) { 
       throw new Error('Cake name incorrect!!');
