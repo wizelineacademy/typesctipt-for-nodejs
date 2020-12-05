@@ -1,6 +1,6 @@
 import { CakeStatus } from './CakeStatus.enum';
 
-export interface ICake {
+interface ICake {
   name: string;
   description: string;
   ingredients: string[];
@@ -8,3 +8,5 @@ export interface ICake {
   stock: number;
   status: CakeStatus;
 }
+
+export { ICake };

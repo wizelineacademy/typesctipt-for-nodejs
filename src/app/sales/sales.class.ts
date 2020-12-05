@@ -1,7 +1,7 @@
 import { dbMain } from '../app.database';
 import { CakeInjection, SalesInjection } from '../app.di';
 import { CakeService } from '../cake/cake.service';
-import { ISell } from '@models';
+import { ISell } from '../models/index';
 import { SalesService } from './sales.service';
 
 export class Sales implements ISell {

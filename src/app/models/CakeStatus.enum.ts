@@ -1,5 +1,7 @@
-export enum CakeStatus {
+enum CakeStatus {
   'Available' = 'Available',
   'LastUnits' = 'LastUnits',
   'OutOfStock' = 'OutOfStock',
 }
+
+export { CakeStatus };

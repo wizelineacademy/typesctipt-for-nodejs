@@ -1,6 +1,6 @@
 import { Connection } from 'mongoose';
 import { DataService } from '../../components/data-service.component';
-import { ICake } from '@models';
+import { ICake } from '../models/index';
 import { modelName } from './cake.model';
 
 /**

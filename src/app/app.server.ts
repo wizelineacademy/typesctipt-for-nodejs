@@ -1,13 +1,23 @@
-import express, { Express } from 'express';
+import express, { Express, Router } from 'express';
 import { router as cakeRouter } from './cake/cake.router';
 import { router as salesRouter } from './sales/sales.router';
-import bodyParser from 'body-parser';
+import { json } from 'body-parser';
+import { errorHandler } from '../components/error.component';
 
 const app: Express = express();
 
-app.use(bodyParser.json());
-app.use('/cakes', cakeRouter);
-app.use('/sales', salesRouter);
+const router: Router = Router();
+
+router.use(json());
+
+router.use('/cakes', cakeRouter);
+router.use('/sales', salesRouter);
+
+app.use(router);
+
+app.use((error, _req, res, _next) => {
+  errorHandler(error, res);
+});
 
 export const initServer = (port: number) => {
   app.listen(port, () => {

@@ -1,13 +1,13 @@
 import { RequestHandler } from 'express';
-import { Req, Res } from '@customTypes';
-import { ICake } from '@models';
+import { Req, Res } from '../../types/index';
 import { Cake } from '../cake.class';
-import { cakeInjection } from '../../app.di';
+import { ICake } from '../../models/index';
+import { errorWrap } from '../../../components/error.component';
 
 export const handler: RequestHandler[] = [
   // Middlewares
-  async (req: Req, res: Res) => {
-    const cake = new Cake(cakeInjection);
+  errorWrap(async (req: Req, res: Res) => {
+    const cake = new Cake();
     const payload = req.body as ICake;
     cake.name = payload.name;
     cake.price = payload.price;
@@ -18,5 +18,5 @@ export const handler: RequestHandler[] = [
     cake.ingredients = payload.ingredients;
     const cakeId = await cake.makeCake();
     res.json({ message: 'Cake created', cakeId });
-  },
+  }),
 ];

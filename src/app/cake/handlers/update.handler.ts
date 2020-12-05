@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
-import { Req, Res } from '@customTypes';
-import { ICake } from '@models';
+import { Req, Res } from '../../types/index';
+import { ICake } from '../../models/index';
 import { Cake } from '../cake.class';
 import { cakeInjection } from '../../app.di';
 

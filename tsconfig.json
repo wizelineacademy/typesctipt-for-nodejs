@@ -6,11 +6,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@customTypes": ["./src/app/types"],
-      "@models": ["./src/app/models"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

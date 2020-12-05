@@ -38,7 +38,7 @@ const Cake = model(
             }
             return true;
           },
-          msg: 'Ingredients must be at least characacter and max 20.',
+          msg: 'Ingredients must be at least 1 character and max 20.',
         },
       ],
     },

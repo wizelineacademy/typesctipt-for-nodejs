@@ -1,7 +1,8 @@
 import { dbMain } from '../app.database';
-import { CakeStatus, ICake } from '@models';
 import { CakeService } from './cake.service';
 import { CakeInjection } from '../app.di';
+import { CakeStatus, ICake } from '../models/index';
+import { CustomError } from '../../components/error.component';
 
 export class Cake implements ICake {
   private _cakeService: CakeService;
@@ -12,7 +13,7 @@ export class Cake implements ICake {
   stock: number;
   status: CakeStatus;
 
-  constructor(injection: CakeInjection) {
+  constructor(injection?: CakeInjection) {
     this._cakeService = injection?.cakeService || new CakeService(dbMain);
   }
 
@@ -42,6 +43,7 @@ export class Cake implements ICake {
     const cake = await this._cakeService.getByName(this.name);
     if (cake) {
       // Throw error name already exists.
+      throw new CustomError('Cake name already exists');
     }
 
     this.setStatusWithRules();
@@ -51,6 +53,10 @@ export class Cake implements ICake {
 
   async getCake(id: string): Promise<ICake> {
     const cake = await this._cakeService.getById(id);
+    console.log(cake);
+    if (!cake) {
+      throw new CustomError('Cake does not exists.');
+    }
     return cake;
   }
 

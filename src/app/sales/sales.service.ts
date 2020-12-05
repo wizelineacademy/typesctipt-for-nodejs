@@ -1,6 +1,6 @@
 import { Connection } from 'mongoose';
 import { DataService } from '../../components/data-service.component';
-import { ISell } from '@models';
+import { ISell } from '../models/index';
 import { modelName } from './sales.model';
 
 /**

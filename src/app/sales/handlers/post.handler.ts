@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { Req, Res } from '@customTypes';
+import { Req, Res } from '../../types/index';
 
 export const handler: RequestHandler[] = [
   // Middlewares

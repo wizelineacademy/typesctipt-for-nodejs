@@ -1,4 +1,4 @@
-import { Req, Res } from '@customTypes';
+import { Req, Res } from '../../types/index';
 import { RequestHandler } from 'express';
 
 export const handler: RequestHandler[] = [
