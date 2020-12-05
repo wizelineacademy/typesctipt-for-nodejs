@@ -67,8 +67,8 @@ export class Cake implements ICake {
 
   async updateCake(id: string): Promise<ICake> {
     this.setStatusWithRules();
-    const deletedCake = await this._cakeService.update(id, this.values);
-    return deletedCake;
+    const updatedCake = await this._cakeService.update(id, this.values);
+    return updatedCake;
   }
 
   private setStatusWithRules(): void {

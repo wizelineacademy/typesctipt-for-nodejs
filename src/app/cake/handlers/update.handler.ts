@@ -3,10 +3,11 @@ import { Req, Res } from '../../types/index';
 import { ICake } from '../../models/index';
 import { Cake } from '../cake.class';
 import { cakeInjection } from '../../app.di';
+import { errorWrap } from '../../../components/error.component';
 
 export const handler: RequestHandler[] = [
   // Middlewares
-  async (req: Req, res: Res) => {
+  errorWrap(async (req: Req, res: Res) => {
     const cake = new Cake(cakeInjection);
     const id = req.params['id'];
     const payload = req.body as ICake;
@@ -18,6 +19,6 @@ export const handler: RequestHandler[] = [
     cake.description = payload.description;
     cake.ingredients = payload.ingredients;
     const cakeId = await cake.updateCake(id);
-    res.json({ message: 'Cake created', cakeId });
-  },
+    res.json({ message: 'Cake updated', cakeId });
+  }),
 ];

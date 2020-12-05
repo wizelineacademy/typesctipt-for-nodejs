@@ -27,7 +27,9 @@ export class DataService<T> {
   }
 
   updateById(id: string, data: T): Promise<T> {
-    return this.model.findByIdAndUpdate(id, data).exec();
+    return this.model
+      .findByIdAndUpdate(id, data, { runValidators: true })
+      .exec();
   }
 
   deleteById(id: string): Promise<T> {
