@@ -13,6 +13,11 @@ export class SalesService {
     this._salesDataService = new DataService(conn, modelName);
   }
 
+  async fetchAll(): Promise<ISell[]> {
+    const sales = await this._salesDataService.fetchAll();
+    return sales;
+  }
+
   async sell(sale: ISell): Promise<string> {
     const saleId = await this._salesDataService.insert(sale);
     return saleId;

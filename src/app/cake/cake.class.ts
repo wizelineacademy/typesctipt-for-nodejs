@@ -42,7 +42,6 @@ export class Cake implements ICake {
   async makeCake(): Promise<string> {
     const cake = await this._cakeService.getByName(this.name);
     if (cake) {
-      // Throw error name already exists.
       throw new CustomError('Cake name already exists');
     }
 
@@ -53,7 +52,6 @@ export class Cake implements ICake {
 
   async getCake(id: string): Promise<ICake> {
     const cake = await this._cakeService.getById(id);
-    console.log(cake);
     if (!cake) {
       throw new CustomError('Cake does not exists.');
     }

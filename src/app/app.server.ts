@@ -1,4 +1,10 @@
-import express, { Express, Router } from 'express';
+import express, {
+  Express,
+  Router,
+  Request,
+  Response,
+  NextFunction,
+} from 'express';
 import { router as cakeRouter } from './cake/cake.router';
 import { router as salesRouter } from './sales/sales.router';
 import { json } from 'body-parser';
@@ -15,7 +21,7 @@ router.use('/sales', salesRouter);
 
 app.use(router);
 
-app.use((error, _req, res, _next) => {
+app.use((error, req: Request, res: Response, next: NextFunction) => {
   errorHandler(error, res);
 });
 
