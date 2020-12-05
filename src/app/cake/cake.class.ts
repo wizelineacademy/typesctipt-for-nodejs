@@ -5,21 +5,21 @@ import { CakeService } from './cake.service';
 type CakeInjection = { cakeService: CakeService };
 
 // Cake Class
-class Cake implements ICake {
+export class Cake implements ICake {
   // properties
   _id: string;
   name: string;
   description: string;
   ingredients: string[];
   price: number;
-  stock: number = 0;
+  stock: number;
   status: CakeStatus = CakeStatus.OutOfStock;
   // data service property to be injected
   cakeService: CakeService;
   // constructor
-  constructor(cake: ICake, injection: CakeInjection) {
-    this.cakeService = injection.cakeService || new CakeService();
+  constructor(cake: ICake, injection?: CakeInjection) {
     this.setValues(cake);
+    this.cakeService = injection?.cakeService || new CakeService();
   }
   // Accesors (getter/setter)
   get cake(): ICake {
@@ -37,7 +37,6 @@ class Cake implements ICake {
   set cake(cakeValues: ICake) {
     this.setValues(cakeValues);
   }
-
   // methods
   setValues(cakeValues: ICake): void {
     if (cakeValues) {
@@ -52,8 +51,24 @@ class Cake implements ICake {
   // DAO logic through service
   public async save() {
     // validate fields...
+    this.validateName();
+    this.validateDescription();
+    this.validateIngredients();
+    this.validatePrice();
+    this.validateStock();
     // save fields
     this._id = await this.cakeService.createCake(this.cake);
+  }
+  public async edit(cakeId: string) {
+    // validate fields...
+    this.validateName();
+    this.validateDescription();
+    this.validateIngredients();
+    this.validatePrice();
+    this.validateStock();
+    // update fields
+    // this._id = await this.cakeService.createCake(this.cake);
+    return await this.cakeService.editCake(cakeId, this.cake);
   }
   // Business Logic as required by the challenge
   validateName(): void {
@@ -97,7 +112,7 @@ class Cake implements ICake {
       throw new Error(`The Description of the cake is required.`);
     }
   }
-  // TO DO
+  // Ingredients
   validateIngredients(): void {
     // Field constraints
     const minAmountOfIngredients: number = 3;
@@ -108,7 +123,7 @@ class Cake implements ICake {
       this.ingredients.forEach((ingredient) => {
         if (!this.isValidIngredient(ingredient)) {
           throw new Error(
-            `The ingredient ${ingredient} must have between 1 and 20 characters.`
+            `All the ingredients ${ingredient} must have between 1 and 20 characters.`
           );
         }
       });
@@ -116,7 +131,7 @@ class Cake implements ICake {
       throw new Error(`The cake needs at least three ingredients.`);
     }
   }
-
+  // A particular ingredient
   isValidIngredient(ingredient: string): boolean {
     // Field Rules
     const minLength: number = 1;
@@ -165,5 +180,3 @@ class Cake implements ICake {
     }
   }
 }
-
-export default Cake;

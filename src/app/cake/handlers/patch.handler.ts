@@ -3,6 +3,7 @@
 import { RequestHandler, Request, Response } from 'express';
 import { CakeService } from '../cake.service';
 import { ICake } from '../cake.interface';
+import { Cake } from '../cake.class';
 
 type Params = {};
 type Query = {};
@@ -17,9 +18,12 @@ export const handler: RequestHandler[] = [
     try {
       const cakeId: string = req.params['cakeId'];
       const cakeData: ICake = req.body as ICake;
-      const cakeService: CakeService = new CakeService();
-      const cake = await cakeService.editCake(cakeId, cakeData);
-      res.json(cakeData);
+      // const cakeService: CakeService = new CakeService();
+      const cake: Cake = new Cake(cakeData);
+      // const cake = await cakeService.editCake(cakeId, cakeData);
+      const updatedCake = await cake.edit(cakeId);
+      console.log('[updatedCake]', updatedCake);
+      res.json(updatedCake);
     } catch (error) {
       console.log('error on editCake', error.message);
       res.json({ errorMessage: 'Something went wrong!' });

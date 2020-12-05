@@ -2,7 +2,8 @@
 // Single Responsibility File, for handling requests
 import { RequestHandler, Request, Response } from 'express';
 import { ICake } from '../cake.interface';
-import { CakeService } from '../cake.service';
+import { Cake } from '../cake.class';
+// import { CakeService } from '../cake.service';
 
 type Params = {};
 type Query = {};
@@ -18,15 +19,19 @@ export const handler: RequestHandler[] = [
   async (req: Req, res: Res) => {
     try {
       // console.log('req.body', req.body);
-      const newCake = req.body as ICake;
-      const cakeService = new CakeService();
-      const cakeId = await cakeService.createCake(newCake);
-      res.json({ success: true, cake: cakeId });
+      const newCakeData = req.body as ICake;
+      // const cakeService = new CakeService();
+      const newCake: Cake = new Cake(newCakeData);
+      // console.log('[newCake]', newCake);
+      // const cakeId = await cakeService.createCake();
+      await newCake.save();
+      res.json({ success: true, cake: newCake._id });
     } catch (error) {
-      console.log('(Post-handler)Error on saving a cake: ', error.message);
+      console.log('(Post-handler) Error on saving a cake: ', error.message);
       res.status(500).json({
         success: false,
-        errorMessage: 'Something wen wrong trying to create the cake...',
+        errorMessage: error.message,
+        // errorMessage: 'Something wen wrong trying to create the cake...',
       });
     }
   },
