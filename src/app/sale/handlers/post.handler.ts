@@ -58,7 +58,8 @@ export const handler: RequestHandler[] = [
       console.log('(Post-handler) Error on saving a sale: ', error.message);
       res.status(500).json({
         success: false,
-        errorMessage: 'Something wen wrong trying to create the sale...',
+        errorMessage: error.message,
+        // errorMessage: 'Something wen wrong trying to create the sale...',
       });
     }
   },
