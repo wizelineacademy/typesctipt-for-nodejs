@@ -1,7 +1,7 @@
 import { ICake } from '../cake/cake.interface';
 import { ISell } from './sale.interface';
 
-class Sell implements ISell {
+export class Sell implements ISell {
   customerName: string
   customerPhoneNumber: string
   customerEmail: string
@@ -10,14 +10,20 @@ class Sell implements ISell {
   cake: ICake
   quantity: number
 
-  constructor(customerName: string, customerPhoneNumber: string, customerEmail: string, totalAmount: number, cakeId: string, cake: ICake, quantity: number) { 
-      this.customerName = customerName
-      this.customerPhoneNumber = customerPhoneNumber
-      this.customerEmail = customerEmail
-      this.totalAmount = totalAmount
-      this.cakeId = cakeId
-      this.cake = cake
-      this.quantity = quantity
+  constructor(values?:ISell) { 
+    this.setValues(values);
   }
+
+  private setValues(values: ISell) {
+    if (values) {
+      this.customerName = values.customerName
+      this.customerPhoneNumber = values.customerPhoneNumber
+      this.customerEmail = values.customerEmail
+      this.totalAmount = values.totalAmount
+      this.cakeId = values.cakeId
+      this.cake = values.cake
+      this.quantity = values.quantity
+     }
+   }
 
 }

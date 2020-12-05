@@ -12,12 +12,19 @@ export class Cake implements ICake{
   status: CakeStatus
 
   // Constructor
-  constructor(name: string,description: string,ingredients: string[],price: number,stock: number,status: CakeStatus) {
-    this.name = name;
-    this.description = description;
-    this.ingredients = ingredients;
-    this.price = price;
-    this.stock = stock;
-    this.status = status
+  constructor(values?: ICake) {
+    this.setValues( values );
   }
+
+  private setValues(values: ICake) {
+    if (values) {
+      this.name = values.name;
+      this.description = values.description;
+      this.ingredients = values.ingredients;
+      this.price = values.price;
+      this.stock = values.stock;
+      this.status = values.status
+    }
+  }
+
 }
