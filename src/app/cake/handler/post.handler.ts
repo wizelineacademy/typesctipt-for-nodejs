@@ -2,19 +2,17 @@ import { RequestHandler } from "express";
 
 import { CakeService } from "../cake.service";
 import { Cake } from "../data/cake.model";
+import {container} from "tsyringe";
+import { asyncHandler } from "../../../component/async.handler";
 
 
 
 
 export const postHandler: RequestHandler[] = [
-    async (req,res) =>{
-        const service = new CakeService();
+    asyncHandler(async (req,res) =>{
+        const service = container.resolve(CakeService);
         const data = req.body as Cake;
-        try{
-            res.json(await service.post(data));
-
-        }catch(e){
-            res.status(500).json(e)
+        res.json(await service.post(data));
         }
-    }
+    )
 ]

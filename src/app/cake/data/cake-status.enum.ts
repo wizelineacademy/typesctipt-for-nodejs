@@ -1,4 +1,4 @@
-export const enum CakeStatus {
+export enum CakeStatus {
     Available ='Available',
     LastUnits = 'LastUnits',
     OutOfStock = 'OutOfStock'

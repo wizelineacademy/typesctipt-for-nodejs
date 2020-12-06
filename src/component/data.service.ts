@@ -1,15 +1,19 @@
 import { Connection,Document, Model, Schema } from "mongoose";
-import { dbMain } from "../app/app.db";
+import { DbManager } from "../app/app.db";
 import { NotFoundException } from "./http-exceptions";
+
 
 
 export class DataService<T>{
     readonly model: Model<T & Document>
+    private conn: Connection;
     constructor(
         modelName: string,
         schema: Schema,
-        readonly conn: Connection = dbMain,
+        readonly dbManger: DbManager
         ){
+            this.conn = dbManger.dbMain;
+            
             this.model = this.conn.model<T & Document>(modelName,schema)
 
     }

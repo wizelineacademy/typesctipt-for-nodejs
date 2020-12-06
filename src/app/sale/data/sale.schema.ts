@@ -37,17 +37,17 @@ export const SaleSchema: Schema =  new Schema({
 });
 
 SaleSchema.pre<Sale>("save",async function(next){
-    const cakeService = new CakeService();
-    const cake = await cakeService.getById(this.cakeId)
-    cake.stock = cake.stock - this.totalAmount;
-    if(cake.stock < 0) throw new BadRequestException("Not enough cakes");
-    if(cake.stock > 10){
-        cake.status = CakeStatus.Available;
-    }else if(cake.stock === 0){
-        cake.status = CakeStatus.OutOfStock;
-    }else{
-        cake.status = CakeStatus.LastUnits;
-    }
+    // const cakeService = new CakeService();
+    // const cake = await cakeService.getById(this.cakeId)
+    // cake.stock = cake.stock - this.totalAmount;
+    // if(cake.stock < 0) throw new BadRequestException("Not enough cakes");
+    // if(cake.stock > 10){
+    //     cake.status = CakeStatus.Available;
+    // }else if(cake.stock === 0){
+    //     cake.status = CakeStatus.OutOfStock;
+    // }else{
+    //     cake.status = CakeStatus.LastUnits;
+    // }
 
-    cakeService.put(cake.id, cake);
+    // cakeService.put(cake.id, cake);
 })

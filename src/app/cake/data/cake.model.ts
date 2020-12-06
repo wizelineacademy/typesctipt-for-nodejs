@@ -1,8 +1,6 @@
-
-import { Document } from "mongoose";
 import { CakeStatus } from "./cake-status.enum";
 
-export interface Cake extends Document{
+export interface Cake{
     id: string;
     name: string;
     description: string
@@ -11,3 +9,4 @@ export interface Cake extends Document{
     stock: number
     status: CakeStatus
 }
+
