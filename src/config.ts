@@ -4,6 +4,7 @@ dotenv.config();
 type Config = {
     port: number,
     env: string,
+    mongoConnectionString: string,
 }
 
 /**
@@ -11,7 +12,8 @@ type Config = {
  */
 const config: Config = {
     port: +process.env.PORT || 3000,
-    env: process.env.ENVIRONMENT || 'development'
+    env: process.env.ENVIRONMENT || 'development',
+    mongoConnectionString: process.env.MONGODB_URL || ''
 }
 
 export default config;

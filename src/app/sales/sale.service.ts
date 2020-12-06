@@ -1,50 +1,33 @@
-import Sale, { ISale } from './sale.class';
+import { Connection } from 'mongoose';
+import { DataService } from '../components/data-service.component';
+import { ISale } from './sale.interface';
+import { modelName } from './sale.model';
 
-const sales: Sale[] = [];
 
-const getSales = async (): Promise<Sale[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(sales);
-        }, Math.random() * 10);
-    });
-}
+export class SaleService {
+    private dataService: DataService<ISale>;
 
-const addSale = async (model: any): Promise<Sale> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const sale = new Sale(model);
-            sales.push(sale);
-            resolve(sale);
-        }, Math.random() * 10);
-    });
-}
+    constructor(connection: Connection) {
+        this.dataService = new DataService(connection, modelName);
+    }
 
-const updateSale = async (id: string, model: ISale): Promise<Sale> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            let sale = sales.find(c => c.customerEmail === id);
-            const i = sales.indexOf(sale);
-            sales[i] = {...sale, ...model};
-            resolve(sales[i]);
-        }, Math.random() * 10);
-    });
-}
+    getAll = async (): Promise<ISale[]> => {
+        return this.dataService.getAll();
+    }
 
-const deleteSale = async (id: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            let sale = sales.find(c => c.customerEmail === id);
-            const i = sales.indexOf(sale);
-            sales.splice(i, 1);
-            resolve(i !== -1);
-        }, Math.random() * 10);
-    });
-}
+    get = async (id: string): Promise<ISale> => {
+        return this.dataService.get(id);
+    }
 
-export {
-    getSales,
-    addSale,
-    updateSale,
-    deleteSale,
+    add = async (model: ISale): Promise<ISale> => {
+        return this.dataService.insert(model)
+    }
+
+    update = async (id: string, model: ISale): Promise<ISale> => {
+        return this.dataService.update(id, model);
+    }
+
+    delete = async (id: string): Promise<ISale> => {
+        return this.dataService.remove(id);
+    }
 }

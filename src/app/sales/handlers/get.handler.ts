@@ -1,7 +1,21 @@
-import { Req, Res } from './types';
-import { getSales } from '../sale.service';
+import { Request, RequestHandler, Response } from 'express';
+import { Sale } from '../sale.class';
 
-export default async (req: Req, res: Res, next): Promise<any> => {
-    const cakes = await getSales();
-    return res.json({ data: cakes });
-};
+type Params = {};
+type Query = {};
+type Body = {};
+type Req = Request<Params, {}, Body, Query>;
+type Res = Response;
+
+export const getHandler: RequestHandler[] = [
+    async (req: Req, res: Res, next): Promise<any> => {
+        try {
+            const sale = new Sale();
+            const result = await sale.get();
+            return res.json({ data: result });
+        }
+        catch (er) {
+            next(er);
+        }
+    }
+];

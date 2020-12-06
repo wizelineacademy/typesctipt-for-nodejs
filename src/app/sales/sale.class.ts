@@ -1,33 +1,63 @@
-import { ICake } from "../cakes/cake.class";
+import { connection } from 'mongoose';
+import { IDBModel } from '../db-model.interface';
+import { ISale } from './sale.interface';
+import { SaleService } from './sale.service';
+import { ISoldCake } from './sold-cake.interface';
 
-export interface ISale {
-    customerName: string,
-    customerPhoneNumber: string,
-    customerEmail: string,
-    totalAmount: number,
-    cake: SoldCake,
+export type SaleInjection = {
+    saleService?: SaleService;
 }
 
-export class SoldCake implements ICake {
-    name: string;
-    description: string;
-    ingredients: string[];
-    price: number;
-    quantity: number;
-}
+export class Sale implements ISale, IDBModel {
+    private saleService: SaleService;
 
-export default class Sale implements ISale {
-    constructor(model: ISale) {
-        this.customerName = model.customerName;
-        this.customerPhoneNumber = model.customerPhoneNumber;
-        this.customerEmail = '';
-        this.totalAmount = model.totalAmount || 0;
-        this.cake = model.cake;
-    }
-    
+    _id: string;
     customerName: string;
     customerPhoneNumber: string;
     customerEmail: string;
     totalAmount: number;
-    cake: SoldCake;
+    cake: ISoldCake;
+    
+    constructor(model?: ISale, injection?: SaleInjection) {
+        this.setSale(model);
+        this.saleService = injection.saleService || new SaleService(connection);
+    }
+
+    get _sale(): ISale {
+        return {
+            customerName: this.customerName,
+            customerPhoneNumber: this.customerPhoneNumber,
+            customerEmail: this.customerEmail,
+            totalAmount: this.totalAmount,
+            cake: this.cake
+        } as ISale
+    }
+
+    set _sale(values: ISale) {
+        this.setSale(values);
+    }
+
+    setSale(values: ISale): void {
+        this.customerName = values.customerName;
+        this.customerPhoneNumber = values.customerPhoneNumber;
+        this.customerEmail = values.customerEmail;
+        this.totalAmount = values.totalAmount;
+        this.cake = values.cake;
+    }
+
+    save(): Promise<ISale> {
+        return this.saleService.add(this._sale);
+    }
+    get(): Promise<ISale[]> {
+        return this.saleService.getAll();
+    }
+    getById(id: string): Promise<ISale> {
+        return this.saleService.get(id);
+    }
+    remove(id: string): Promise<ISale> {
+        return this.saleService.delete(id);
+    }
+    patch(id: string, model: ISale): Promise<ISale> {
+        return this.saleService.update(id, model);
+    }
 }

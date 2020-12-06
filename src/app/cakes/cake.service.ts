@@ -1,50 +1,32 @@
-import Cake, { ICake } from './cake.class';
+import { Connection } from 'mongoose';
+import { DataService } from '../components/data-service.component';
+import { ICake } from './cake.interface';
+import { modelName } from './cake.model';
 
-const cakes: Cake[] = [];
+export class CakeService {
+    private dataService: DataService<ICake>;
 
-const getCakes = async (): Promise<Cake[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(cakes);
-        }, Math.random() * 10);
-    });
-}
+    constructor(connection: Connection) {
+        this.dataService = new DataService(connection, modelName);
+    }
 
-const addCake = async (model: any): Promise<Cake> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const cake = new Cake(model);
-            cakes.push(cake);
-            resolve(cake);
-        }, Math.random() * 10);
-    });
-}
+    getAll = async (): Promise<ICake[]> => {
+        return this.dataService.getAll();
+    }
 
-const updateCake = async (id: string, model: ICake): Promise<Cake> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            let cake = cakes.find(c => c.name === id);
-            const i = cakes.indexOf(cake);
-            cakes[i] = {...cake, ...model};
-            resolve(cakes[i]);
-        }, Math.random() * 10);
-    });
-}
-
-const deleteCake = async (id: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            let cake = cakes.find(c => c.name === id);
-            const i = cakes.indexOf(cake);
-            cakes.splice(i, 1);
-            resolve(i !== -1);
-        }, Math.random() * 10);
-    });
-}
-
-export {
-    getCakes,
-    addCake,
-    updateCake,
-    deleteCake,
+    get = async (id: string): Promise<ICake> => {
+        return this.dataService.get(id);
+    }
+    
+    add = async (model: ICake): Promise<ICake> => {
+        return this.dataService.insert(model);
+    }
+    
+    update = async (id: string, model: ICake): Promise<ICake> => {
+        return this.dataService.update(id, model)
+    }
+    
+    delete = async (id: string): Promise<ICake> => {
+        return this.dataService.remove(id)
+    }
 }

@@ -1,7 +1,21 @@
-import { Req, Res } from './types';
-import { deleteCake } from '../cake.service';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { Cake } from '../cake.class';
 
-export default async (req: Req, res: Res, next): Promise<Res> => {
-    const result = await deleteCake(req.params.id);
-    return res.json({ data: result });
-};
+type Params = { id?: string };
+type Query = {};
+type Body = {};
+type Req = Request<Params, {}, Body, Query>;
+type Res = Response;
+
+export const deleteHandler: RequestHandler[] = [
+    async (req: Req, res: Res, next: NextFunction): Promise<Res> => {
+        const cake = new Cake();
+        try {
+            const result = cake.remove(req.params.id);
+            return res.json({ data: result });
+        }
+        catch (er) {
+            next(er);
+        }
+    }
+];
