@@ -1,5 +1,5 @@
 import { ICake } from "../cake/cake.interface";
-import { ISale } from "../sales/sale.interface";
+import { ISale } from "./sale.interface";
 
 class Sale implements ISale {
   customerName: string;

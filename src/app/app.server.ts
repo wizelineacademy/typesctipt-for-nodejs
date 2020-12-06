@@ -5,6 +5,8 @@ import { router as salesRouter } from "./sales/sales.router";
 const app: Express = express();
 const router: Router = Router();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(router);
 router.use("/cakes", cakeRouter);
 router.use("/sales", salesRouter);
