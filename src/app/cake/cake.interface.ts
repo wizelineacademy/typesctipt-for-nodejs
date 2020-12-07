@@ -4,22 +4,19 @@ import { Status } from './cake-status.enum';
 export interface ICake {
 	id: number
 	name: string
-  descrition: string
+  description: string
   ingredients: string[]
   price: number
   stock: number
   status: Status
 
-	newCake(
-		id: number,
+	newCake(		
 		newCake: Cake
-	): Cake
+	): Promise<Cake>
 
-	getCakes(): Cake[]
+	getCakes(): Promise<Cake[]>
 
-	editCake(id: number): Cake
-
-	updateCake(id: number, newCakeData: Cake): Cake
+	updateCake(id: number, newCakeData: Cake): Promise<Cake>
 
 	deleteCake(id: number): void
 }

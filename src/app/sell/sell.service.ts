@@ -1,44 +1,31 @@
 import { Sell } from './sell.type';
+import { DataService } from '../../components/data-service.component';
+import { Connection } from 'mongoose';
 
-let sales: Sell[] = [];
+export class SellService {
+	private dataService: DataService<Sell>;
 
-export const getSales = () => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve(sales);
-		}, sales.length * 100)
-	})
-};
+	constructor(connection: Connection) {
+		this.dataService = new DataService(connection, 'cake');
+	}
 
-export const makeSell = (newSell: Sell) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {			
-			const newSales = [...sales, newSell];
-			resolve(newSales);
-		}, 1000);
-	})
-}
+	getMany(): Promise<Sell[]> {
+		return this.dataService.fetchMany();
+	}
 
-export const updateSell = (id: string, newSellData: Sell) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {
-			const newSales = sales.map(sell => {
-				if (sell.id === +id) {
-					return newSellData;
-				};
-				return sell;
-			});
-			resolve(newSales);
-		}, 1000);
-	})
-}
+	getOne(id: number): Promise<Sell> {
+		return this.dataService.fetchOne(id);
+	}
 
-export const deleteSell = (id: string) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {
-			const newSales = sales.filter(sell => sell.id !== +id);
-			sales = newSales;
-			resolve(newSales);
-		}, 1000);
-	})
+	update(id: number, newData: Sell): Promise<Sell> {
+		return this.dataService.update(id, newData);
+	}
+
+	makeSell(newData: Sell): Promise<{id: string}> {
+		return this.dataService.insert(newData);
+	}
+
+	delete(id: number): Promise<{id: number}> {
+		return this.dataService.delete(id);
+	}
 }

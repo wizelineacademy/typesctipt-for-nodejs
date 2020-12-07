@@ -1,45 +1,32 @@
+import { DataService } from '../../components/data-service.component';
+import { Connection } from 'mongoose';
 import { Cake } from './cake.type';
+import { cakeModel } from './cake.model';
 
-let cakes: Cake[] = [];
+export class CakeService {
+	private dataService: DataService<Cake>;
 
-export const getCakes = () => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve(cakes);
-		}, cakes.length * 100)
-	})
-};
+	constructor(connection: Connection) {
+		this.dataService = new DataService(connection, 'Cake');
+	}
 
-export const makeCake = (quantity: number, newCake: Cake) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {
-			const newCakes = new Array(quantity).fill(newCake);
-			cakes = [...cakes, ...newCakes];
-			resolve(cakes);
-		}, quantity * 100)
-	})
-}
+	getMany(): Promise<Cake[]> {
+		return this.dataService.fetchMany();
+	}
 
-export const updateCake = (id: string, newCakeData: Cake) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {
-			const newCakes = cakes.map(cake => {
-				if (cake.id === +id) {
-					return newCakeData;
-				};
-				return cake;
-			});
-			resolve(newCakes);
-		}, 1000);
-	})
-}
+	getOne(id: number): Promise<Cake> {
+		return this.dataService.fetchOne(id);
+	}
 
-export const deleteCake = (id: string) => {
-	return new Promise((resolve, rejected) => {
-		setTimeout(() => {
-			const newCakes = cakes.filter(cake => cake.id !== +id);
-			cakes = newCakes;
-			resolve(cakes);
-		}, 1000);
-	})
+	update(id: number, newData: Cake): Promise<Cake> {
+		return this.dataService.update(id, newData);
+	}
+
+	makeCake(newData: Cake): Promise<{id: string}> {
+		return this.dataService.insert(newData);
+	}
+
+	delete(id: number): Promise<{id: number}> {
+		return this.dataService.delete(id);
+	}
 }

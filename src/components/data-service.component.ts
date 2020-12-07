@@ -19,10 +19,9 @@ export class DataService<T> {
 		})
 	}
 
-	async insert(data: T): Promise<string> {		
-		return this.model.save().then(() => {
-			return model.id;
-		});
+	async insert(data: T): Promise<{id: string}> {		
+		const newModel = await this.model.create(data as T & Document);
+		return { id: newModel.id }
 	}
 
 	async update(id: number, data: T): Promise<T> {
@@ -31,9 +30,10 @@ export class DataService<T> {
 		})
 	}
 
-	async delete(id: number) {
-		return await this.model.findByIdAndDelete(id).then(doc => {
-			return doc;
+	async delete(id: number): Promise<{id: number}> {
+		return await this.model.findByIdAndDelete(id).then(status => {
+			if(status) return { id }			
+			return null
 		})
 	}
 

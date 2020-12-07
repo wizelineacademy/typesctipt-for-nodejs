@@ -1,6 +1,9 @@
 import { ISell } from './sell.interface';
 import { Sell as SellType } from './sell.type';
 import { Cake } from '../cake/cake.type';
+import { SellService } from './sell.service';
+import { SellInjection } from '../app.di';
+import { dbConn } from '../app.database';
 
 export class Sell implements ISell {
 	id: number
@@ -9,42 +12,29 @@ export class Sell implements ISell {
   customerEmail: string
   totalAmount: number
   cake: Omit<Cake, 'id' | 'stock' | 'status'> & { quantity: number }  
+	private sellService: SellService;
+
+	constructor(injtection: SellInjection) {
+		this.sellService = injtection?.sellService || new SellService(dbConn)
+	}
+
 	
 
-	constructor(
-		id: number,
-		customerName: string,
-		customerPhoneNumber: string,
-		customerEmail: string,
-		totalAmount: number,		
-	) {
-		this.id = id;
-		this.customerName = customerName;
-		this.customerEmail = customerEmail;
-		this.customerPhoneNumber = customerPhoneNumber;
-		this.totalAmount = totalAmount;
-	}
-
-	newSell(
-		id: number,
+	async newSell(
 		newSell: SellType
 	) {
-		return {} as SellType;
+		return await this.sellService.makeSell(newSell);
 	}
 
-	getSales(){
-		return []
+	async getSales(){
+		return await this.sellService.getMany();
 	}
 
-	editSell(id: number){
-		return {} as SellType;
+	async updateSell(id: number, newSellData: SellType){
+		return await this.sellService.update(id, newSellData);
 	}
 
-	updateSell(id: number, newSellData: SellType){
-		return {} as SellType;
-	}
-
-	deleteSell(id: number) {
-		return
+	async deleteSell(id: number) {
+		return await this.sellService.delete(id);
 	}
 }

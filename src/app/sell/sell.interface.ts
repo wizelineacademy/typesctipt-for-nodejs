@@ -8,24 +8,14 @@ export interface ISell {
   customerEmail: string
   totalAmount: number
   cake: Omit<Cake, 'id' | 'stock' | 'status'> & { quantity: number }  
-  // cake: {
-  //   name: string
-  //   descrition: string
-  //   ingredients: string[]
-  //   price: number
-  //   quantity: number
-  // }
 
-  newSell(
-		id: number,
+  newSell(		
 		newSell: Sell
-	): Sell
+	): Promise<Sell>
 
-	getSales(): Sell[]
+	getSales(): Promise<Sell[]>
 
-	editSell(id: number): Sell
-
-	updateSell(id: number, newSellData: Sell): Sell
+	updateSell(id: number, newSellData: Sell): Promise<Sell>
 
 	deleteSell(id: number): void
 }
