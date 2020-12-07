@@ -8,7 +8,7 @@
     "build:watch": "npx tsc --watch",
     "start": "node dist/index.js",
     "start:watch": "nodemon dist/index.js",
-    "test": "npx mocha -r ts-node/register 'src/**/*.test.ts'"
+    "test": "export ENV=test && npx mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "repository": {
     "type": "git",

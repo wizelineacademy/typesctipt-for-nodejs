@@ -1,10 +1,11 @@
 import { Connection, createConnection } from 'mongoose';
 
-const env = process.env.ENV;
+const ENV = process.env.ENV;
+const URI = process.env.MONGO_URI || 'localhost'; 
 
-export const dbConn: Connection = env === 'test'
-    ? createConnection('localhost')
-    : createConnection('mongodb+srv://wizeline:admin@cake-shop-cluster.xmm4z.mongodb.net/wizeline?retryWrites=true&w=majority', {
+export const dbConn: Connection = ENV === 'test'
+    ? createConnection(URI)
+    : createConnection(URI, {
         useUnifiedTopology: true,
         useNewUrlParser: true
     });

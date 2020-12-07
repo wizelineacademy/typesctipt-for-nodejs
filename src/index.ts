@@ -1,3 +1,11 @@
+import { config } from 'dotenv';
+
+config({
+    path: '.env'
+});
+
 import { initServer } from './app/app.server';
 
-initServer(3000);
+const PORT = process.env.PORT || 3000;
+
+initServer(+PORT);
