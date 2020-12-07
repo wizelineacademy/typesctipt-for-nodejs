@@ -1,10 +1,18 @@
 import * as express from 'express'
-import { getCake, editCake } from '../cake.service'
+import CakeService from '../cake.service'
 
 export const idPatchHandler = async(req: express.Request, res: express.Response) => {
-    let cakeToEdit = await getCake(req.params.id)
-    console.log(cakeToEdit);
-    
-    editCake(cakeToEdit, req.body)
-    res.json("Edit this cake")
+    const cake = await CakeService.EditCake(req.params.id,{
+        name: req.body.name,
+        description: req.body.description,
+        ingredients: req.body.ingredients,
+        price: req.body.price,
+        stock: req.body.stock
+    }).then((data) => {
+        console.log(data)
+        res.status(200).send("{\"message\":\"success\"}")
+    }).catch((error) => {
+        console.log(error)
+        res.status(500).send("{\"message\":\"error\"}")
+    })
 }

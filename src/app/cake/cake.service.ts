@@ -1,99 +1,71 @@
-import * as express from 'express'
-import mongoose from 'mongoose'
-import CakeSchema from '../../types/model/cake.model'
-import { CreateQuery } from 'mongoose';
+import { CreateQuery, UpdateQuery } from 'mongoose'
+import Cake from '../../types/model/cake.model'
 import { ICake } from '../../types/interface/cake.interface'
-import { Ingredient } from '../../types/class/ingredient.class'
 
-// let cakes: Cake[] = [];
-
-const uuidv4 = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
-export const makeCake = async({
+async function MakeCake ({
     name,
     description,
     ingredients,
     price,
-    stock,
-    state
-  }: CreateQuery<ICake>) => {
-    const id = uuidv4()
-    return CakeSchema.create({
-        id,
+    stock
+  }: CreateQuery<ICake>): Promise<ICake> {
+    let state = stock >= 10 ? "Available" : stock > 0 && stock < 10 ? "LastUnits" : "OutOfStock"
+    return Cake.create({
         name,
         description,
         ingredients,
         price,
         stock,
         state
-      })
-        .then((data: ICake) => {
-          return data;
-        })
-        .catch((error: Error) => {
-          throw error;
-        });
+    })
+    .then((data: ICake) => {
+        return data;
+    })
+    .catch((error: Error) => {
+        console.log(error)
+        throw error;
+    });
 }
 
-
-// export const makeCake = (params: any) => {
-//     const cake: CakeSchema = mongoose.model('Cake', CakeSchema)
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             console.log(params.body.name)
-//             const newCake = new cakeClass(
-//                 uuidv4(),
-//                 params.body.name,
-//                 params.body.description,
-//                 params.body.ingredients,
-//                 params.body.price,
-//                 params.body.stock
-//             )
-//             cakes.push(newCake)
-//             resolve(cakes)
-//         }, Math.floor(Math.random() * Math.floor(1000)));
-//     })
-// }
-
-export const getCakes = () => {
-    return new Promise<Cake[]>((resolve, reject) => {
-        setTimeout(() => {
-            resolve(cakes)
-        }, cakes.length);
+async function GetCakes(): Promise<ICake> {
+    return Cake.find()
+    .catch((error: Error) => {
+        throw error;
     })
 }
 
-export const getCake = (id: string) => {
-    return new Promise<Cake>((resolve, reject) => {
-        setTimeout(() => {
-            console.log(id)
-            cakes.forEach(cake => {
-                console.log(cake)
-                if(cake.id === id){
-                    resolve(cake)
-                }
-                reject('Error while fetching the info')
-            });
-        }, cakes.length);
+async function GetCake(id: string): Promise<ICake> {
+    return Cake.findById(id).catch((error: Error) => {
+        throw error;
     })
 }
 
-export const editCake = (cakeToEdit: Cake, newInfo: express.Request) => {
-    return new Promise<Cake>((resolve, reject) => {
-        setTimeout(() => {
-            console.log(cakeToEdit)
-            cakeToEdit.name = newInfo.body.name
-            cakeToEdit.description = newInfo.body.description
-            cakeToEdit.ingredients = newInfo.body.ingredients
-            cakeToEdit.price = newInfo.body.price
-            cakeToEdit.stock = newInfo.body.stock
-            cakeToEdit.state = newInfo.body.state
-            resolve(cakeToEdit)
-        }, cakes.length);
+async function EditCake (id: string, {
+    name,
+    description,
+    ingredients,
+    price,
+    stock
+}: UpdateQuery<ICake>): Promise<ICake>{
+    let state = stock >= 10 ? "Available" : stock > 0 && stock < 10 ? "LastUnits" : "OutOfStock"
+    return Cake.findByIdAndUpdate(id, {
+        name,
+        description,
+        ingredients,
+        price,
+        stock,
+        state
+    }).then((data: ICake) => {
+        return data
+    }).catch((error: Error) => {
+        throw error
     })
+    
 }
+
+export default {
+    MakeCake,
+    GetCakes,
+    GetCake,
+    EditCake
+};

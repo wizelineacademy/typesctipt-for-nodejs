@@ -1,13 +1,19 @@
 import * as express from 'express';
-import { makeCake } from '../cake.service'
+import CakeService from '../cake.service'
 
 export const indexPostHandler = async(req: express.Request, res: express.Response) => {
-    await makeCake(req.body).then(() => {
-        res.json("Register cakes!")
-        res.status(200)
+    await CakeService.MakeCake({
+        name: req.body.name,
+        description: req.body.description,
+        ingredients: req.body.ingredients,
+        price: req.body.price,
+        stock: req.body.stock
+    }).then((data) =>{
+        console.log(data);
+        res.status(200).send("{\"message\":\"success\"}")
     })
-    .catch((err) => {
-        res.json(err)
-        res.status(500)
-    })
+    .catch((error) => {
+        console.log(error)
+        res.status(500).send("Raios")
+    });
 }
