@@ -41,7 +41,7 @@ export const handler: RequestHandler[] = [
 
         let savedCake = await cake.save();
 
-        res.json(savedCake);
+        res.json({ success: true, route: "/cakes", message: 'New cake was registred.', data: savedCake })
     }
 ];
 

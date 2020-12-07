@@ -4,7 +4,7 @@ import { db as dbMain } from "../../app.database"
 import { CakeService } from "../cake.service"
 
 type Params = {}
-type Query = {}
+type Query = { id?: string }
 type Body = {}
 type Req = Request<Params, {}, Body, Query>
 type Res = Response
@@ -13,8 +13,15 @@ type Res = Response
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
         const service = new CakeService(dbMain)
-        const cakes = await service.getCakes()
-        res.json({ success: true, route: "/cakes", message: 'Retrived cake list.', data: cakes })
+
+        if (req.query.id) {
+            const cake = await service.getById(req.query.id)
+            res.json({ success: true, route: "/cakes", message: `Retrived cake ${req.query.id}.`, data: cake })
+        } else {
+            const cakes = await service.getCakes()
+            res.json({ success: true, route: "/cakes", message: 'Retrived all cakes.', data: cakes })
+        }
+
     }
 ]
 

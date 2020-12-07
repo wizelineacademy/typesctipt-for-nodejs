@@ -1,4 +1,4 @@
-import { Connection, Document, Model, Schema } from "mongoose"
+import { Connection, Document, Model, QueryFindOneAndUpdateOptions, QueryOptions, Schema } from "mongoose"
 
 export class DataService<T> {
 
@@ -30,5 +30,19 @@ export class DataService<T> {
     insert(data: T): Promise<T> {
         let model = new this.model(data);
         return model.save()
+    }
+
+    update(id?: string, data?: T): Promise<T> {
+        let options: QueryFindOneAndUpdateOptions = { new: true }
+        return this.model.findByIdAndUpdate({ _id: id }, data, options).lean<T>().exec()
+    }
+
+    delete(id?: string, data?: T): Promise<T> {
+        let options: QueryFindOneAndUpdateOptions = { new: true }
+        return this.model.findByIdAndDelete({ _id: id }).lean<T>().exec()
+    }
+
+    getOne(id: string): Promise<T> {
+        return this.model.findById(id).lean<T>().exec()
     }
 }

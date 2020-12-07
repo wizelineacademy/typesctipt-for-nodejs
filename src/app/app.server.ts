@@ -2,7 +2,7 @@
 import express, { Express, Router } from "express"
 import { router as mainRouter } from "./app.router"
 import { router as cakesRouter } from "./cakes/cake.router"
-import { router as salesRouter } from "./sales/sales.router"
+import { router as salesRouter } from "./sales/sale.router"
 
 // Init express server. (Inferred datatype)
 export const app: Express = express()

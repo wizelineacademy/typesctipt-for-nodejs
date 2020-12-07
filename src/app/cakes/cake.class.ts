@@ -59,6 +59,25 @@ export class Cake implements ICake {
         return cake;
     }
 
+    public async update(id?: string) {
+        this.validateName()
+        this.validateDescription()
+        this.validateIngredients()
+        this.validateStock()
+        this.validatePrice()
+
+        let cake = await this.cakeService.update(id, this.values);
+
+        return cake;
+    }
+
+    public async delete(id?: string) {
+
+        let cake = await this.cakeService.delete(id);
+
+        return cake;
+    }
+
     public validateName(): Boolean {
         const minLength: number = 3
         const maxLength: number = 50

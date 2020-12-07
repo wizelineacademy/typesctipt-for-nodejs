@@ -81,9 +81,22 @@ export class CakeService {
         return this.dataService.fetchMany()
     }
 
+    getById(cakeId: string): Promise<ICake> {
+        return this.dataService.getOne(cakeId)
+    }
+
     save(cake: ICake): Promise<ICake> {
         return this.dataService.insert(cake)
     }
+
+    update(id?: string, cake?: ICake): Promise<ICake> {
+        return this.dataService.update(id, cake)
+    }
+
+    delete(id?: string, cake?: ICake): Promise<ICake> {
+        return this.dataService.delete(id, cake)
+    }
+
 
 
 }
