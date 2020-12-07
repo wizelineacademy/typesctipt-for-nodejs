@@ -10,12 +10,12 @@ export class DataService<T> {
         this.model = this.connection?.model(modelName);
     }
 
-    getAll = (): Promise<T[]> => {
-        return this.model.find({}).lean<T>().exec();
+    getAll = async (): Promise<T[]> => {
+        return await this.model.find({}).lean<T>().exec();
     }
 
-    get = (id: string): Promise<T> => {
-        return this.model.findById(id).lean<T>().exec();
+    get = async (id: string): Promise<T> => {
+        return await this.model.findById(id).lean<T>().exec();
     }
 
     insert = (data: T): Promise<T> => {
@@ -24,11 +24,13 @@ export class DataService<T> {
     }
 
     update = async (id: string, data: T): Promise<T> => {
-        return this.model.findByIdAndUpdate(id, data);
+        return await this.model.findByIdAndUpdate(id, data).then(res => {
+            return res;
+        });
     }
 
-    remove = (id: string): Promise<T> => {
-        return this.model.findByIdAndRemove(id).then(q => {
+    remove = async (id: string): Promise<T> => {
+        return await this.model.findByIdAndRemove(id).then(q => {
             return q;
         });
     }

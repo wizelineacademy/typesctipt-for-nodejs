@@ -1,11 +1,12 @@
 import { IModel } from '../model.interface';
-import { SoldCake } from './sold-cake.class';
+import { ISoldCake } from './sold-cake.interface';
 
 export interface ISale extends IModel{
     customerName: string,
     customerPhoneNumber: string,
     customerEmail: string,
     totalAmount: number,
-    cake: SoldCake,
+    date: Date,
+    cake: ISoldCake,
 }
 

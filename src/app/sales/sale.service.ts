@@ -12,14 +12,14 @@ export class SaleService {
     }
 
     getAll = async (): Promise<ISale[]> => {
-        return this.dataService.getAll();
+        return this.dataService.getAll(); 
     }
 
     get = async (id: string): Promise<ISale> => {
         return this.dataService.get(id);
     }
 
-    add = async (model: ISale): Promise<ISale> => {
+    save = async (model: ISale): Promise<ISale> => {
         return this.dataService.insert(model)
     }
 

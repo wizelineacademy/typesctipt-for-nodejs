@@ -49,6 +49,16 @@ export class Cake implements ICake, IDBModel {
         }
     }
 
+    calculateStatus = (stock: number) => {
+        let _status: CakeStatus = CakeStatus.OutOfStock;
+        if(stock > 10) {
+            _status = CakeStatus.Available;
+        } else if(stock > 0) {
+            _status = CakeStatus.LastUnits;
+        }
+        return _status as CakeStatus;
+    }
+
     validate(): boolean {
         // prop: name
         // rules: required, 5 char min, 50 char max
@@ -112,17 +122,17 @@ export class Cake implements ICake, IDBModel {
 
     save(): Promise<ICake> {
         this.validate();
-        return this.cakeService.add(this._cake);
+        return this.cakeService.save(this._cake);
     }
     get(): Promise<ICake[]> {
         return this.cakeService.getAll().then(res => {
             return res.map(c => {
-                return {...c, status: c.status || CakeStatus.OutOfStock};
+                return {...c, status: this.calculateStatus(c.stock)};
             });
         });
     }
     getById(id: string): Promise<ICake> {
-        return this.cakeService.get(id);
+        return this.cakeService.get(id).then((c: ICake) => ({...c, status: this.calculateStatus(c.stock)}));
     }
     remove(id: string): Promise<ICake> {
         return this.cakeService.delete(id);
@@ -132,6 +142,4 @@ export class Cake implements ICake, IDBModel {
         this.validate()
         return this.cakeService.update(id, this._cake);
     }
-    
-    
 }

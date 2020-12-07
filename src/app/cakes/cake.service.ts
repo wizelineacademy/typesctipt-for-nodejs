@@ -11,22 +11,31 @@ export class CakeService {
     }
 
     getAll = async (): Promise<ICake[]> => {
-        return this.dataService.getAll();
+        return await this.dataService.getAll();
     }
 
     get = async (id: string): Promise<ICake> => {
-        return this.dataService.get(id);
+        return await this.dataService.get(id);
     }
     
-    add = async (model: ICake): Promise<ICake> => {
-        return this.dataService.insert(model);
+    save = async (model: ICake): Promise<ICake> => {
+        return await this.dataService.insert(model);
     }
     
     update = async (id: string, model: ICake): Promise<ICake> => {
-        return this.dataService.update(id, model)
+        return await this.dataService.update(id, model)
     }
     
     delete = async (id: string): Promise<ICake> => {
-        return this.dataService.remove(id)
+        return await this.dataService.remove(id)
+    }
+
+    deductFromStock = async (id: string, quantity: number): Promise<ICake> => {
+        const cake = await this.get(id);
+        if(cake.stock >= quantity) {
+            cake.stock -= quantity;
+            return this.update(cake._id, cake);
+        }
+        throw new Error('Insuficient cakes to deduct')
     }
 }

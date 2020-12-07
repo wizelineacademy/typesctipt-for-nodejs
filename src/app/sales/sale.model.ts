@@ -8,6 +8,7 @@ model(modelName, new Schema({
     customerPhoneNumber: Schema.Types.String,
     customerEmail: Schema.Types.String,
     totalAmount: Schema.Types.Number,
+    date: Schema.Types.Date,
     cake: {
         name: Schema.Types.String,
         descrition: Schema.Types.String,
