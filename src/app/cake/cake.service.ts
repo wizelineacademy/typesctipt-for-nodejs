@@ -1,29 +1,29 @@
 import { Connection } from 'mongoose';
 
-import { DBService } from '../../components/database-service.component';
-import { CakeModel } from '../cake/cake.model';
-import { ICake, ICakeQuery } from '../cake/cake.interface';
+import { DatabaseService } from '../../components/database-service.component';
+import { ICake } from './cake.interface';
+import { modelName } from './cake.model';
 
 export class CakeService {
-    private dbService: DBService<ICake, ICakeQuery>;
+    private dbService: DatabaseService<ICake>;
 
-    constructor(conn: Connection) {
-        this.dbService = new DBService(conn, 'Cake', CakeModel);
+    constructor(connection: Connection) {
+        this.dbService = new DatabaseService(connection, modelName);
     }
 
-    get(id: string) {
-        return this.dbService.find(id);
+    getOne(id?: string): Promise<ICake | null> {
+        return this.dbService.fetch(id);
     }
 
-    getMany(query: ICakeQuery) {
-        return this.dbService.findMany(query);
+    getMany(): Promise<ICake[]> {
+        return this.dbService.fetchMany();
     }
 
-    save(values: ICake) {
-        return this.dbService.save(values);
+    save(cake: ICake): Promise<string> {
+        return this.dbService.insert(cake);
     }
 
-    update(values: ICake, id: string) {
-        return this.dbService.update(values, id);
+    update(cake: ICake, id?: string): Promise<ICake | null> {
+        return this.dbService.update(cake, id);
     }
 }

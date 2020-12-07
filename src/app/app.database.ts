@@ -1,15 +1,18 @@
-import { createConnection, Connection } from 'mongoose';
+import { Connection, createConnection } from 'mongoose';
 
-import { dbConfig } from './app.config';
+const env = process.env.ENV;
 
-const URI: string = dbConfig.MONGO_URI || 'localhost';
+export const dbConn: Connection = env === 'test'
+    ? createConnection('localhost')
+    : createConnection('mongodb+srv://wizeline:admin@cake-shop-cluster.xmm4z.mongodb.net/wizeline?retryWrites=true&w=majority', {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    });
 
-export const conn: Connection = createConnection(URI);
-
-conn.on('connected', () => {
-    console.log('MongoDB connected');
+dbConn?.on('connected', () => {
+    console.log('Connected to MongoDB');
 });
 
-conn.on('error', () => {
-    console.log('MongoDB connection error');
+dbConn?.on('error', () => {
+    console.log('Error connecting with MongoDB');
 });

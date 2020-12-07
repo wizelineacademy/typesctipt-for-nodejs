@@ -1,23 +1,29 @@
 import { RequestHandler, Request, Response } from 'express';
 
-import { ICake } from '../cake.interface';
 import { Cake } from '../cake.class';
+import { ICake } from '../cake.interface';
 
 type Params = {};
 type Query = {};
 type Body = ICake;
-type Req =  Request<Params, {}, Body, Query>
-type Res =  Response;
+type Req = Request<Params, {}, Body, Query>;
+type Res = Response;
 
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
-        try {
-            const ops = new Cake(req.body);
-            const cake = await ops.save();
+        try {                        
+            const cake: Cake = new Cake(req.body);
+            const result = await cake.save();
             
-            res.status(201).json({ data: cake });
+            res.status(201).json({
+                success: true,
+                data: result
+            });
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({
+                success: false,
+                message: JSON.stringify(error)
+            });
         }
     }
-];
+]

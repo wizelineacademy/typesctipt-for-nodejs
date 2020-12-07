@@ -1,41 +1,76 @@
-import { conn } from '../app.database';
-import { ISale, ISaleQuery } from './sale.interface';
+import { CakeService } from '../cake/cake.service';
+import { dbConn } from '../app.database';
+import { ISale } from './sale.interface';
 import { SaleService } from './sale.service';
+import { ICake } from '../cake/cake.interface';
+
+export type SaleInjection = {
+    saleService?: SaleService;
+    cakeService?: CakeService;
+}
 
 export class Sale implements ISale {
     private saleService: SaleService;
+    private cakeService: CakeService;
 
-    customerName: string;
-    customerPhoneNumber: string;
-    customerEmail: string;
-    totalAmount: number;
-    cakeId: string;
+    customerName!: string;
+    customerEmail!: string;
+    customerPhoneNumber!: string;
+    totalAmount!: number;
+    cakeId!: string;
 
-    constructor(values: ISale) {
-        this.saleService = new SaleService(conn);
-
-        this.customerName = values.customerName;
-        this.customerPhoneNumber = values.customerPhoneNumber;
-        this.customerEmail = values.customerEmail;
-        this.totalAmount = values.totalAmount;
-        this.cakeId = values.cakeId;
+    constructor(values: ISale,  injection?: SaleInjection) {
+        this.setValues(values);
+        this.saleService = injection?.saleService || new SaleService(dbConn);
+        this.cakeService =  injection?.cakeService || new CakeService(dbConn);
     }
 
-    get values(): ISale {
+    get getValues(): ISale {
         return {
             customerName: this.customerName,
-            customerPhoneNumber: this.customerPhoneNumber,
             customerEmail: this.customerEmail,
+            customerPhoneNumber: this.customerPhoneNumber,
             totalAmount: this.totalAmount,
             cakeId: this.cakeId
         };
     }
 
-    sell(): Promise<ISale> {
-        return this.saleService.sell(this.values);
+    set values(values: ISale) {
+        if (values) {
+            this.setValues(values);
+        }
     }
 
-    get(query: ISaleQuery) {
-        return this.saleService.get(query);
+    private setValues(values: ISale) {
+        this.customerName = values.customerName;
+        this.customerEmail = values.customerEmail;
+        this.customerPhoneNumber = values.customerPhoneNumber;
+        this.totalAmount = values.totalAmount;
+        this.cakeId = values.cakeId;
+    }
+
+    public async sell() {
+        const sale = await this.saleService.sell(this.getValues);
+        
+        await this.updateCakeStock();
+
+        return sale;
+    }
+
+    public async updateCakeStock() {
+        const cake = await this.cakeService.getOne(this.cakeId);
+
+        if (cake) {
+            const newCake: ICake = {
+                name: cake.name,
+                description: cake.description,
+                ingredients: cake.ingredients,
+                price: cake.price,
+                stock: cake.stock - this.totalAmount,
+                status: cake.status
+            };
+
+            await this.cakeService.update(newCake, this.cakeId);
+        }
     }
 }

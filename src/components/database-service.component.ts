@@ -1,33 +1,34 @@
-import { Connection, Document, Model, Schema, FilterQuery } from 'mongoose';
+import { Connection, Document, Model } from 'mongoose';
 
-export class DBService<T, R> {
+export class DatabaseService<T> {
     readonly connection: Connection;
     readonly model: Model<T & Document>;
 
-    constructor(conn: Connection, modelName: string, model: Schema) {
-        this.connection = conn;
-        this.model = this.connection.model(modelName, model);
-    }
-    
-    find(id: string) {
-        return this.model.findById(id);
+    constructor(connection: Connection, modelName: string) {
+        this.connection = connection;
+        this.model = this.connection?.model(modelName);
     }
 
-    findMany(query: R) {
-        return this.model.find({});
+    fetch(id?: string): Promise<T | null> {
+        return this.model.findById(id).lean<T>().exec();
     }
 
-    async save(data: T): Promise<T> {
+    fetchMany(): Promise<T[]> {
+        return this.model.find().lean<T>().exec();
+    }
+
+    async insert(data: T): Promise<string> {
         const model = new this.model(data);
-        
-        return model.save();
+        const result = await model.save();
+
+        return result._id;
     }
 
-    async update(data: T, id: string): Promise<T | Error | null> {
+    async update(data: T, id?: string): Promise<T | null> {
         const resource = await this.model.findById(id);
 
         if (!resource) {
-            return new Error('Resource was not found');
+            throw Error('Resource was not found');
         }
 
         return this.model.findByIdAndUpdate(id, data, {

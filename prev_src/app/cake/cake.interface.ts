@@ -1,7 +1,6 @@
 import { Status } from './cake.enums';
 
 export interface ICake {
-    _id?: string;
     name: string;
     description: string;
     ingredients: string[];
@@ -10,11 +9,7 @@ export interface ICake {
     status: Status;
 }
 
-export interface ICakeParams {
-    id?: string;
-}
-
 export interface ICakeQuery {
-    price?: number;
+    price?: string;
     ingredient?: string;
 }

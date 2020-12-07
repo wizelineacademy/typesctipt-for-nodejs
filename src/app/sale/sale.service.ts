@@ -1,21 +1,23 @@
 import { Connection } from 'mongoose';
 
-import { DBService } from '../../components/database-service.component';
-import { SaleSchema } from '../sale/sale.model';
-import { ISale, ISaleQuery } from './sale.interface';
+import { DatabaseService } from '../../components/database-service.component';
+import { ICake } from '../cake/cake.interface';
+import { ISale } from './sale.interface';
+import { modelName } from './sale.model';
+import { modelName as cakeModelName } from '../cake/cake.model';
 
 export class SaleService {
-    private dbService: DBService<ISale, ISaleQuery>;
+    private dbService: DatabaseService<ISale>;
 
-    constructor(conn: Connection) {
-        this.dbService = new DBService(conn, 'Sale', SaleSchema);
+    constructor(connection: Connection) {
+        this.dbService = new DatabaseService(connection, modelName);
     }
 
-    sell(values: ISale) {
-        return this.dbService.save(values);
+    async sell(sale: ISale): Promise<string> {
+        return this.dbService.insert(sale);
     }
 
-    get(query: ISaleQuery) {
-        return this.dbService.findMany(query);
+    async updateCakeStock(id: string) {
+        
     }
 }

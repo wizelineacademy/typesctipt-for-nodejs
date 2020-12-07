@@ -1,12 +1,21 @@
-import express, { Express } from 'express';
+import express, { Express, Router } from 'express';
 
-import cakeRouter from './cake/cake.router';
-import saleRouter from './sale/sale.router';
+import { router as cakeRouter } from './cake/cake.router';
+import { router as saleRouter } from './sale/sale.router';
 
-export const app: Express = express();
+const app: Express = express();
 
 app.use(express.json());
 
-app.use('/cakes', cakeRouter);
-app.use('/sales', saleRouter);
+const router: Router = Router();
 
+router.use('/cakes', cakeRouter);
+router.use('/sales', saleRouter);
+
+app.use(router);
+
+export function initServer(port: number) {
+    app.listen(port, () => {
+        console.log(`Server listening on port: ${port}`);
+    });
+}

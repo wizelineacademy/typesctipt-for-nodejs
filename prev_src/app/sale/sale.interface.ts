@@ -3,5 +3,10 @@ export interface ISale {
     customerPhoneNumber: string;
     customerEmail: string;
     totalAmount: number;
-    cakeId: string;
+    cakeId: string; 
+}
+
+export interface ISaleQuery {
+    week?: number;
+    year?: number;
 }
