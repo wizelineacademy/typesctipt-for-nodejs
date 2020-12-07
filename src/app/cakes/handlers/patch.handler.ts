@@ -1,5 +1,5 @@
 import { RequestHandler, Request, Response } from "express"
-import { patchCake } from "../cakes.service"
+// import { patchCake } from "../cake.service"
 
 type Params = {}
 type Query = {}
@@ -18,7 +18,10 @@ let patchDataSample = {
 
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
-        const cake = await patchCake(patchNameSample, patchDataSample)
-        res.json({ success: true, route: "/cakes", message: 'Updated a cake!', data: cake })
+        // const cake = await patchCake(patchNameSample, patchDataSample)
+        res.json({
+            success: true, route: "/cakes", message: 'Updated a cake!',
+            // data: cake 
+        })
     }
 ]
