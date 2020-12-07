@@ -29,15 +29,18 @@ let postDataSample = {
 export const handler: RequestHandler[] = [
 
     async (req: Req, res: Res) => {
-        // Create cake
-        // console.log("BODY: ", req.body.name);
-        let cake: Cake = new Cake();
 
-        cake.name = req.body.name;
-        cake.description = req.body.description;
-        // Save cake 
+        let cake: Cake = new Cake();
+        let payload = req.body as ICake
+
+        cake.name = payload.name;
+        cake.description = payload.description;
+        cake.ingredients = payload.ingredients;
+        cake.price = payload.price;
+        cake.stock = payload.stock;
+
         let savedCake = await cake.save();
-        // Emit cake
+
         res.json(savedCake);
     }
 ];

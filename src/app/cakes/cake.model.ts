@@ -7,10 +7,10 @@ model(modelName, new Schema({
 
     name: SchemaTypes.String,
     description: SchemaTypes.String,
-    ingredients: SchemaTypes.String,
     price: SchemaTypes.Number,
     stock: SchemaTypes.Number,
-    status: SchemaTypes.String
+    status: SchemaTypes.String,
+    ingredients: [{ type: SchemaTypes.String }],
 }, { versionKey: false }))
 
 // export const CakeModel = new Schema({
