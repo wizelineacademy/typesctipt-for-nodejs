@@ -12,14 +12,22 @@ type Res = Response;
 export const handler: RequestHandler[] = [
   async (req: Req, res: Res, next) => {
     try {
-      const id: string = req.params.id;
+      let cake;
       const cakeService = new CakeService(dbConn);
-      const cake = await cakeService.getById(id);
+      if (req.body.id) {
+        const id = req.body.id;
+        cake = await cakeService.getById(id);
+      } else {
+        cake = await cakeService.fetchAll();
+      }
+
       res.status(200).json({
         data: cake,
       });
     } catch (err) {
-      next(err);
+      res.status(500).json({
+        error: err,
+      });
     }
   },
 ];

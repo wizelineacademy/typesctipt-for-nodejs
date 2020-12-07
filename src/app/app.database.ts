@@ -2,7 +2,7 @@ import { createConnection } from 'mongoose';
 import 'dotenv/config';
 
 export const dbConn = createConnection(
-  `mongodb://${process.env.HOST}/${process.env.DB_NAME}:${process.env.DB_PORT}`,
+  `mongodb://${process.env.HOST}/${process.env.DB_NAME}`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
