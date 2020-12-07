@@ -1,4 +1,4 @@
-import { Connection, Model, Document, DocumentQuery} from "mongoose";
+import { Connection, Model, Document, DocumentQuery, FilterQuery} from "mongoose";
 
 export class DataService<T> {
     readonly connection: Connection;
@@ -21,7 +21,13 @@ export class DataService<T> {
     }
 
     patch(id: string, model: T): any {
-       return this.model.findByIdAndUpdate(id, model, { new: true, runValidators: true });
+        let opts = {
+            runValidators: true, 
+            setDefaultsOnInsert: true, 
+            upsert: true,
+            context: 'query'
+          };
+       return this.model.findByIdAndUpdate(id, model, opts);
     }
     
     insert(data: T): Promise<string> {

@@ -1,9 +1,11 @@
-import { model, Schema , Types} from "mongoose";
+import { Cacke } from './cacke.class';
+import { model, NativeError, Schema , Types} from "mongoose";
 
 export const modelName: string = 'Cacke';
 export const collection: string = 'cackes';
 
-model(modelName, new Schema({
+
+const cackeSchema = new Schema({
     _id: {
         type: Types.ObjectId,
         index: true,
@@ -26,7 +28,6 @@ model(modelName, new Schema({
         type: [String],
         required: true,
         validate: function (value) {
-            //TODO: move later to utils to have a general thing for validators
             //Checks if one ingrediente 1 character min. 20 chareacters max.
             for (var index = 0; index < value.length; index++) {
                 if (value[index].length > 20 || value[index].length < 1) {
@@ -48,5 +49,12 @@ model(modelName, new Schema({
     },
     status: {
         type: String,
+        get: function () {
+            if (this.stock) {
+                return Cacke.getNewCackeStatus(this.stock);
+            }
+        }
     }
-}), collection);
+});
+
+model(modelName, cackeSchema, collection);

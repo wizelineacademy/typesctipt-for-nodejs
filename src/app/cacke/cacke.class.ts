@@ -1,4 +1,5 @@
 import { dbMain } from "../app.database";
+import { CackeStatus } from "../cacke/enums/cackestatus";
 import { CackeService } from "./cacke.service";
 import { ICacke } from "./interfaces/cacke";
 
@@ -26,4 +27,15 @@ export class Cacke {
         return this.cackeService.edit(id,model);
     }
 
- }
+    static getNewCackeStatus(stock: number): CackeStatus {
+        if (stock > 10) {
+            return CackeStatus.Avaliable;
+        }
+        else if (stock < 10 && stock > 0) {
+            return CackeStatus.LastUnits;
+        }
+        else {
+            return CackeStatus.OutOfStock;
+        }
+      }
+ } 

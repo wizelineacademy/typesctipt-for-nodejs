@@ -1,8 +1,6 @@
-import { Request } from "express";
-
 import { ICacke } from "../../cacke/interfaces/cacke";
+import { IResponseData } from "../shared/interface/response-data";
 
-//TODO: Need to move these to their respective file
 export abstract class ResponseData {
     static getResponse(message: string, data:  ICacke | string | number| ICacke[] ): IResponseData {
         return {
@@ -11,14 +9,3 @@ export abstract class ResponseData {
         }
     }
 }
-
-export interface IResponseData {
-    message: string;
-    data: ICacke | string | number | ICacke[];
-}
-
-type Params = {id: string};
-type Query = {};
-type Body = {};
-
-export type Req = Request<Params, {}, Body, Query>;

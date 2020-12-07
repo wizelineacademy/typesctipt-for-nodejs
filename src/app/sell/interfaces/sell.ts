@@ -1,8 +1,9 @@
 import { ICackeSold } from "./cackeSold";
-import { ICustomerInformation } from "./customerInformation";
 
 export interface ISell {
-    customerInformation: ICustomerInformation;
+    customerName: string;
+    customerPhoneNumber: string;
+    customerEmail: string;
     cackeId: string;
     cacke: ICackeSold;
     quantity: number;
