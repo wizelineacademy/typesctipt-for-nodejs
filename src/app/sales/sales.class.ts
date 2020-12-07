@@ -14,7 +14,12 @@ export class Sales implements ISell {
   quantity: number;
   cakeId: string;
 
-  constructor(salesInjection?: SalesInjection, cakeInjection?: CakeInjection) {
+  constructor(
+    sales?: ISell,
+    salesInjection?: SalesInjection,
+    cakeInjection?: CakeInjection
+  ) {
+    this.setValues(sales);
     this._salesService =
       salesInjection?.salesService || new SalesService(dbMain);
     this._cakeService = cakeInjection?.cakeService || new CakeService(dbMain);
@@ -30,8 +35,19 @@ export class Sales implements ISell {
     };
   }
 
+  setValues(sales: ISell) {
+    if (sales) {
+      this.customerEmail = sales.customerEmail;
+      this.customerName = sales.customerName;
+      this.customerPhoneNumber = sales.customerPhoneNumber;
+      this.cakeId = sales.cakeId;
+      this.quantity = sales.quantity;
+    }
+  }
+
   async makeSell(): Promise<string> {
     const cake = await this._cakeService.getById(this.cakeId);
+
     if (!cake) {
       throw new CustomError('The cake does not exists.');
     }

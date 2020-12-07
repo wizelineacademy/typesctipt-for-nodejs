@@ -1,6 +1,7 @@
 import { CakeStatus } from './CakeStatus.enum';
 
 interface ICake {
+  _id?: string;
   name: string;
   description: string;
   ingredients: string[];

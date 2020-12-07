@@ -6,6 +6,7 @@ import { CustomError } from '../../components/error.component';
 
 export class Cake implements ICake {
   private _cakeService: CakeService;
+  _id: string;
   name: string;
   description: string;
   ingredients: string[];
@@ -13,7 +14,8 @@ export class Cake implements ICake {
   stock: number;
   status: CakeStatus;
 
-  constructor(injection?: CakeInjection) {
+  constructor(values?: ICake, injection?: CakeInjection) {
+    this.setValues(values);
     this._cakeService = injection?.cakeService || new CakeService(dbMain);
   }
 
@@ -28,7 +30,7 @@ export class Cake implements ICake {
     };
   }
 
-  set values(values: ICake) {
+  setValues(values: ICake) {
     if (values) {
       this.name = values.name;
       this.description = values.description;
@@ -46,8 +48,8 @@ export class Cake implements ICake {
     }
 
     this.setStatusWithRules();
-    const cakeId = await this._cakeService.insert(this.values);
-    return cakeId;
+    this._id = await this._cakeService.insert(this.values);
+    return this._id;
   }
 
   async getCake(id: string): Promise<ICake> {

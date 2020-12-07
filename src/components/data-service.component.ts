@@ -6,8 +6,7 @@ export class DataService<T> {
 
   constructor(connection: Connection, modelName: string) {
     this.connection = connection;
-    const models = this.connection.modelNames();
-    this.model = this.connection.model(modelName);
+    this.model = this.connection?.model(modelName);
   }
 
   fetchAll(): Promise<T[]> {

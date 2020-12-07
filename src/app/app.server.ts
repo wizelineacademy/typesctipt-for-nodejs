@@ -4,10 +4,10 @@ import express, {
   Request,
   Response,
   NextFunction,
+  json,
 } from 'express';
 import { router as cakeRouter } from './cake/cake.router';
 import { router as salesRouter } from './sales/sales.router';
-import { json } from 'body-parser';
 import { errorHandler } from '../components/error.component';
 
 const app: Express = express();
