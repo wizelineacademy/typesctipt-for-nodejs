@@ -9,7 +9,6 @@ type Body = {}
 type Req = Request<Params, {}, Body, Query>
 type Res = Response
 
-
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
         const service = new CakeService(dbMain)

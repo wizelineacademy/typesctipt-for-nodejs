@@ -17,14 +17,6 @@ let postDataSample = {
     stock: 10
 }
 
-// export const handler: RequestHandler[] = [
-//     async (req: Req, res: Res) => {
-//         console.log(req.body);
-//         const cake = new CakeService()
-//         res.json({ success: true, route: "/cakes", message: 'Posted new cake!', data: cake })
-//     }
-
-// ]
 
 export const handler: RequestHandler[] = [
 

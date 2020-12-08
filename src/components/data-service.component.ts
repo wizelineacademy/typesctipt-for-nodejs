@@ -10,19 +10,6 @@ export class DataService<T> {
         this.model = this.connection?.model(modelName)
     }
 
-    // fetchMany(): Promise<T[]> {
-
-    //     return this.model.find({}).lean().exec();
-    // }
-
-    // insert(data: T): Promise<T> {
-    //     const model = new this.model(data);
-    //     return model.save().then(() => {
-    //         return model;
-    //     });
-    // }    
-
-
     fetchMany(): Promise<T[]> {
         return this.model.find({}).lean<T>().exec();
     }

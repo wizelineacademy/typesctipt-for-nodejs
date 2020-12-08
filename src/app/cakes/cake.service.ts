@@ -7,69 +7,6 @@ import { ISale } from "../sales/sale.interface"
 import { CakeStatus } from "./cake.status.enum"
 
 let cakes: Cake[] = []
-
-// Mockup services
-
-// export const getCakes = () => {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve(cakes)
-//         }, 100)
-//     })
-// }
-
-// export const getCakesDb = () => {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve(cakes)
-//         }, 100)
-//     })
-// }
-
-// export const postCake = (postedData: any) => {
-//     return new Promise<Cake>((resolve, reject) => {
-//         setTimeout(() => {
-//             const newCake = new Cake(postedData)
-//             cakes.push(newCake)
-//             resolve(newCake)
-//         }, 100)
-//     })
-// }
-
-// export const patchCake = async (cakeName: string, patchedData: any) => {
-//     return new Promise<Cake>((resolve, reject) => {
-//         setTimeout(() => {
-//             let cakeToUpdate = cakes.find(cake => cake.name === cakeName)
-//             if (cakeToUpdate != undefined) {
-//                 let index = cakes.indexOf(cakeToUpdate)
-//                 cakes[index] = { ...cakeToUpdate, ...patchedData }
-//                 resolve(cakes[index])
-//             } else {
-//                 reject()
-//             }
-//         }, 100)
-//     })
-// }
-
-// export const deleteCake = async (cakeName: string) => {
-//     return new Promise<Cake>((resolve, reject) => {
-//         setTimeout(() => {
-//             let cakeToDelete = cakes.find(cake => cake.name === cakeName)
-//             if (cakeToDelete != undefined) {
-//                 let index = cakes.indexOf(cakeToDelete)
-//                 cakes.splice(index, 1)
-//                 // delete cakes[index]
-//                 resolve(cakeToDelete)
-//             } else {
-//                 reject()
-//             }
-//         }, 100);
-//     });
-
-// }
-
-
-
 export class CakeService {
 
     // Declare an instance of the db service, passing the cake interface to its generic type.
@@ -119,39 +56,5 @@ export class CakeService {
         return this.dataService.update(cake._id, cake)
 
     }
-
-    // updateStocks(id: string, ammountSold: number): Promise<ICake> {
-    //     let cake = this.dataService.getOne(id,)
-
-    //     // let cake = await this.cakeService.getById(id)
-    //     if (cake.stock) {
-
-    //         if (cake.stock < 0) throw new Error;
-
-    //         cake.stock = cake.stock - sold;
-
-    //     } else {
-    //         throw new Error('Cake description cannot be empty.')
-    //     }
-
-    //     return cake
-
-
-    // }
-
-    // async adjustCakeStock(id: string, sold: number){
-    //     const cake = await this.dataService.getOne(id);
-    //     if (cake.stock){
-
-    //         if(cake.stock < 0) throw new Error;
-
-    //         cake.stock = cake.stock - sold;
-
-    //     }
-
-    //     this.dataService.update(id, cake);
-    // }
-
-
 
 }

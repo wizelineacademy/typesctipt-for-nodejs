@@ -7,8 +7,6 @@ type Body = {}
 type Req = Request<Params, {}, Body, Query>
 type Res = Response
 
-let deleteNameSample = "Chocolate Cake"
-
 export const handler: RequestHandler[] = [
     async (req: Req, res: Res) => {
 

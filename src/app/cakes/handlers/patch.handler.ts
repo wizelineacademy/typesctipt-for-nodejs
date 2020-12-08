@@ -18,16 +18,6 @@ let patchDataSample = {
     stock: 20
 }
 
-// export const handler: RequestHandler[] = [
-//     async (req: Req, res: Res) => {
-//         // const cake = await patchCake(patchNameSample, patchDataSample)
-//         res.json({
-//             success: true, route: "/cakes", message: 'Updated a cake!',
-//             // data: cake 
-//         })
-//     }
-// ]
-
 export const handler: RequestHandler[] = [
 
     async (req: Req, res: Res) => {

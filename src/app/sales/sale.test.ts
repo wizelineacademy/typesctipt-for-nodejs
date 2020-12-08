@@ -39,13 +39,6 @@ describe('Sale', () => {
 
     describe('#save', () => {
 
-        /* await this.validateCakeId()
-        await this.validateStock()
-        this.validateCustomerName()
-        this.validateEmail()
-        this.validatePhone()
-        this.validateQuantity() */
-
 
         it('Should return a sale', async () => {
             try {
@@ -56,10 +49,6 @@ describe('Sale', () => {
                 should().fail();
             }
         });
-
-
-
-
     });
 
 
