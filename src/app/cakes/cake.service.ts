@@ -120,4 +120,38 @@ export class CakeService {
 
     }
 
+    // updateStocks(id: string, ammountSold: number): Promise<ICake> {
+    //     let cake = this.dataService.getOne(id,)
+
+    //     // let cake = await this.cakeService.getById(id)
+    //     if (cake.stock) {
+
+    //         if (cake.stock < 0) throw new Error;
+
+    //         cake.stock = cake.stock - sold;
+
+    //     } else {
+    //         throw new Error('Cake description cannot be empty.')
+    //     }
+
+    //     return cake
+
+
+    // }
+
+    // async adjustCakeStock(id: string, sold: number){
+    //     const cake = await this.dataService.getOne(id);
+    //     if (cake.stock){
+
+    //         if(cake.stock < 0) throw new Error;
+
+    //         cake.stock = cake.stock - sold;
+
+    //     }
+
+    //     this.dataService.update(id, cake);
+    // }
+
+
+
 }
