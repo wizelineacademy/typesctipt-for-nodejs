@@ -1,6 +1,7 @@
 import { db as dbMain } from "../app.database"
 import { ICake } from "./cake.interface"
 import { CakeService } from "./cake.service"
+import { CakeStatus } from "./cake.status.enum"
 
 export type CakeInjection = {
     cakeService?: CakeService
@@ -10,12 +11,12 @@ export class Cake implements ICake {
 
     private cakeService: CakeService
 
-    name?: string
-    description?: string
-    ingredients?: string[]
-    price?: number
-    stock?: number
-    // status?: 'Available' | 'LastUnits' | 'OutOfStock'
+    name: string
+    description: string
+    ingredients: string[]
+    price: number
+    stock: number
+    status: CakeStatus
 
     constructor(values?: ICake, injection?: CakeInjection) {
 
@@ -29,7 +30,8 @@ export class Cake implements ICake {
             description: this.description,
             ingredients: this.ingredients,
             price: this.price,
-            stock: this.stock
+            stock: this.stock,
+            status: this.status
         }
     }
 
@@ -44,6 +46,7 @@ export class Cake implements ICake {
             this.ingredients = values.ingredients
             this.price = values.price
             this.stock = values.stock
+            this.status = values.status
         }
     }
 
@@ -53,6 +56,8 @@ export class Cake implements ICake {
         this.validateIngredients()
         this.validateStock()
         this.validatePrice()
+
+        this.adjustStatus()
 
         let cake = await this.cakeService.save(this.values);
 
@@ -66,6 +71,7 @@ export class Cake implements ICake {
         this.validateStock()
         this.validatePrice()
 
+        this.adjustStatus()
         let cake = await this.cakeService.update(id, this.values);
 
         return cake;
@@ -77,6 +83,33 @@ export class Cake implements ICake {
 
         return cake;
     }
+
+    private adjustStatus() {
+        if (this.stock == 0) {
+            this.status = CakeStatus.OutOfStock;
+        } else if (this.stock > 0 && this.stock < 10) {
+            this.status = CakeStatus.LastUnits;
+        } else {
+            this.status = CakeStatus.Available;
+        }
+    }
+
+    public async adjustStock(id: string, sold: number) {
+
+        let cake = await this.cakeService.getById(id)
+        if (cake.stock) {
+
+            if (cake.stock < 0) throw new Error;
+
+            cake.stock = cake.stock - sold;
+
+        } else {
+            throw new Error('Cake description cannot be empty.')
+        }
+
+        return cake
+    }
+
 
     public validateName(): Boolean {
         const minLength: number = 3
@@ -152,7 +185,6 @@ export class Cake implements ICake {
         }
         return true
     }
-
 
     public validateStock(): Boolean {
 

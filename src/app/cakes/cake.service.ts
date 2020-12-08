@@ -3,6 +3,8 @@ import { DataService } from "../../components/data-service.component"
 import { modelName } from "./cake.model"
 import { Cake } from "./cake.class"
 import { ICake } from "./cake.interface"
+import { ISale } from "../sales/sale.interface"
+import { CakeStatus } from "./cake.status.enum"
 
 let cakes: Cake[] = []
 
@@ -85,6 +87,10 @@ export class CakeService {
         return this.dataService.getOne(cakeId)
     }
 
+    getCakeById(cakeId: string): Promise<ICake> {
+        return this.dataService.getOne(cakeId)
+    }
+
     save(cake: ICake): Promise<ICake> {
         return this.dataService.insert(cake)
     }
@@ -96,6 +102,55 @@ export class CakeService {
     delete(id?: string, cake?: ICake): Promise<ICake> {
         return this.dataService.delete(id, cake)
     }
+
+    async updateStock(sale: ISale,): Promise<ICake> {
+        const cake = await this.getById(sale.cakeId)
+        console.log(cake);
+        if (cake.stock && sale.quantity) {
+            cake.stock = cake.stock - sale.quantity
+            if (cake.stock == 0) {
+                cake.status = CakeStatus.OutOfStock;
+            } else if (cake.stock > 0 && cake.stock < 10) {
+                cake.status = CakeStatus.LastUnits;
+            } else {
+                cake.status = CakeStatus.Available;
+            }
+        }
+        return this.dataService.update(cake._id, cake)
+
+    }
+
+    // updateStocks(id: string, ammountSold: number): Promise<ICake> {
+    //     let cake = this.dataService.getOne(id,)
+
+    //     // let cake = await this.cakeService.getById(id)
+    //     if (cake.stock) {
+
+    //         if (cake.stock < 0) throw new Error;
+
+    //         cake.stock = cake.stock - sold;
+
+    //     } else {
+    //         throw new Error('Cake description cannot be empty.')
+    //     }
+
+    //     return cake
+
+
+    // }
+
+    // async adjustCakeStock(id: string, sold: number){
+    //     const cake = await this.dataService.getOne(id);
+    //     if (cake.stock){
+
+    //         if(cake.stock < 0) throw new Error;
+
+    //         cake.stock = cake.stock - sold;
+
+    //     }
+
+    //     this.dataService.update(id, cake);
+    // }
 
 
 

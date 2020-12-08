@@ -1,18 +1,11 @@
 import { Router } from "express";
+// import { handler as getHandler } from "./handlers/get.handler"
+import { handler as postHandler } from "./handlers/post.handler"
+// import { handler as patchHandler } from "./handlers/patch.handler"
+// import { handler as deleteHandler } from "./handlers/delete.handler"
 
 export const router: Router = Router()
 
+
 router.route('/')
-    .get((req, res) => {
-
-        res.json({ success: true, route: "/sales", message: 'Retrieved sales list.' })
-    })
-    .post((req, res) => {
-
-        res.json({ success: true, route: "/sales", message: 'Posted new sale!' })
-    })
-    .patch((req, res) => {
-
-        res.json({ success: true, route: "/sales", message: 'Updated a sale!' })
-    })
-
+    .post(postHandler)

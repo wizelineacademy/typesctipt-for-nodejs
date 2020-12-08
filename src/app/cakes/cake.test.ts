@@ -6,13 +6,15 @@ import { ICake } from './cake.interface';
 
 import { mock, instance, when, deepEqual } from "ts-mockito";
 import { CakeService } from './cake.service';
+import { CakeStatus } from './cake.status.enum';
 
 const cakeValues: ICake = {
     name: 'Red Velvet',
     description: 'Red velvet cake is traditionally a red, red-brown, crimson or scarlet-colored chocolate layer cake.',
     ingredients: ['vanilla', 'strawberry', 'cacao'],
     price: 20,
-    stock: 100
+    stock: 100,
+    status: CakeStatus.Available
 };
 
 

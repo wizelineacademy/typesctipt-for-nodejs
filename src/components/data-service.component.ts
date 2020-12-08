@@ -27,7 +27,7 @@ export class DataService<T> {
         return this.model.find({}).lean<T>().exec();
     }
 
-    insert(data: T): Promise<T> {
+    insert(data?: T): Promise<T> {
         let model = new this.model(data);
         return model.save()
     }
@@ -42,7 +42,7 @@ export class DataService<T> {
         return this.model.findByIdAndDelete({ _id: id }).lean<T>().exec()
     }
 
-    getOne(id: string): Promise<T> {
+    getOne(id?: string, data?: T): Promise<T> {
         return this.model.findById(id).lean<T>().exec()
     }
 }
