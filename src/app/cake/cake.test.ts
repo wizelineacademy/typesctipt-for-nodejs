@@ -40,9 +40,9 @@ describe('Cake', () => {
             }
         });
 
-        it('should return throw an error', () => {
+        it('should throw an error', () => {
             try {
-                cake.name = '';
+                cake.name = 'a';
                 cake.validateName();
 
                 should().fail();
@@ -50,5 +50,79 @@ describe('Cake', () => {
                 expect(error.message).to.match(/.should be in range/);
             }
         })
+    });
+
+    describe('#validateDescription', () => {
+        it('should return true', () => {
+            try {
+                expect(cake.validateDescription()).to.be.true;
+            } catch (error) {
+                should().fail();
+            }
+        });
+
+        it('should throw a range error', () => {
+            try {
+                cake.description = 'b';
+                cake.validateDescription();
+
+                should().fail();
+            } catch (error) {
+                expect(error.message).to.match(/.should be in range/);
+            }
+        });
+
+        it('should throw a required error', () => {
+            try {
+                cake.description = '';
+                cake.validateDescription();
+
+                should().fail();
+            } catch (error) {
+                expect(error.message).to.match(/.is required/);
+            }
+        });
+    });
+
+    describe('#validatePrice', () => {
+        it('should return true', () => {
+            try {
+                expect(cake.validatePrice()).to.be.true;
+            } catch (error) {
+                should().fail();
+            }
+        });
+
+        it('should throw a range error', () => {
+            try {
+                cake.price = -1;
+                cake.validatePrice();
+
+                should().fail();
+            } catch (error) {
+                expect(error.message).to.match(/.should be greater/);
+            }
+        });
+    });
+
+    describe('#validateStock', () => {
+        it('should return true', () => {
+            try {
+                expect(cake.validateStock()).to.be.true;
+            } catch (error) {
+                should().fail();
+            }
+        });
+
+        it('should throw an error', () => {
+            try {
+                cake.stock = -1;
+                cake.validateStock();
+
+                should().fail();
+            } catch (error) {
+                expect(error.message).to.match(/.should be greater/);
+            }
+        });
     });
 });

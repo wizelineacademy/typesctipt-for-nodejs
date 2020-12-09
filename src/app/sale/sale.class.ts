@@ -1,8 +1,14 @@
-import { CakeService } from '../cake/cake.service';
+import {
+    validateEmail,
+    validateLength,
+    validateMinValue,
+    validatePhoneNumber
+} from '../../utils';
 import { dbConn } from '../app.database';
-import { ISale } from './sale.interface';
-import { SaleService } from './sale.service';
+import { CakeService } from '../cake/cake.service';
 import { ICake } from '../cake/cake.interface';
+import { SaleService } from './sale.service';
+import { ISale } from './sale.interface';
 
 export type SaleInjection = {
     saleService?: SaleService;
@@ -50,6 +56,8 @@ export class Sale implements ISale {
     }
 
     public async sell() {
+        this.validateFields();
+
         const sale = await this.saleService.sell(this.getValues);
         
         await this.updateCakeStock();
@@ -72,5 +80,41 @@ export class Sale implements ISale {
 
             await this.cakeService.update(newCake, this.cakeId);
         }
+    }
+
+    public validateCustomerName(): boolean {
+        const minLength: number = 3;
+        const maxLength: number = 50;
+
+        return validateLength('customer name', this.customerName, minLength, maxLength);
+    }
+
+    public validateCustomerEmail(): boolean {
+        return validateEmail('customer email', this.customerEmail);
+    }
+
+    public validateCustomerPhoneNumber(): boolean {
+        return validatePhoneNumber('customer phone number', this.customerPhoneNumber);
+    }
+
+    public validateTotalAmount(): boolean {
+        const minAmount: number = 1;
+
+        return validateMinValue('total amount', this.totalAmount, minAmount);
+    }
+
+    public validateCakeId(): boolean {
+        const minLength = 24;
+        const maxLength = 24;
+
+        return validateLength('cake id', this.cakeId, minLength, maxLength);
+    }
+
+    public validateFields(): void {
+        this.validateCustomerName();
+        this.validateCustomerEmail();
+        this.validateCustomerPhoneNumber();
+        this.validateTotalAmount();
+        this.validateCakeId();
     }
 }

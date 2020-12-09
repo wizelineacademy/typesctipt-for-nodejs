@@ -1,11 +1,11 @@
 import { Connection } from 'mongoose';
 
 import { DatabaseService } from '../../components/database-service.component';
-import { ICake } from './cake.interface';
+import { ICake, ICakeQuery } from './cake.interface';
 import { modelName } from './cake.model';
 
 export class CakeService {
-    private dbService: DatabaseService<ICake>;
+    private dbService: DatabaseService<ICake, ICakeQuery>;
 
     constructor(connection: Connection) {
         this.dbService = new DatabaseService(connection, modelName);
@@ -15,8 +15,8 @@ export class CakeService {
         return this.dbService.fetch(id);
     }
 
-    getMany(): Promise<ICake[]> {
-        return this.dbService.fetchMany();
+    getMany(query: ICakeQuery): Promise<ICake[]> {
+        return this.dbService.fetchMany(query);
     }
 
     save(cake: ICake): Promise<string> {

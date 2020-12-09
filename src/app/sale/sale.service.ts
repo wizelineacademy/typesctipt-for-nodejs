@@ -1,13 +1,11 @@
 import { Connection } from 'mongoose';
 
 import { DatabaseService } from '../../components/database-service.component';
-import { ICake } from '../cake/cake.interface';
-import { ISale } from './sale.interface';
+import { ISale, ISaleQuery } from './sale.interface';
 import { modelName } from './sale.model';
-import { modelName as cakeModelName } from '../cake/cake.model';
 
 export class SaleService {
-    private dbService: DatabaseService<ISale>;
+    private dbService: DatabaseService<ISale, ISaleQuery>;
 
     constructor(connection: Connection) {
         this.dbService = new DatabaseService(connection, modelName);
@@ -17,7 +15,7 @@ export class SaleService {
         return this.dbService.insert(sale);
     }
 
-    async updateCakeStock(id: string) {
-        
+    async getMany(query: ISaleQuery): Promise<ISale[]> {
+        return this.dbService.fetchMany(query);
     }
 }

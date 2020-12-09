@@ -1,6 +1,6 @@
 import { Connection, Document, Model } from 'mongoose';
 
-export class DatabaseService<T> {
+export class DatabaseService<T, R> {
     readonly connection: Connection;
     readonly model: Model<T & Document>;
 
@@ -13,8 +13,8 @@ export class DatabaseService<T> {
         return this.model.findById(id).lean<T>().exec();
     }
 
-    fetchMany(): Promise<T[]> {
-        return this.model.find().lean<T>().exec();
+    fetchMany(query?: R): Promise<T[]> {
+        return this.model.find({}).lean<T>().exec();
     }
 
     async insert(data: T): Promise<string> {

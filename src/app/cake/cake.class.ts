@@ -63,7 +63,7 @@ export class Cake implements ICake {
     }
 
     public async save() {
-        this.validateValues();
+        this.validateFields();
         return this.cakeService.save(this.getValues);
     }
 
@@ -75,29 +75,29 @@ export class Cake implements ICake {
         const minLength: number = 5;
         const maxLength: number = 50;
 
-        return validateLength(this.name, minLength, maxLength)
+        return validateLength('name', this.name, minLength, maxLength)
     }
 
     public validateDescription(): boolean {
         const minLength: number = 50;
         const maxLength: number = 1000;
 
-        return validateLength(this.description, minLength, maxLength);
+        return validateLength('description', this.description, minLength, maxLength);
     }
 
     public validatePrice(): boolean {
         const minPrice: number = 1;
 
-        return validateMinValue(this.price, minPrice);
+        return validateMinValue('price', this.price, minPrice);
     }
 
     public validateStock(): boolean {
         const minStock: number = 0;
 
-        return validateMinValue(this.stock, minStock);
+        return validateMinValue('stock', this.stock, minStock);
     }
 
-    public validateValues(): void {
+    public validateFields(): void {
         this.validateName();
         this.validateDescription();
         this.validatePrice();
