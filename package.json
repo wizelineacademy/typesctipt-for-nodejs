@@ -1,0 +1,19 @@
+{
+  "name": "cakeapi",
+  "version": "1.0.0",
+  "description": "Wizeline academy challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rafasu/typesctipt-for-nodejs.git"
+  },
+  "author": "rafasu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rafasu/typesctipt-for-nodejs/issues"
+  },
+  "homepage": "https://github.com/Rafasu/typesctipt-for-nodejs#readme"
+}
