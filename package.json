@@ -1,0 +1,50 @@
+{
+  "name": "typesctipt-for-nodejs",
+  "version": "1.0.0",
+  "description": "Thank you for participating in the TypeScript for NodeJS course!\r Here, you'll find instructions for completing your certification.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "start": "node dist/index.js",
+    "start:watch": "nodemon dist/index.js",
+    "debug:watch":  "nodemon --inspect dist/index.js",
+    "test": "npx mocha -r ts-node/register 'src/**/**/test/*.test.ts'",
+    "preprod": "npm run build",
+    "prod": "webpack",
+    "postprod": "touch build/.env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rene-ph/typesctipt-for-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rene-ph/typesctipt-for-nodejs/issues"
+  },
+  "homepage": "https://github.com/rene-ph/typesctipt-for-nodejs#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/mongoose": "5.10.1",
+    "@types/node": "^14.14.11",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "ts-loader": "^8.0.11",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2",
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "dependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.4",
+    "express": "^4.17.1",
+    "mongoose": "5.10.19"
+  }
+}

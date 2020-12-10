@@ -1,0 +1,114 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CackeAPICourse",
+		"_postman_id": "28722b20-8f4c-8091-b943-5ef1cd61b900",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/sales",
+			"request": {
+				"url": "localhost:3000/sales",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"customerName\": \"Jhon\",\n\t\"phoneNumber\": 1234567890,\n\t\"email\": \"jhondoe@mailtest.com\",\n\t\"cackeId\": \"5fcd478eed86a73890b055\",\n\t\"quantity\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/cackes/5fcd478eed86a73890b0556d",
+			"request": {
+				"url": "localhost:3000/cackes/5fcd478eed86a73890b0556d",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"stock\": 8,\n\t\"price\": 6\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/cackes?minPrice=20",
+			"request": {
+				"url": {
+					"raw": "localhost:3000/cackes?minPrice=20",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes"
+					],
+					"query": [
+						{
+							"key": "minPrice",
+							"value": "20",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "5fc705b8297dc72d8012e19e",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"ingredients\": [\n                \"abbaa\"\n            ],\n            \"name\": \"pasteweon\",\n            \"description\": \"oassoassoassoassoassoassoassoassoassoassoassoassoassoassoassoassoass\",\n            \"price\": 2,\n            \"stock\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/cackes/5fcd478eed86a73890b0556d",
+			"request": {
+				"url": "localhost:3000/cackes/5fcd478eed86a73890b0556d",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"stock\": 8,\n\t\"price\": 10\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
