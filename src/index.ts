@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import  App  from './app/app.server';
 import { router as cackeRouter } from './app/cacke/cacke.router';
 import { router as sellRouter } from './app/sell/sell.router';

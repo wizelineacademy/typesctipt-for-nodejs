@@ -12,11 +12,11 @@ export class DataService<T> {
         this.model = this.connection.model(modelName);
     }
 
-    fetchMany(): Promise<T[]> {
+    fetchMany() {
         return this.model.find({}).lean().exec();
     }
 
-    get(id: string): Promise<T> {
+    get(id: string) {
         return this.model.findById(id).lean().exec();
     }
 

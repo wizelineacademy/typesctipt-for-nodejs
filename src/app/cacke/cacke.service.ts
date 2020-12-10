@@ -52,9 +52,6 @@ export class CackeService {
     /**Cannot be sold a quantity greater than the current stock. */
     async isCackeAvaliableForSale(sell: ISell): Promise<boolean> {
         const cacke = await this.getCacke(sell.cackeId);
-        if (cacke.stock < sell.quantity) {
-            return false;
-        }
-        return true;
+        return cacke.stock < sell.quantity ? false: true;
     }
 }

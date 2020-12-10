@@ -24,10 +24,15 @@ export const handler: RequestHandler[] = [
 ];
 
 async function saveSell(sell, data, res) {
-    const sellResult = await sell.save(data);
-    if (sellResult) {
-        res.status(201).send(ResponseData.getResponse(`The sell was created`, sellResult));
-    } else {
-        throw "Internal Server Error";
+    try {
+        const sellResult = await sell.save(data);
+        if (sellResult) {
+            res.status(201).send(ResponseData.getResponse(`The sell was created`, sellResult));
+        } else {
+            throw "Internal Server Error";
+        }
+    } catch(e) {
+        Logger.LogError(e);
+        res.status(400).send(ResponseData.getResponse(e, null));
     }
 }

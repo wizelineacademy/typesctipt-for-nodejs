@@ -6,8 +6,6 @@ export const collection: string = 'sales';
 model(modelName, new Schema({
     _id: {
         type: Types.ObjectId,
-        index: true,
-        required: true,
         auto: true,
     },
     customerName: { 
@@ -38,10 +36,6 @@ model(modelName, new Schema({
         type: String,
         required: true,
         min: 1,
-        validate: function (value) {  
-            /**TODO validate that exists in the DB*/
-            return true;
-        }
     },
     quantity: {
         type: Number,

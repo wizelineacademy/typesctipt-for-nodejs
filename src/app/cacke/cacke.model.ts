@@ -8,8 +8,6 @@ export const collection: string = 'cackes';
 const cackeSchema = new Schema({
     _id: {
         type: Types.ObjectId,
-        index: true,
-        required: true,
         auto: true,
     },
     name: { 
