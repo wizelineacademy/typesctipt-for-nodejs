@@ -1,21 +1,30 @@
-import { RequestHandler, Request, Response } from "express";
-import { createCake } from "../cake.service";
+import { RequestHandler, Request, Response, NextFunction } from "express";
 import { Cake } from "../cake.class";
-import { Cake as CakeInterface } from "../cake.interface";
 
-type Params = { cakeId?: number };
+type Params = { cakeId?: string };
 type Query = {};
-type Body = {};
+type Body = {
+    name: string,
+    description: string,
+    ingredients: string[],
+    price: number,
+    stock: number,
+    status: string
+};
 type Req = Request< Params, {}, Body, Query >;
 type Res = Response;
+type Next = NextFunction;
 
 export const createHandler : RequestHandler[] = [
-    async(req: Req, res: Res) => {
-        const cake = req.body as CakeInterface;
-        const newCake = new Cake( cake );
-        console.log(newCake);
-        const cakeCreated = await createCake(newCake);
-        res.json(cakeCreated);
+    async(req: Req, res: Res, next: Next) => {
+        const cake: Cake = new Cake(req.body);
+        try{
+            const cakeId = await cake.save();
+            res.json(cakeId);
+        }catch(error){
+            next(error);
+        }
+        
     }
 ]
 
