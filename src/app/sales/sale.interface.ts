@@ -1,10 +1,9 @@
-import { Cake } from "../cakes/cake.interface";
-
-export interface Sale {
-    _id: number,
+export interface ISale {
+    _id?: string,
     customerName: string,
     customerPhoneNumber: string,
-    customerEmail: string,
-    totalAmount: number,
-    cake: Cake,
+    customerEmail?: string,
+    cakeId: string,
+    totalAmount?: number,
+    quality?: number,
 }
