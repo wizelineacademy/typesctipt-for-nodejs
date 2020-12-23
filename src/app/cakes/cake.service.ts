@@ -1,44 +1,34 @@
-import { cakesMocks } from '../../utils/mocks/cakes.mock';
-import { Cake as CakeInterface } from "../cakes/cake.interface";
+import { Connection } from "mongoose";
+import { DataService } from "../../components/data-service.component";
+import { ICake, ICakeFilter } from "../cakes/cake.interface";
+import { Cake } from "./cake.class";
+import { modelName } from "./cake.model";
 
-export const getAllCakes = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(cakesMocks);
-        }, 1500);
-    });
-}
+type CakeClass = Cake;
 
-export const getCake = (id: number) => {
-    return new Promise((resolve) => {
-        const cakeSelected = cakesMocks.filter(cake => cake._id == id);
-        console.log("selected:", cakeSelected);
-        setTimeout(() => {
-            resolve(cakeSelected);
-        }, 1500);
-    })
-}
+export class CakeService {
+    private dataService: DataService<ICake>;
 
-export const createCake = (cake: {}) => {
-    return new Promise((resolve) => {
-        console.log("from service:", cake);
-        const newCake = cake as CakeInterface;
-        cakesMocks.push(newCake);
-        setTimeout(() => {
-            resolve(newCake);
-        }, 1500);
-        
-    })
-}
+    constructor(connection: Connection ){
+        this.dataService =  new DataService(connection, modelName);
+    }
 
-export const updateCake = (id: number, cake: {}) => {
-    return new Promise((resolve) => {
-        console.log("from service:", cake);
-        const cakeSelected = cakesMocks.filter(cake => cake._id == id)[0];
-        const cakeUpdate = cake as CakeInterface;
-        const cakeReturned = Object.assign(cakeSelected, cakeUpdate);
-        setTimeout(() => {
-            resolve(cakeReturned);
-        }, 1500);
-    })
+    getAllCakes(filters: ICakeFilter ): Promise<ICake[]>{
+        return this.dataService.fetchMany(filters);
+    }
+
+    public async getCakeInstance(id: string){
+        const cakeValues = await this.dataService.findById(id);
+        const cake: CakeClass = new Cake(cakeValues);
+        return cake;
+    }
+
+    createCake(cake: ICake): Promise<string>{
+        return this.dataService.insert(cake);
+    }
+
+    updateCake(id: string, cake: ICake): Promise<string>{
+        return this.dataService.findByIdAndUpdate(id, cake);
+    }
+    
 }
